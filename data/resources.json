@@ -1,0 +1,391 @@
+[
+  {
+    "id": "icox0h46r7",
+    "title": "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows",
+    "authors": "Liu et al.",
+    "year": "2021",
+    "type": "paper",
+    "url": "https://arxiv.org/abs/2103.14030",
+    "description": "Introduces shifted window attention for linear complexity, enabling ViT to scale to high-resolution images and dense prediction tasks.",
+    "venue": "ICCV 2021",
+    "citations": 22000,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z",
+    "tags": [
+      "Swin",
+      "ViT",
+      "Object Detection"
+    ]
+  },
+  {
+    "id": "k1hmgs9gbi",
+    "title": "Training data-efficient image transformers & distillation through attention (DeiT)",
+    "authors": "Touvron et al.",
+    "year": "2021",
+    "type": "paper",
+    "url": "https://arxiv.org/abs/2012.12877",
+    "description": "Shows ViT can be trained efficiently on ImageNet alone using knowledge distillation, making it practical without massive pre-training datasets.",
+    "venue": "ICML 2021",
+    "citations": 7800,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z",
+    "tags": [
+      "DeiT",
+      "ViT",
+      "Distillation"
+    ]
+  },
+  {
+    "id": "6nzhqbv6oa6",
+    "title": "FlightLLM: Efficient Large Language Model Inference with a Complete Mapping Flow on FPGAs",
+    "authors": "Zeng et al.",
+    "year": "2024",
+    "type": "paper",
+    "url": "https://arxiv.org/abs/2401.03868",
+    "description": "Recent work mapping transformer-based LLMs to FPGAs with custom sparse computation and memory optimization. Highly relevant to our ViT acceleration work.",
+    "venue": "FPGA 2024",
+    "citations": 85,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "FPGA",
+      "Transformer",
+      "LLM",
+      "Acceleration"
+    ]
+  },
+  {
+    "id": "0hhp6t0u78yd",
+    "title": "FPGA Design for AI Inference — Xilinx Developer Series",
+    "authors": "Xilinx/AMD",
+    "year": "2023",
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=example-xilinx",
+    "description": "Practical walkthrough of deploying neural networks on Xilinx FPGAs using Vitis AI, covering quantization, compilation, and board deployment.",
+    "venue": "YouTube",
+    "citations": null,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "FPGA",
+      "Vitis AI",
+      "Xilinx",
+      "Tutorial"
+    ]
+  },
+  {
+    "id": "8pd1btpmayi",
+    "title": "A Survey of Quantization Methods for Efficient Neural Network Inference",
+    "authors": "Gholami et al.",
+    "year": "2022",
+    "type": "survey",
+    "url": "https://arxiv.org/abs/2103.13630",
+    "description": "Comprehensive survey of neural network quantization techniques including post-training quantization, quantization-aware training, and mixed-precision methods.",
+    "venue": "Low-Power Computer Vision",
+    "citations": 2100,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "Quantization",
+      "Efficiency",
+      "Survey"
+    ]
+  },
+  {
+    "id": "tzvgksavmop",
+    "title": "Auto-ViT-Acc: An FPGA-Aware Automatic Acceleration Framework for Vision Transformer with Mixed-Scheme Quantization",
+    "authors": "Li et al.",
+    "year": "2022",
+    "type": "paper",
+    "url": "https://arxiv.org/abs/2208.05163",
+    "description": "Directly relevant: proposes an automated framework for ViT acceleration on FPGAs with mixed-precision quantization and hardware-aware NAS.",
+    "venue": "FPL 2022",
+    "citations": 52,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "ViT",
+      "FPGA",
+      "Quantization",
+      "AutoML"
+    ]
+  },
+  {
+    "id": "iatsazq3c6",
+    "title": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+    "authors": "Sze et al.",
+    "year": "2017",
+    "type": "survey",
+    "url": "https://arxiv.org/abs/1703.09039",
+    "description": "Essential survey covering DNN hardware acceleration fundamentals: dataflows, memory hierarchies, and hardware architectures for efficient inference.",
+    "venue": "Proceedings of the IEEE",
+    "citations": 4200,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "Hardware",
+      "DNN",
+      "Survey",
+      "FPGA"
+    ]
+  },
+  {
+    "id": "ihpxx9j88r",
+    "title": "Vitis HLS User Guide (UG1399)",
+    "authors": "AMD/Xilinx",
+    "year": "2024",
+    "type": "tutorial",
+    "url": "https://docs.xilinx.com/r/en-US/ug1399-vitis-hls",
+    "description": "Official Vitis HLS documentation covering pragmas, directives, dataflow optimization, and best practices for high-performance HLS design.",
+    "venue": "AMD Documentation",
+    "citations": null,
+    "createdAt": "2026-03-10T03:05:07.000Z",
+    "updatedAt": "2026-03-10T03:05:07.000Z",
+    "tags": [
+      "HLS",
+      "Vitis",
+      "FPGA",
+      "Xilinx"
+    ]
+  },
+  {
+    "id": "84edtjinz95",
+    "title": "H2PIPE",
+    "authors": "",
+    "year": "2024",
+    "type": "professor_suggested",
+    "url": "https://ieeexplore.ieee.org/document/10705520",
+    "description": "a CNN accelerator that uses a dataflow pipeline (done in Professor Betz's group, and the latest in a few related works), this accelerator style will be harder to make work for a transformer though.",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-10T03:19:50.000Z",
+    "updatedAt": "2026-03-10T03:19:50.000Z",
+    "tags": [
+      "CNN",
+      "Accelerator"
+    ]
+  },
+  {
+    "id": "5c4gwhqvtlb",
+    "title": "Stay Flexible: A High-Performance FPGA NPU Overlay for Graph Neural Networks",
+    "authors": "",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://ieeexplore.ieee.org/document/10653661",
+    "description": "The latest version of the NPU (again in Professor Betz's  group, and you can see earlier publications in its references).  It is an overlay architecture, meaning a very customized and big soft processor. This style is more likely to work well for a transformer.",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-10T03:20:47.000Z",
+    "updatedAt": "2026-03-10T03:20:47.000Z",
+    "tags": [
+      "NPU",
+      "Overlay",
+      "Big soft processor"
+    ]
+  },
+  {
+    "id": "td5a3fn22k",
+    "title": "EfficientML.ai Lecture 14 - Vision Transformer (MIT 6.5940, Fall 2023)",
+    "authors": "",
+    "year": "2023",
+    "type": "professor_suggested",
+    "url": "https://www.youtube.com/watch?v=QQY24LLww1A",
+    "description": "Here's a (fairly advanced) lecture on vision transformers, by Song Han at MIT. He has lots of interesting work on efficient machine learning.",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-10T03:22:05.000Z",
+    "updatedAt": "2026-03-10T03:22:05.000Z",
+    "tags": [
+      "EfficientML",
+      "Lecture",
+      "MIT"
+    ]
+  },
+  {
+    "id": "5tecnngbulg",
+    "title": "Via: A novel vision-transformer accelerator based on fpga",
+    "authors": "",
+    "year": "2022",
+    "type": "paper",
+    "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9925700&casa_token=pNU6IYcsS8cAAAAA:zRa3t3Yv2UTF04NGmiMFDgaOvhpx5I79yLFz1laxWWrhcJB3Qrgcp2jQqHjJz5jMwBNN73s&tag=1",
+    "description": "",
+    "venue": "IEEE TRANSACTIONS ON COMPUTER-AIDED DESIGN OF INTEGRATED CIRCUITS AND SYSTEMS",
+    "citations": null,
+    "createdAt": "2026-03-11T00:49:20.000Z",
+    "updatedAt": "2026-03-11T00:49:20.000Z",
+    "tags": []
+  },
+  {
+    "id": "4mp929ejnud",
+    "title": "ViTA: A Vision Transformer Inference Accelerator for Edge Applications",
+    "authors": "",
+    "year": "2026",
+    "type": "paper",
+    "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10181988&casa_token=4wo5GUU6KMIAAAAA:dSceV-_emmsUe1waW5UcIWTJlDY16kSHGnUgYQv3IL8iFzmWOSczd6hHU2AJFNFVXaX9uC4&tag=1",
+    "description": "",
+    "venue": "International Symposium on Circuits and Systems (ISCAS)",
+    "citations": null,
+    "createdAt": "2026-03-12T00:15:58.000Z",
+    "updatedAt": "2026-03-12T00:15:58.000Z",
+    "tags": []
+  },
+  {
+    "id": "b98j41pc4nj",
+    "title": "TinyViT: Fast Pretraining Distillation for Small Vision Transformers",
+    "authors": "Kan Wu",
+    "year": "2022",
+    "type": "paper",
+    "url": "https://arxiv.org/pdf/2207.10666",
+    "description": "",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-18T03:03:53.000Z",
+    "updatedAt": "2026-03-18T03:03:53.000Z",
+    "tags": [
+      "TinyVit"
+    ]
+  },
+  {
+    "id": "vgu49ewypz",
+    "title": "ECE 496 Google Doc",
+    "authors": "Winnie",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://docs.google.com/document/d/1rzoD5uaHx6eHtwjC7iO8V2uMHI0IuO3Lc4c0s0EbQGo/edit?tab=t.0#heading=h.vs7flwfljdy",
+    "description": "Google doc for meeting notes and discussions",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-20T18:12:09.000Z",
+    "updatedAt": "2026-03-20T18:12:09.000Z",
+    "tags": []
+  },
+  {
+    "id": "2mbxqhn8ni",
+    "title": "System design overview",
+    "authors": "",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://docs.google.com/document/d/1kGxiiMsGCOjVbayIFGQPFHSsg0821qYdzSSapLeGEc0/edit?tab=t.0",
+    "description": "An overview of the top level, and stuff to consider.",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-03-22T02:42:04.000Z",
+    "updatedAt": "2026-03-22T02:42:04.000Z",
+    "tags": []
+  },
+  {
+    "id": "bz7k6dxgaop",
+    "title": "TinyViT profile result",
+    "authors": "",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://docs.google.com/document/d/1KoH7_UW9SyBB5S42OjZRhV3WC4_3CwzzlBjB2msZl8Q/edit?tab=t.0",
+    "description": "",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-04-01T01:13:25.000Z",
+    "updatedAt": "2026-04-01T01:13:25.000Z",
+    "tags": [
+      "Profile"
+    ]
+  },
+  {
+    "id": "81axekbpedb",
+    "title": "Project Title and Project Description",
+    "authors": "2026",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://docs.google.com/document/d/1rzoD5uaHx6eHtwjC7iO8V2uMHI0IuO3Lc4c0s0EbQGo/edit?tab=t.114s0sy95bn9",
+    "description": "Project Title (options)\nViT-FPGA: Hybrid HPS–FPGA Vision Transformer Accelerator on DE1-SoC\nEdge Vision Transformer Acceleration on FPGA with ARM HPS Co-Design\nTinyViT Hardware Acceleration on DE1-SoC Using Hybrid CPU–FPGA Architecture\nA Hybrid FPGA–HPS Architecture for Efficient Vision Transformer Inference\n\nThis capstone project implements a lightweight Vision Transformer (ViT / TinyViT) inference accelerator on the Intel DE1-SoC platform, using a hybrid architecture that combines the ARM Cortex-A9 Hard Processor System (HPS) with FPGA fabric.\n\nThe system offloads compute-intensive operations such as matrix multiplications in attention and MLP blocks to custom FPGA kernels, while the HPS manages high-level control flow, memory orchestration, and system integration. Model parameters and intermediate activations are primarily stored in external DDR3 memory on the HPS side, with FPGA-side SDRAM used as a low-latency cache for acceleration kernels. Data movement is coordinated via DMA between memory hierarchies.\n\nThe design explores system-level challenges in mapping transformer workloads onto heterogeneous hardware, including memory placement, bandwidth constraints, and efficient execution of attention mechanisms. Input images are acquired via either USB camera (HPS-managed Linux pipeline) or GPIO camera module (FPGA direct interface), with system-level trade-offs evaluated.\n\nThe project aims to demonstrate a scalable hardware–software co-design approach for deploying transformer-based vision models on resource-constrained FPGA platforms, with a focus on TinyViT inference and system integration rather than full training support.",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-04-09T20:37:08.000Z",
+    "updatedAt": "2026-04-09T20:37:08.000Z",
+    "tags": []
+  },
+  {
+    "id": "9ov219j6fjl",
+    "title": "Full Stack Optimization of Transformer Inference: a Survey",
+    "authors": "Keutzer and team",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://arxiv.org/pdf/2302.14017",
+    "description": "",
+    "venue": "arxiv, probably published somewhere too",
+    "citations": null,
+    "createdAt": "2026-05-08T17:19:16.000Z",
+    "updatedAt": "2026-05-08T17:19:16.000Z",
+    "tags": [
+      "Transformer",
+      "Hardware"
+    ]
+  },
+  {
+    "id": "rsaxt8d0n7",
+    "title": "Accelerating ViT Inference on FPGA through Static and Dynamic Pruning",
+    "authors": "Viktor Prasanna and his group",
+    "year": "2024",
+    "type": "paper",
+    "url": "https://arxiv.org/pdf/2403.14047",
+    "description": "",
+    "venue": "arxiv but probably published elsewhere",
+    "citations": null,
+    "createdAt": "2026-05-08T17:21:54.000Z",
+    "updatedAt": "2026-05-08T17:21:54.000Z",
+    "tags": [
+      "FPGA",
+      "ViT"
+    ]
+  },
+  {
+    "id": "k72x3078h6",
+    "title": "FlightLLM",
+    "authors": "",
+    "year": "2026",
+    "type": "paper",
+    "url": "https://arxiv.org/abs/2401.03868",
+    "description": "",
+    "venue": "arxiv, think also FPGA Symp.",
+    "citations": null,
+    "createdAt": "2026-05-08T17:23:04.000Z",
+    "updatedAt": "2026-05-08T17:23:04.000Z",
+    "tags": [
+      "FPGA",
+      "LLM",
+      "transformer"
+    ]
+  },
+  {
+    "id": "97bwzw1gv45",
+    "title": "Auto-ViT-Acc: An FPGA-Aware Automatic Acceleration Framework for Vision Transformer with Mixed-Scheme Quantization",
+    "authors": "Zhenman Fang's Group",
+    "year": "2022",
+    "type": "paper",
+    "url": "https://www.sfu.ca/~zhenman/files/C25-FPL2022-Auto-ViT-Acc.pdf",
+    "description": "",
+    "venue": "FPL",
+    "citations": null,
+    "createdAt": "2026-05-08T17:26:49.000Z",
+    "updatedAt": "2026-05-08T17:26:49.000Z",
+    "tags": [
+      "FPGA",
+      "ViT"
+    ]
+  },
+  {
+    "id": "b7ohcy8g957",
+    "title": "2026.7.18 meeting minutes",
+    "authors": "",
+    "year": "2026",
+    "type": "professor_suggested",
+    "url": "https://docs.google.com/document/d/1Wa3x-muSBlpOmgbmszMkLvWwfwzt3LOSMniCXFjvz3Q/edit?tab=t.0",
+    "description": "",
+    "venue": "",
+    "citations": null,
+    "createdAt": "2026-07-19T00:27:32.000Z",
+    "updatedAt": "2026-07-19T00:27:32.000Z",
+    "tags": [
+      "TODO list"
+    ]
+  }
+]

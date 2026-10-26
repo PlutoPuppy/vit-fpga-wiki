@@ -1,0 +1,65 @@
+[
+  {
+    "id": "xq27ztmsyqo",
+    "date": "2026-03-06",
+    "title": "Kickoff First meeting with Professor Betz",
+    "notes": "First meeting with Professor Vaughn Betz, scoped and discussed capstone project: tiny ViT on FPGA with I/Os such as camera and VGA.",
+    "createdAt": "2026-03-10T03:09:42.000Z",
+    "updatedAt": "2026-03-10T03:09:42.000Z",
+    "attendees": [
+      "Stephanie (Yixin)",
+      "Jerry (Chenjia)",
+      "Winnie"
+    ],
+    "actionItems": []
+  },
+  {
+    "id": "f1rvel55l7w",
+    "date": "2026-03-13",
+    "title": "Weekly internal sync-up",
+    "notes": "Discuss questions and findings on research papers and videos.",
+    "createdAt": "2026-03-10T03:11:23.000Z",
+    "updatedAt": "2026-03-10T03:11:23.000Z",
+    "attendees": [
+      "Stephanie (Yixin)",
+      "Jerry (Chenjia)",
+      "Tiffany (Yiling)",
+      "Winnie"
+    ],
+    "actionItems": [
+      "Read suggested papers and videos from Professor before the meeting",
+      "Share this wiki page with Professor Betz",
+      "Fill out the capstone form to bundle with Professor"
+    ]
+  },
+  {
+    "id": "t6ogiwep72g",
+    "date": "2026-03-20",
+    "title": "Biweekly Sync-up with Professor Betz",
+    "notes": "Share ideas/questions on papers, progress made so far in the team, ask for guidance on next step",
+    "createdAt": "2026-03-10T03:12:18.000Z",
+    "updatedAt": "2026-03-10T03:12:18.000Z",
+    "attendees": [
+      "Stephanie (Yixin)",
+      "Jerry (Chenjia)",
+      "Tiffany (Yiling)",
+      "Winnie"
+    ],
+    "actionItems": []
+  },
+  {
+    "id": "ergrl710agl",
+    "date": "2026-04-10",
+    "title": "Meeting with Prof",
+    "notes": "",
+    "createdAt": "2026-04-07T19:13:06.000Z",
+    "updatedAt": "2026-04-07T19:13:06.000Z",
+    "attendees": [
+      "Stephanie (Yixin)",
+      "Jerry (Chenjia)",
+      "Tiffany (Yiling)",
+      "Winnie"
+    ],
+    "actionItems": []
+  }
+]

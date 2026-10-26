@@ -1,0 +1,42 @@
+[
+  {
+    "id": "member-jc",
+    "name": "Jerry (Chenjia)",
+    "role": "Hardware Architect",
+    "avatar": "JC",
+    "color": "amber",
+    "notes": "Designing the FPGA datapath, memory hierarchy, and systolic array for attention computation.",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "member-sy",
+    "name": "Stephanie (Yixin)",
+    "role": "ML Model Engineer",
+    "avatar": "SY",
+    "color": "cyan",
+    "notes": "Responsible for ViT model design, quantization experiments, and accuracy benchmarking.",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "member-ty",
+    "name": "Tiffany (Yiling)",
+    "role": "HLS/RTL Developer",
+    "avatar": "TY",
+    "color": "green",
+    "notes": "Writing HLS kernels and RTL modules for the attention and FFN layers.",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "member-wn",
+    "name": "Winnie (Weini)",
+    "role": "Systems & Integration",
+    "avatar": "WN",
+    "color": "purple",
+    "notes": "Handling end-to-end integration, board bring-up, and performance profiling on the FPGA.",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-04-09T20:18:10.000Z"
+  }
+]

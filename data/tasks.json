@@ -1,0 +1,110 @@
+[
+  {
+    "id": "5oabvkix87a",
+    "memberId": "member-ty",
+    "title": "Write HLS kernel for multi-head attention",
+    "status": "in-progress",
+    "tag": "Implementation",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-15T18:53:35.000Z"
+  },
+  {
+    "id": "7hyuwbnpjr7",
+    "memberId": "member-sy",
+    "title": "Write model compression section of report",
+    "status": "todo",
+    "tag": "Design",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "81vy7g5gbmp",
+    "memberId": "member-wn",
+    "title": "Integrate HLS IP cores into top-level design",
+    "status": "todo",
+    "tag": "Integration",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:18:10.000Z"
+  },
+  {
+    "id": "i3m3v7l7o6",
+    "memberId": "member-sy",
+    "title": "Benchmark accuracy vs. bit-width trade-off",
+    "status": "todo",
+    "tag": "Experiment",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "qo7r314kaln",
+    "memberId": "member-sy",
+    "title": "Survey ViT model variants (DeiT, Swin, CvT)",
+    "status": "in-progress",
+    "tag": "Literature",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:15:41.000Z"
+  },
+  {
+    "id": "t7bpgvjfia",
+    "memberId": "member-wn",
+    "title": "Set up Vivado project and constraints",
+    "status": "todo",
+    "tag": "Setup",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:18:14.000Z"
+  },
+  {
+    "id": "yic913k5ck",
+    "memberId": "member-ty",
+    "title": "Implement layer normalization in RTL",
+    "status": "todo",
+    "tag": "Implementation",
+    "createdAt": "2026-03-10T03:04:40.000Z",
+    "updatedAt": "2026-03-10T03:04:40.000Z"
+  },
+  {
+    "id": "qc71o3rvs9i",
+    "memberId": "member-jc",
+    "title": "Review papers on ViT on FPGA architecture papers",
+    "status": "in-progress",
+    "tag": "Literature",
+    "createdAt": "2026-03-10T03:15:32.000Z",
+    "updatedAt": "2026-03-10T03:15:34.000Z"
+  },
+  {
+    "id": "ugytju1ccf",
+    "memberId": "member-sy",
+    "title": "Review papers on ViT model",
+    "status": "in-progress",
+    "tag": "Literature",
+    "createdAt": "2026-03-10T03:16:20.000Z",
+    "updatedAt": "2026-03-10T03:16:22.000Z"
+  },
+  {
+    "id": "wyb55b25bv",
+    "memberId": "member-ty",
+    "title": "Research FPGA kernel script for transformers",
+    "status": "in-progress",
+    "tag": "Literature",
+    "createdAt": "2026-03-10T03:17:01.000Z",
+    "updatedAt": "2026-03-10T03:17:12.000Z"
+  },
+  {
+    "id": "8bir7c8yijj",
+    "memberId": "member-wn",
+    "title": "Research end-to-end implementation of vision transformer on FPGA",
+    "status": "in-progress",
+    "tag": "Literature",
+    "createdAt": "2026-03-10T03:18:05.000Z",
+    "updatedAt": "2026-03-10T03:18:06.000Z"
+  },
+  {
+    "id": "296et3h8j1f",
+    "memberId": "member-sy",
+    "title": "Find tinest ViT model",
+    "status": "todo",
+    "tag": "Design",
+    "createdAt": "2026-03-15T18:53:44.000Z",
+    "updatedAt": "2026-03-15T18:53:44.000Z"
+  }
+]

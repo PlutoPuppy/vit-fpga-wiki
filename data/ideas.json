@@ -1,0 +1,79 @@
+[
+  {
+    "id": "647k6qg7hbv",
+    "title": "Pipelined HLS design for FFN layers",
+    "description": "Use HLS PIPELINE pragma with II=1 to fully pipeline the feed-forward network layers, maximizing throughput.",
+    "author": "Tiffany (Yiling)",
+    "tag": "Optimization",
+    "votes": 7,
+    "pinned": false,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:47:08.000Z"
+  },
+  {
+    "id": "h2bmaionfwp",
+    "title": "Double-buffering for weight loading",
+    "description": "Pre-fetch the next layer's weights while computing the current layer to hide DRAM latency.",
+    "author": "Winnie",
+    "tag": "Systems",
+    "votes": 3,
+    "pinned": false,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z"
+  },
+  {
+    "id": "m8hlkgfttfo",
+    "title": "Tile-based attention computation",
+    "description": "Partition the attention matrix into tiles that fit in on-chip BRAM to avoid expensive DRAM accesses during the softmax computation.",
+    "author": "Jerry (Chenjia)",
+    "tag": "Architecture",
+    "votes": 6,
+    "pinned": true,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z"
+  },
+  {
+    "id": "no9h32o9xo",
+    "title": "Use INT4 mixed-precision quantization",
+    "description": "Apply INT4 for weights and INT8 for activations to reduce model size by 2x while maintaining accuracy within 2% of FP32 baseline.",
+    "author": "Stephanie (Yixin)",
+    "tag": "Optimization",
+    "votes": 16,
+    "pinned": true,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-08-22T16:10:20.000Z"
+  },
+  {
+    "id": "shzzbvwn2tc",
+    "title": "Explore Swin Transformer for local attention",
+    "description": "Swin's window-based attention has O(n) complexity vs O(n²) for standard ViT. Could significantly reduce hardware resource requirements.",
+    "author": "Stephanie (Yixin)",
+    "tag": "Research Direction",
+    "votes": 5,
+    "pinned": false,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z"
+  },
+  {
+    "id": "ytvqd30znjo",
+    "title": "Compare ZCU104 vs Alveo U250 targets",
+    "description": "Evaluate whether the embedded ZCU104 or the datacenter Alveo U250 better fits our latency/power budget.",
+    "author": "Jerry (Chenjia)",
+    "tag": "Research Direction",
+    "votes": 2,
+    "pinned": false,
+    "createdAt": "2026-03-10T03:05:06.000Z",
+    "updatedAt": "2026-03-10T03:05:06.000Z"
+  },
+  {
+    "id": "9n4q1mj5z4g",
+    "title": "Project Title and Project Description",
+    "description": "Project Title (options)\n1. ViT-FPGA: Hybrid HPS–FPGA Vision Transformer Accelerator on DE1-SoC\n2. Edge Vision Transformer Acceleration on FPGA with ARM HPS Co-Design\n3. TinyViT Hardware Acceleration on DE1-SoC Using Hybrid CPU–FPGA Architecture\n4. A Hybrid FPGA–HPS Architecture for Efficient Vision Transformer Inference\n\nThis capstone project implements a lightweight Vision Transformer (ViT / TinyViT) inference accelerator on the Intel DE1-SoC platform, using a hybrid architecture that combines the ARM Cortex-A9 Hard Processor System (HPS) with FPGA fabric.\n\nThe system offloads compute-intensive operations such as matrix multiplications in attention and MLP blocks to custom FPGA kernels, while the HPS manages high-level control flow, memory orchestration, and system integration. Model parameters and intermediate activations are primarily stored in external DDR3 memory on the HPS side, with FPGA-side SDRAM used as a low-latency cache for acceleration kernels. Data movement is coordinated via DMA between memory hierarchies.\n\nThe design explores system-level challenges in mapping transformer workloads onto heterogeneous hardware, including memory placement, bandwidth constraints, and efficient execution of attention mechanisms. Input images are acquired via either USB camera (HPS-managed Linux pipeline) or GPIO camera module (FPGA direct interface), with system-level trade-offs evaluated.\n\nThe project aims to demonstrate a scalable hardware–software co-design approach for deploying transformer-based vision models on resource-constrained FPGA platforms, with a focus on TinyViT inference and system integration rather than full training support.",
+    "author": "Winnie",
+    "tag": "Other",
+    "votes": 2,
+    "pinned": true,
+    "createdAt": "2026-04-09T20:31:46.000Z",
+    "updatedAt": "2026-04-09T20:32:41.000Z"
+  }
+]
