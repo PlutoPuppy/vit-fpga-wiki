@@ -2,6 +2,14 @@
 
 The website source is in this repository. Cloudflare Pages builds it when `main` changes. The public site can be tested on a `pages.dev` URL before switching `vit-fpga.wiki` away from Manus.
 
+## Current status (November 3, 2026)
+
+- [Cloudflare Pages preview](https://vit-fpga-wiki.pages.dev/) is live and connected to `main`; a pushed commit has triggered and completed an automatic deployment.
+- The GitHub OAuth app and Cloudflare production variables for `/admin/` are configured. Sign-in and loading existing editable entries were verified.
+- `vit-fpga.wiki` is a **pending** Cloudflare DNS zone. The current registrar nameservers are `ns1.globaldomaingroup.com` and `ns2.globaldomaingroup.com`. The replacement nameservers assigned by Cloudflare are `adel.ns.cloudflare.com` and `leif.ns.cloudflare.com`.
+- Cloudflare imported the existing root, `www`, and `_acme-challenge` records. They are set to DNS-only while the zone is pending. The original Manus site remains live because the registrar nameservers have not changed.
+- After someone with registrar access saves the nameserver change and Cloudflare activates the zone, add `vit-fpga.wiki` to the Pages project's Custom domains. Check the site and editor before retiring Manus. The GitHub OAuth app must then allow `https://vit-fpga.wiki/api/callback` as a redirect URI.
+
 ## 1. Connect the repository
 
 In the Cloudflare dashboard, open **Workers & Pages → Create application → Pages → Connect to Git**. Connect GitHub and allow Cloudflare Workers and Pages access to `PlutoPuppy/vit-fpga-wiki`. Select this repository and use:
