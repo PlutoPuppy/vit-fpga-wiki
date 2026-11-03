@@ -1,0 +1,17 @@
+{
+  "id": "update-project-clock-20261103",
+  "memberId": "member-sy",
+  "date": "2026-11-03",
+  "title": "Integrated FPGA image switched to 80 MHz",
+  "scope": "project",
+  "category": "Issue",
+  "measurement": "80 MHz integrated FPGA clock",
+  "update": "Stephanie reported timing problems at 90 MHz and switched the integrated image to 80 MHz. The linked integration report records the final 80 MHz image passing all 88 reported timing summary checks.",
+  "context": "The report also identifies a stale exported SDC that previously constrained the core at 100 MHz. Keep the integrated image clock separate from the standalone softmax timing result near 90 MHz.",
+  "links": [
+    {
+      "label": "Integration report — timing and clock configuration",
+      "url": "https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md"
+    }
+  ]
+}

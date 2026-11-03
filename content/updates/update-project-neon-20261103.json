@@ -1,0 +1,12 @@
+{
+  "id": "update-project-neon-20261103",
+  "memberId": "member-wn",
+  "date": "2026-11-03",
+  "title": "CPU NEON throughput result",
+  "scope": "project",
+  "category": "Result",
+  "measurement": "692 million arithmetic operations per second",
+  "update": "Winnie reported this CPU NEON throughput measurement.",
+  "context": "Recorded from the team update on November 3. Benchmark workload, precision, thread count, operation-count convention and repeat-run statistics have not yet been supplied. This is arithmetic operations per second; it is not labeled as MAC/s or full-model inference throughput.",
+  "links": []
+}

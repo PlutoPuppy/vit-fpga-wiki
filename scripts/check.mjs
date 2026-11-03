@@ -31,3 +31,5 @@ for (const task of data.tasks.filter(t => !t.archived)) {
   assert.ok(task.acceptance, `missing acceptance criteria ${task.id}`);
 }
 console.log('Schedule ranges, meeting categories, update owners and current task criteria verified.');
+
+for (const update of data.updates.filter(u=>u.scope==='project')) assert.ok(['Result','Issue','Decision','General'].includes(update.category), `invalid update category ${update.id}`);

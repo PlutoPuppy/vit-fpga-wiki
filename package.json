@@ -5,6 +5,6 @@
   "scripts": {
     "build": "npm run check && node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "test": "node --test scripts/member-publishing.test.mjs scripts/meeting-publishing.test.mjs"
+    "test": "node --test scripts/member-publishing.test.mjs scripts/meeting-publishing.test.mjs scripts/project-updates.test.mjs"
   }
 }
