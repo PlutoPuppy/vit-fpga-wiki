@@ -1,0 +1,9 @@
+{
+  "id": "softmax",
+  "title": "Softmax RTL and timing verification",
+  "owner": "Winnie",
+  "startMonth": 3,
+  "endMonth": 3,
+  "group": "Hardware development",
+  "kind": "task"
+}

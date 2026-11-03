@@ -14,6 +14,7 @@ window.initCMS({ config: {
   },
   media_folder: 'assets/uploads', public_folder: '/assets/uploads',
   collections: [
+    collection('Gantt schedule', 'schedule', [field('Title', 'title'), field('Owner', 'owner'), field('Workstream', 'group', 'select', { options: ['Baseline and profiling','Hardware development','Software and peripherals','System integration and testing','Milestones'] }), field('Kind', 'kind', 'select', { options: ['task','milestone'] }), field('Start month (1=Sep 2026, 8=Apr 2027)', 'startMonth', 'number', {value_type:'int',min:1,max:8}), field('End month', 'endMonth', 'number', {value_type:'int',min:1,max:8})]),
     collection('Member updates', 'updates', [field('Title', 'title'), field('Date', 'date', 'datetime', { format: 'YYYY-MM-DD', time_format: false }), field('Member', 'memberId', 'relation', { collection: 'members', search_fields: ['name'], display_fields: ['name'], value_field: '{{slug}}' }), field('Update, blockers and next step', 'update', 'text'), field('Evidence links', 'links', 'list', { required: false, fields: [field('Label', 'label'), field('URL', 'url')] })]),
     collection('ECE496 files and data', 'files', [field('Title', 'title'), field('Date', 'date', 'datetime', { format: 'YYYY-MM-DD', time_format: false }), field('Owner', 'owner'), field('Submission / version status', 'status'), field('File or shared URL', 'url', 'file'), field('Description / reproduction details', 'description', 'text', { required: false })]),
     collection('Team members', 'members', [
@@ -24,16 +25,16 @@ window.initCMS({ config: {
       field('Task', 'title'),
       field('Member', 'memberId', 'relation', { collection: 'members', search_fields: ['name'], display_fields: ['name'], value_field: '{{slug}}' }),
       field('Status', 'status', 'select', { options: [{ label: 'To Do', value: 'todo' }, { label: 'In Progress', value: 'in-progress' }, { label: 'Done', value: 'done' }] }),
-      field('Category', 'tag', 'string', { required: false })
+      field('Category', 'tag', 'string', { required: false }), field('Acceptance criteria / evidence', 'acceptance', 'text', { required: false }), field('Archived', 'archived', 'boolean', { default: false, required: false })
     ]),
     collection('Ideas', 'ideas', [
       field('Title', 'title'), field('Description', 'description', 'text'), field('Author', 'author'),
       field('Category', 'tag'), field('Votes', 'votes', 'number', { value_type: 'int', min: 0, default: 0 }),
       field('Pinned', 'pinned', 'boolean', { default: false })
     ]),
-    collection('Meetings', 'meetings', [
+    collection('Meetings', 'meetings', [field('Meeting type', 'type', 'select', { options: [{ label: 'Professor meeting', value: 'professor' }, { label: 'Internal meeting', value: 'internal' }] }),
       field('Title', 'title'), field('Date', 'date', 'datetime', { format: 'YYYY-MM-DD', time_format: false }),
-      field('Time', 'time', 'string', { required: false }), field('Time zone', 'timezone', 'string', { required: false }), field('Recurrence', 'recurrence', 'string', { required: false }), field('Notes', 'notes', 'text', { required: false }), textList('Attendees', 'attendees'),
+      field('Time', 'time', 'string', { required: false }), field('Time zone', 'timezone', 'string', { required: false }), field('Recurrence', 'recurrence', 'string', { required: false }), field('Notes and decisions', 'notes', 'text', { required: false }), textList('Attendees', 'attendees'),
       textList('Action items', 'actionItems')
     ]),
     collection('Research resources', 'resources', [

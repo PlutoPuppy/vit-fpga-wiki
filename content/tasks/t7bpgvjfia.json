@@ -5,5 +5,7 @@
   "status": "todo",
   "tag": "Setup",
   "createdAt": "2026-03-10T03:04:40.000Z",
-  "updatedAt": "2026-03-10T03:18:14.000Z"
+  "updatedAt": "2026-03-10T03:18:14.000Z",
+  "archived": true,
+  "archiveReason": "Superseded by implementation-plan tasks on 2026-11-03; original status retained."
 }

@@ -46,3 +46,7 @@ The original readable archive is still available in [dashboard.md](dashboard.md)
 - [Implementation progress](progress-2026-11-03.md)
 
 The live editor also provides dated Updates and ECE496 Files collections.
+
+## Implementation workspace
+
+The Gantt tab transcribes the supplied September 2026–April 2027 plan. Current tasks include acceptance criteria; archived tasks remain versioned. Meetings are separated by type (professor/internal). Browser note drafts stay on that browser and can be downloaded; publish shared notes through the meeting’s editor link. Internal meetings have no assumed cadence. Stephanie’s integration update links the measured report; Tiffany’s update records planned responsibilities rather than unverified completion.

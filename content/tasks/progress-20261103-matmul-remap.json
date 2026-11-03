@@ -5,5 +5,7 @@
   "status": "done",
   "tag": "Implementation",
   "createdAt": "2026-11-03T18:32:16.340Z",
-  "updatedAt": "2026-11-03T18:32:16.340Z"
+  "updatedAt": "2026-11-03T18:32:16.340Z",
+  "archived": true,
+  "archiveReason": "Superseded by implementation-plan tasks on 2026-11-03; original status retained."
 }

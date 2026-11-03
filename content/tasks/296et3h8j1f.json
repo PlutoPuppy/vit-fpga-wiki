@@ -5,5 +5,7 @@
   "status": "todo",
   "tag": "Design",
   "createdAt": "2026-03-15T18:53:44.000Z",
-  "updatedAt": "2026-03-15T18:53:44.000Z"
+  "updatedAt": "2026-03-15T18:53:44.000Z",
+  "archived": true,
+  "archiveReason": "Superseded by implementation-plan tasks on 2026-11-03; original status retained."
 }

@@ -1,0 +1,10 @@
+{
+  "id": "current-jc-timing",
+  "memberId": "member-jc",
+  "title": "Maintain a reproducible 80 MHz full-SoC build",
+  "status": "in-progress",
+  "tag": "Timing",
+  "acceptance": "Retain derived-clock constraints and matching bitstream/ABI; attach complete timing and resource reports.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "gelu",
+  "title": "GELU RTL and board verification",
+  "owner": "Winnie",
+  "startMonth": 2,
+  "endMonth": 2,
+  "group": "Hardware development",
+  "kind": "task"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "baseline",
+  "title": "Initial CPU baseline",
+  "owner": "Team",
+  "startMonth": 1,
+  "endMonth": 2,
+  "group": "Baseline and profiling",
+  "kind": "task"
+}

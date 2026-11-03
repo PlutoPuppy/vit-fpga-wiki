@@ -1,0 +1,10 @@
+{
+  "id": "current-wn-softmax",
+  "memberId": "member-wn",
+  "title": "Define and integrate score/probability interface with MNN",
+  "status": "in-progress",
+  "tag": "Integration",
+  "acceptance": "Specify scaling, attention bias, widths, handshakes and P@V boundary; reconcile earlier 49-key experiment with the deployed model.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

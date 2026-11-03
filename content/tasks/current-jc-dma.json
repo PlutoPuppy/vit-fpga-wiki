@@ -1,0 +1,10 @@
+{
+  "id": "current-jc-dma",
+  "memberId": "member-jc",
+  "title": "Validate full-canvas DMA reachability and buffer transfers",
+  "status": "in-progress",
+  "tag": "Integration",
+  "acceptance": "Resolve canvas/window mismatch; test boundaries and compare PIO and DMA results before enabling DMA.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

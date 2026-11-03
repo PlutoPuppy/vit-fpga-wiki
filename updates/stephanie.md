@@ -1,8 +1,7 @@
 # Stephanie (Yixin) — status updates
 
-[All member logs](README.md) · [Meetings](../meetings.md)
+[All member logs](README.md)
 
 | Date | Update | Links |
 | --- | --- | --- |
-
-No dated updates recorded yet. Add your first row using the template in [the update guide](README.md).
+| 2026-11-03 | Report-confirmed: TinyViT runs with /layers.3/blocks.1/attn/MatMul_output_0 offloaded to Jerry’s 16×16 array. Inputs [1,10,49,32] × [1,10,32,49] use 320 padded 16×16×16 PIO jobs; reduction tiles are accumulated on the CPU. The final full-SoC image runs at 80 MHz. Two synthetic inputs completed; six physical matrix smoke cases passed. Single-run end-to-end timings were 5.74% faster for zeros and 2.71% slower for nonuniform input, so consistent speedup and dataset accuracy remain unproven. Next: repeated matched CPU/offload runs, overhead profiling, real-image numerical checks, then evaluate additional offloads. Implementation-plan ownership also includes design alternatives and the Jan–Feb matched MNN baseline. | [Evidence / plan](https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md) |

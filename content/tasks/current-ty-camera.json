@@ -1,0 +1,10 @@
+{
+  "id": "current-ty-camera",
+  "memberId": "member-ty",
+  "title": "Bring up Linux UVC capture and save reproducible input frames",
+  "status": "todo",
+  "tag": "Peripherals",
+  "acceptance": "Plan window Nov–Jan; document camera format, resolution, capture command and prerecorded fallback.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

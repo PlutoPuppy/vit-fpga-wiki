@@ -1,0 +1,9 @@
+{
+  "id": "hps",
+  "title": "HPS–FPGA integration",
+  "owner": "Team",
+  "startMonth": 4,
+  "endMonth": 6,
+  "group": "System integration and testing",
+  "kind": "task"
+}

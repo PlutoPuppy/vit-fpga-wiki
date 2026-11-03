@@ -1,0 +1,10 @@
+{
+  "id": "current-sy-offload",
+  "memberId": "member-sy",
+  "title": "Run the selected attention MatMul through MNN and FPGA",
+  "status": "done",
+  "tag": "Integration",
+  "acceptance": "Report records two synthetic model runs and six physical matrix smoke cases; selected operation only.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

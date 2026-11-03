@@ -1,0 +1,10 @@
+{
+  "id": "current-ty-preprocess",
+  "memberId": "member-ty",
+  "title": "Connect captured frames to MNN preprocessing smoke test",
+  "status": "todo",
+  "tag": "Integration",
+  "acceptance": "Check tensor shape, color order, normalization and repeatability before live inference.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "current-wn-soc",
+  "memberId": "member-wn",
+  "title": "Verify nonlinear units in the 80 MHz full-SoC image",
+  "status": "todo",
+  "tag": "Verification",
+  "acceptance": "Standalone 90 MHz timing is not combined-SoC sign-off; compare outputs, inspect timing and test board behavior.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

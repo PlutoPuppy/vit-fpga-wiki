@@ -1,0 +1,13 @@
+{
+  "id": "prof-betz-2026-12-29",
+  "title": "Biweekly meeting with Professor Vaughn Betz",
+  "date": "2026-12-29",
+  "time": "16:00",
+  "timezone": "America/Toronto",
+  "type": "professor",
+  "status": "scheduled",
+  "recurrence": "FREQ=WEEKLY;INTERVAL=2;BYDAY=TU",
+  "notes": "Planned biweekly recurrence; location and duration to be confirmed. Add agenda and member progress before the meeting.",
+  "attendees": [],
+  "actionItems": []
+}

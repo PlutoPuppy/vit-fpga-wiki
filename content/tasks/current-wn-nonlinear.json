@@ -1,0 +1,10 @@
+{
+  "id": "current-wn-nonlinear",
+  "memberId": "member-wn",
+  "title": "Complete standalone GELU/bias and softmax RTL verification",
+  "status": "done",
+  "tag": "RTL",
+  "acceptance": "Existing tests and standalone timing evidence; implementation plan reports GELU board pass with logs still to link.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

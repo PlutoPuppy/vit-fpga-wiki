@@ -5,5 +5,7 @@
   "status": "in-progress",
   "tag": "Literature",
   "createdAt": "2026-03-10T03:04:40.000Z",
-  "updatedAt": "2026-03-10T03:15:41.000Z"
+  "updatedAt": "2026-03-10T03:15:41.000Z",
+  "archived": true,
+  "archiveReason": "Superseded by implementation-plan tasks on 2026-11-03; original status retained."
 }

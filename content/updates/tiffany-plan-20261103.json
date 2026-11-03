@@ -1,0 +1,14 @@
+{
+  "id": "tiffany-plan-20261103",
+  "title": "Camera/Linux and verification work plan",
+  "memberId": "member-ty",
+  "date": "2026-11-03",
+  "update": "Planned responsibilities from Inplementation Plan.docx and its Gantt chart: camera and Linux integration during Nov 2026–Jan 2027; own the Test and Verification section and SyRs appendix. Next: map each requirement to a test, setup, acceptance criterion and evidence; establish a reproducible Linux/UVC image-capture path and MNN preprocessing smoke test, with prerecorded inputs as fallback. Completion of these items is not evidenced by the supplied plan; hardware capture and requirement results remain to be recorded.",
+  "links": [
+    {
+      "label": "Implementation schedule",
+      "url": "https://vit-fpga-wiki.pages.dev/#/gantt"
+    }
+  ],
+  "evidenceReviewed": true
+}

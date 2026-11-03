@@ -1,0 +1,10 @@
+{
+  "id": "current-ty-verification",
+  "memberId": "member-ty",
+  "title": "Write Test and Verification section and collect evidence",
+  "status": "todo",
+  "tag": "Report",
+  "acceptance": "At most two pages; distinguish planned tests, synthetic smoke tests, numerical agreement and accuracy.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

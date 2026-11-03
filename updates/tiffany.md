@@ -1,8 +1,7 @@
 # Tiffany (Yiling) — status updates
 
-[All member logs](README.md) · [Meetings](../meetings.md)
+[All member logs](README.md)
 
 | Date | Update | Links |
 | --- | --- | --- |
-
-No dated updates recorded yet. Add your first row using the template in [the update guide](README.md).
+| 2026-11-03 | Planned responsibilities from Inplementation Plan.docx and its Gantt chart: camera and Linux integration during Nov 2026–Jan 2027; own the Test and Verification section and SyRs appendix. Next: map each requirement to a test, setup, acceptance criterion and evidence; establish a reproducible Linux/UVC image-capture path and MNN preprocessing smoke test, with prerecorded inputs as fallback. Completion of these items is not evidenced by the supplied plan; hardware capture and requirement results remain to be recorded. | [Evidence / plan](https://vit-fpga-wiki.pages.dev/#/gantt) |

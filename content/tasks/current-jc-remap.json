@@ -1,0 +1,10 @@
+{
+  "id": "current-jc-remap",
+  "memberId": "member-jc",
+  "title": "Contiguous host remapping and tiled output canvas",
+  "status": "done",
+  "tag": "Hardware",
+  "acceptance": "Implemented in matmul main 4b749ce; link regression results for subsequent changes.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

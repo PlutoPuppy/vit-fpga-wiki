@@ -1,0 +1,9 @@
+{
+  "id": "demo",
+  "title": "Final report and demo",
+  "owner": "Team",
+  "startMonth": 7,
+  "endMonth": 8,
+  "group": "System integration and testing",
+  "kind": "task"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "current-jc-design",
+  "memberId": "member-jc",
+  "title": "Complete system diagram, interfaces and technical design section",
+  "status": "in-progress",
+  "tag": "Report",
+  "acceptance": "Own implementation-plan technical design, at most four pages; reconcile actual addresses, clocks and dimensions.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

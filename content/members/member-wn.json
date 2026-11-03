@@ -4,7 +4,7 @@
   "role": "Systems & Integration",
   "avatar": "WN",
   "color": "purple",
-  "notes": "Handling end-to-end integration, board bring-up, and performance profiling on the FPGA. As of 2026-11-03, implemented int8 bias/GELU RTL and a parallel matmul readout prototype; completed TinyViT softmax reference, fixed-point model, bit-exact standalone RTL verification and standalone Quartus timing near 90 MHz. Full-SoC integration, calibrated GELU scales and board validation remain pending. See progress-2026-11-03.md.",
+  "notes": "Owns nonlinear interface integration, project status, schedule and report assembly. The implementation plan reports a GELU board-test pass; supporting logs still need linking. Softmax standalone RTL/timing passed near 90 MHz; full-SoC and MNN integration remains pending.",
   "createdAt": "2026-03-10T03:04:40.000Z",
-  "updatedAt": "2026-11-03T18:32:16.340Z"
+  "updatedAt": "2026-11-03T21:00:00.000Z"
 }

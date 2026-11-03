@@ -7,7 +7,7 @@ Capstone Research Project · 2026
 Designing and implementing an efficient hardware accelerator for Vision Transformer inference on reconfigurable FPGA fabric.
 
 - Team members: 4
-- Tasks: 20 total, 8 in progress, 5 done
+- Tasks: 19 current, 8 in progress, 3 done; superseded records retained for history
 - Brainstorm ideas: 7, 3 pinned
 - Resources: 23
 

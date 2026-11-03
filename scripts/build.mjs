@@ -1,9 +1,12 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 const dist = new URL('../dist/', import.meta.url);
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule'];
 
-await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
+// Keep dist itself available when the local preview server uses it as cwd.
+for (const entry of await readdir(dist)) {
+  await rm(new URL(entry, dist), { recursive: true, force: true });
+}
 await cp(new URL('../src/', import.meta.url), dist, { recursive: true });
 await cp(new URL('../assets/', import.meta.url), new URL('../dist/assets/', import.meta.url), { recursive: true });
 await mkdir(new URL('../dist/data/', import.meta.url), { recursive: true });

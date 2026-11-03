@@ -1,0 +1,9 @@
+{
+  "id": "performance",
+  "title": "Performance evaluation",
+  "owner": "Team",
+  "startMonth": 6,
+  "endMonth": 8,
+  "group": "System integration and testing",
+  "kind": "task"
+}

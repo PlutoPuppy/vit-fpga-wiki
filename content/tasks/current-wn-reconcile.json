@@ -1,0 +1,10 @@
+{
+  "id": "current-wn-reconcile",
+  "memberId": "member-wn",
+  "title": "Reconcile GELU readout with tiled canvas and scales",
+  "status": "in-progress",
+  "tag": "Integration",
+  "acceptance": "Check bias row mapping, remapped RAM latency and activation only after final contraction; attach reported board-pass evidence.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "current-sy-profile",
+  "memberId": "member-sy",
+  "title": "Profile quantization, PIO, compute/polling and host accumulation",
+  "status": "todo",
+  "tag": "Profiling",
+  "acceptance": "Measure each component before choosing DMA, operand reuse, larger tiles or additional offloads.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

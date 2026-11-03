@@ -1,0 +1,10 @@
+{
+  "id": "current-sy-benchmark",
+  "memberId": "member-sy",
+  "title": "Repeat matched CPU/offload benchmarks with warm-up",
+  "status": "in-progress",
+  "tag": "Evaluation",
+  "acceptance": "Alternate modes on identical inputs; record run counts, median, spread and configuration. Do not generalize single-run 5.74% result.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "hardware-target",
+  "title": "Hardware integration target",
+  "owner": "Team",
+  "startMonth": 6,
+  "endMonth": 6,
+  "group": "Milestones",
+  "kind": "milestone"
+}

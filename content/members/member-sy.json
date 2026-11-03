@@ -4,7 +4,7 @@
   "role": "ML Model Engineer",
   "avatar": "SY",
   "color": "cyan",
-  "notes": "Responsible for ViT model design, quantization experiments, and accuracy benchmarking.",
+  "notes": "MNN / FPGA integration and model evaluation. Selected attention MatMul offload runs at 80 MHz using 320 PIO jobs. Functional integration demonstrated on synthetic inputs; consistent speedup and dataset accuracy remain to be validated. Owns design alternatives and matched CPU/offload baselines.",
   "createdAt": "2026-03-10T03:04:40.000Z",
-  "updatedAt": "2026-03-10T03:04:40.000Z"
+  "updatedAt": "2026-11-03T21:00:00.000Z"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "current-sy-accuracy",
+  "memberId": "member-sy",
+  "title": "Validate real-image outputs and labeled-set accuracy",
+  "status": "todo",
+  "tag": "Verification",
+  "acceptance": "Use identical preprocessing and inputs; report score error, top-k agreement and dataset accuracy separately.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}

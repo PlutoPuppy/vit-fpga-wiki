@@ -1,0 +1,14 @@
+{
+  "id": "stephanie-integration-20261103",
+  "title": "Selected attention MatMul integrated with MNN",
+  "memberId": "member-sy",
+  "date": "2026-11-03",
+  "update": "Report-confirmed: TinyViT runs with /layers.3/blocks.1/attn/MatMul_output_0 offloaded to Jerry’s 16×16 array. Inputs [1,10,49,32] × [1,10,32,49] use 320 padded 16×16×16 PIO jobs; reduction tiles are accumulated on the CPU. The final full-SoC image runs at 80 MHz. Two synthetic inputs completed; six physical matrix smoke cases passed. Single-run end-to-end timings were 5.74% faster for zeros and 2.71% slower for nonuniform input, so consistent speedup and dataset accuracy remain unproven. Next: repeated matched CPU/offload runs, overhead profiling, real-image numerical checks, then evaluate additional offloads. Implementation-plan ownership also includes design alternatives and the Jan–Feb matched MNN baseline.",
+  "links": [
+    {
+      "label": "Integration report and measurements",
+      "url": "https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md"
+    }
+  ],
+  "evidenceReviewed": true
+}

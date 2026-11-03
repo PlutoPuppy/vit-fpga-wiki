@@ -1,0 +1,9 @@
+{
+  "id": "functional",
+  "title": "End-to-end functional verification",
+  "owner": "Team",
+  "startMonth": 5,
+  "endMonth": 7,
+  "group": "System integration and testing",
+  "kind": "task"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "current-ty-requirements",
+  "memberId": "member-ty",
+  "title": "Create requirement-to-test traceability matrix and SyRs appendix",
+  "status": "todo",
+  "tag": "Verification",
+  "acceptance": "For each requirement record setup, condition, acceptance criterion, owner and evidence or planned test.",
+  "archived": false,
+  "updatedAt": "2026-11-03T21:00:00.000Z"
+}
