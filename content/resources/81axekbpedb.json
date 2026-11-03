@@ -1,0 +1,14 @@
+{
+  "id": "81axekbpedb",
+  "title": "Project Title and Project Description",
+  "authors": "2026",
+  "year": "2026",
+  "type": "professor_suggested",
+  "url": "https://docs.google.com/document/d/1rzoD5uaHx6eHtwjC7iO8V2uMHI0IuO3Lc4c0s0EbQGo/edit?tab=t.114s0sy95bn9",
+  "description": "Project Title (options)\nViT-FPGA: Hybrid HPS–FPGA Vision Transformer Accelerator on DE1-SoC\nEdge Vision Transformer Acceleration on FPGA with ARM HPS Co-Design\nTinyViT Hardware Acceleration on DE1-SoC Using Hybrid CPU–FPGA Architecture\nA Hybrid FPGA–HPS Architecture for Efficient Vision Transformer Inference\n\nThis capstone project implements a lightweight Vision Transformer (ViT / TinyViT) inference accelerator on the Intel DE1-SoC platform, using a hybrid architecture that combines the ARM Cortex-A9 Hard Processor System (HPS) with FPGA fabric.\n\nThe system offloads compute-intensive operations such as matrix multiplications in attention and MLP blocks to custom FPGA kernels, while the HPS manages high-level control flow, memory orchestration, and system integration. Model parameters and intermediate activations are primarily stored in external DDR3 memory on the HPS side, with FPGA-side SDRAM used as a low-latency cache for acceleration kernels. Data movement is coordinated via DMA between memory hierarchies.\n\nThe design explores system-level challenges in mapping transformer workloads onto heterogeneous hardware, including memory placement, bandwidth constraints, and efficient execution of attention mechanisms. Input images are acquired via either USB camera (HPS-managed Linux pipeline) or GPIO camera module (FPGA direct interface), with system-level trade-offs evaluated.\n\nThe project aims to demonstrate a scalable hardware–software co-design approach for deploying transformer-based vision models on resource-constrained FPGA platforms, with a focus on TinyViT inference and system integration rather than full training support.",
+  "venue": "",
+  "citations": null,
+  "createdAt": "2026-04-09T20:37:08.000Z",
+  "updatedAt": "2026-04-09T20:37:08.000Z",
+  "tags": []
+}

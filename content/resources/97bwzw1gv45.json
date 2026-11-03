@@ -1,0 +1,17 @@
+{
+  "id": "97bwzw1gv45",
+  "title": "Auto-ViT-Acc: An FPGA-Aware Automatic Acceleration Framework for Vision Transformer with Mixed-Scheme Quantization",
+  "authors": "Zhenman Fang's Group",
+  "year": "2022",
+  "type": "paper",
+  "url": "https://www.sfu.ca/~zhenman/files/C25-FPL2022-Auto-ViT-Acc.pdf",
+  "description": "",
+  "venue": "FPL",
+  "citations": null,
+  "createdAt": "2026-05-08T17:26:49.000Z",
+  "updatedAt": "2026-05-08T17:26:49.000Z",
+  "tags": [
+    "FPGA",
+    "ViT"
+  ]
+}

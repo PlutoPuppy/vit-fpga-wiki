@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-softmax-integration",
+  "memberId": "member-wn",
+  "title": "Integrate softmax accelerator interface and verify full-SoC timing",
+  "status": "todo",
+  "tag": "Integration",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

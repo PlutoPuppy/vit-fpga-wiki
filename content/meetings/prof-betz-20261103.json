@@ -1,0 +1,21 @@
+{
+  "id": "prof-betz-20261103",
+  "date": "2026-11-03",
+  "title": "Biweekly meeting with Professor Vaughn Betz",
+  "time": "16:00",
+  "timezone": "America/Toronto",
+  "status": "scheduled",
+  "recurrence": "FREQ=WEEKLY;INTERVAL=2;BYDAY=TU",
+  "notes": "Every other Tuesday at 4:00 p.m. America/Toronto with Professor Vaughn Betz. Location and duration TBD. Agenda: member progress, tiled matmul and DMA limits, softmax/GELU integration, model validation and next milestones. Record feedback, decisions and action owners after the meeting.",
+  "attendees": [],
+  "plannedAttendees": [
+    "Jerry (Chenjia)",
+    "Stephanie (Yixin)",
+    "Tiffany (Yiling)",
+    "Winnie (Weini)",
+    "Professor Vaughn Betz"
+  ],
+  "actionItems": [],
+  "createdAt": "2026-11-03T19:10:20.431Z",
+  "updatedAt": "2026-11-03T19:10:20.431Z"
+}

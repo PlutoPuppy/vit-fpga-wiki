@@ -1,0 +1,18 @@
+{
+  "id": "icox0h46r7",
+  "title": "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows",
+  "authors": "Liu et al.",
+  "year": "2021",
+  "type": "paper",
+  "url": "https://arxiv.org/abs/2103.14030",
+  "description": "Introduces shifted window attention for linear complexity, enabling ViT to scale to high-resolution images and dense prediction tasks.",
+  "venue": "ICCV 2021",
+  "citations": 22000,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z",
+  "tags": [
+    "Swin",
+    "ViT",
+    "Object Detection"
+  ]
+}

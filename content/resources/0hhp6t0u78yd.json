@@ -1,0 +1,19 @@
+{
+  "id": "0hhp6t0u78yd",
+  "title": "FPGA Design for AI Inference — Xilinx Developer Series",
+  "authors": "Xilinx/AMD",
+  "year": "2023",
+  "type": "video",
+  "url": "https://www.youtube.com/watch?v=example-xilinx",
+  "description": "Practical walkthrough of deploying neural networks on Xilinx FPGAs using Vitis AI, covering quantization, compilation, and board deployment.",
+  "venue": "YouTube",
+  "citations": null,
+  "createdAt": "2026-03-10T03:05:07.000Z",
+  "updatedAt": "2026-03-10T03:05:07.000Z",
+  "tags": [
+    "FPGA",
+    "Vitis AI",
+    "Xilinx",
+    "Tutorial"
+  ]
+}

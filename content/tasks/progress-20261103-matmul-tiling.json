@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-matmul-tiling",
+  "memberId": "member-jc",
+  "title": "Implement host software tiling and contraction accumulation tests",
+  "status": "done",
+  "tag": "Implementation",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

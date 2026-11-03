@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-softmax-rtl",
+  "memberId": "member-wn",
+  "title": "Verify standalone softmax RTL and close standalone Quartus timing near 90 MHz",
+  "status": "done",
+  "tag": "Implementation",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

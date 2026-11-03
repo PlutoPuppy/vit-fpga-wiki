@@ -1,0 +1,15 @@
+{
+  "id": "update-20261103-winnie",
+  "memberId": "member-wn",
+  "date": "2026-11-03",
+  "update": "Completed softmax reference, fixed-point baseline, bit-exact standalone RTL verification and standalone timing near 90 MHz. Bias/GELU readout prototype implemented. Next: reconcile with tiled matmul, calibrate scales and validate the full SoC.",
+  "links": [
+    {
+      "label": "Implementation evidence",
+      "url": "https://github.com/PlutoPuppy/vit-fpga-wiki/blob/main/progress-2026-11-03.md"
+    }
+  ],
+  "createdAt": "2026-11-03T19:10:20.431Z",
+  "updatedAt": "2026-11-03T19:10:20.431Z",
+  "title": "2026-11-03 member-wn"
+}

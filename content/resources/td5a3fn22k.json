@@ -1,0 +1,18 @@
+{
+  "id": "td5a3fn22k",
+  "title": "EfficientML.ai Lecture 14 - Vision Transformer (MIT 6.5940, Fall 2023)",
+  "authors": "",
+  "year": "2023",
+  "type": "professor_suggested",
+  "url": "https://www.youtube.com/watch?v=QQY24LLww1A",
+  "description": "Here's a (fairly advanced) lecture on vision transformers, by Song Han at MIT. He has lots of interesting work on efficient machine learning.",
+  "venue": "",
+  "citations": null,
+  "createdAt": "2026-03-10T03:22:05.000Z",
+  "updatedAt": "2026-03-10T03:22:05.000Z",
+  "tags": [
+    "EfficientML",
+    "Lecture",
+    "MIT"
+  ]
+}

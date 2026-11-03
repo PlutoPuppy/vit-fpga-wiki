@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-matmul-board-validation",
+  "memberId": "member-jc",
+  "title": "Validate tiled canvas on board and resolve DMA address-window limits",
+  "status": "in-progress",
+  "tag": "Experiment",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

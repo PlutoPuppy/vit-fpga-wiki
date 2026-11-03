@@ -1,0 +1,17 @@
+{
+  "id": "9ov219j6fjl",
+  "title": "Full Stack Optimization of Transformer Inference: a Survey",
+  "authors": "Keutzer and team",
+  "year": "2026",
+  "type": "professor_suggested",
+  "url": "https://arxiv.org/pdf/2302.14017",
+  "description": "",
+  "venue": "arxiv, probably published somewhere too",
+  "citations": null,
+  "createdAt": "2026-05-08T17:19:16.000Z",
+  "updatedAt": "2026-05-08T17:19:16.000Z",
+  "tags": [
+    "Transformer",
+    "Hardware"
+  ]
+}

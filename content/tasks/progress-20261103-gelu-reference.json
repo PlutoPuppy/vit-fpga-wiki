@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-gelu-reference",
+  "memberId": "member-wn",
+  "title": "Implement int8 GELU LUT and same-scale bias/GELU RTL tests",
+  "status": "done",
+  "tag": "Implementation",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

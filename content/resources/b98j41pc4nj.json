@@ -1,0 +1,16 @@
+{
+  "id": "b98j41pc4nj",
+  "title": "TinyViT: Fast Pretraining Distillation for Small Vision Transformers",
+  "authors": "Kan Wu",
+  "year": "2022",
+  "type": "paper",
+  "url": "https://arxiv.org/pdf/2207.10666",
+  "description": "",
+  "venue": "",
+  "citations": null,
+  "createdAt": "2026-03-18T03:03:53.000Z",
+  "updatedAt": "2026-03-18T03:03:53.000Z",
+  "tags": [
+    "TinyVit"
+  ]
+}

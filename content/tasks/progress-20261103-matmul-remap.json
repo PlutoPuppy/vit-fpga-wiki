@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-matmul-remap",
+  "memberId": "member-jc",
+  "title": "Implement contiguous host address remapping and tiled output canvas",
+  "status": "done",
+  "tag": "Implementation",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

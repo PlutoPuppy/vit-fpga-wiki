@@ -1,0 +1,11 @@
+{
+  "id": "647k6qg7hbv",
+  "title": "Pipelined HLS design for FFN layers",
+  "description": "Use HLS PIPELINE pragma with II=1 to fully pipeline the feed-forward network layers, maximizing throughput.",
+  "author": "Tiffany (Yiling)",
+  "tag": "Optimization",
+  "votes": 7,
+  "pinned": false,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:47:08.000Z"
+}

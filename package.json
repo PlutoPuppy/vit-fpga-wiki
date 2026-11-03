@@ -1,0 +1,9 @@
+{
+  "name": "vit-fpga-wiki",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run check && node scripts/build.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}

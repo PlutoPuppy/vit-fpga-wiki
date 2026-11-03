@@ -1,0 +1,15 @@
+{
+  "id": "update-20261103-jerry",
+  "memberId": "member-jc",
+  "date": "2026-11-03",
+  "update": "Main includes contiguous host address remapping, tiled output canvas and software tiling tests. Next: capture board pass logs and resolve full-canvas DMA address-window limits.",
+  "links": [
+    {
+      "label": "Implementation evidence",
+      "url": "https://github.com/j3rryhu/matmul-soc/commit/4b749cedf88742dc999267999cd234186eb26bf7"
+    }
+  ],
+  "createdAt": "2026-11-03T19:10:20.431Z",
+  "updatedAt": "2026-11-03T19:10:20.431Z",
+  "title": "2026-11-03 member-jc"
+}

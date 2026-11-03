@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-softmax-reference",
+  "memberId": "member-wn",
+  "title": "Capture TinyViT attention reference and select fixed-point softmax contract",
+  "status": "done",
+  "tag": "Experiment",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

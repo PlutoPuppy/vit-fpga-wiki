@@ -1,0 +1,10 @@
+{
+  "id": "member-sy",
+  "name": "Stephanie (Yixin)",
+  "role": "ML Model Engineer",
+  "avatar": "SY",
+  "color": "cyan",
+  "notes": "Responsible for ViT model design, quantization experiments, and accuracy benchmarking.",
+  "createdAt": "2026-03-10T03:04:40.000Z",
+  "updatedAt": "2026-03-10T03:04:40.000Z"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "progress-20261103-gelu-integration",
+  "memberId": "member-wn",
+  "title": "Validate parallel bias/GELU readout integration on full SoC",
+  "status": "in-progress",
+  "tag": "Integration",
+  "createdAt": "2026-11-03T18:32:16.340Z",
+  "updatedAt": "2026-11-03T18:32:16.340Z"
+}

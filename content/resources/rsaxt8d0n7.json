@@ -1,0 +1,17 @@
+{
+  "id": "rsaxt8d0n7",
+  "title": "Accelerating ViT Inference on FPGA through Static and Dynamic Pruning",
+  "authors": "Viktor Prasanna and his group",
+  "year": "2024",
+  "type": "paper",
+  "url": "https://arxiv.org/pdf/2403.14047",
+  "description": "",
+  "venue": "arxiv but probably published elsewhere",
+  "citations": null,
+  "createdAt": "2026-05-08T17:21:54.000Z",
+  "updatedAt": "2026-05-08T17:21:54.000Z",
+  "tags": [
+    "FPGA",
+    "ViT"
+  ]
+}

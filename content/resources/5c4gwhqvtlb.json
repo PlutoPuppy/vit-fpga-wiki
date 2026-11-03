@@ -1,0 +1,18 @@
+{
+  "id": "5c4gwhqvtlb",
+  "title": "Stay Flexible: A High-Performance FPGA NPU Overlay for Graph Neural Networks",
+  "authors": "",
+  "year": "2026",
+  "type": "professor_suggested",
+  "url": "https://ieeexplore.ieee.org/document/10653661",
+  "description": "The latest version of the NPU (again in Professor Betz's  group, and you can see earlier publications in its references).  It is an overlay architecture, meaning a very customized and big soft processor. This style is more likely to work well for a transformer.",
+  "venue": "",
+  "citations": null,
+  "createdAt": "2026-03-10T03:20:47.000Z",
+  "updatedAt": "2026-03-10T03:20:47.000Z",
+  "tags": [
+    "NPU",
+    "Overlay",
+    "Big soft processor"
+  ]
+}

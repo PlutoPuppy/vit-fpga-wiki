@@ -1,0 +1,11 @@
+{
+  "id": "ytvqd30znjo",
+  "title": "Compare ZCU104 vs Alveo U250 targets",
+  "description": "Evaluate whether the embedded ZCU104 or the datacenter Alveo U250 better fits our latency/power budget.",
+  "author": "Jerry (Chenjia)",
+  "tag": "Research Direction",
+  "votes": 2,
+  "pinned": false,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z"
+}
