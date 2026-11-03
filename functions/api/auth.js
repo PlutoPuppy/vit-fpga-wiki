@@ -7,7 +7,7 @@ export async function onRequestGet({ request, env }) {
   const state = [...crypto.getRandomValues(new Uint8Array(24))].map(x => x.toString(16).padStart(2, '0')).join('');
   const github = new URL('https://github.com/login/oauth/authorize');
   github.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID);
-  github.searchParams.set('redirect_uri', `${url.origin}/api/callback?provider=github`);
+  github.searchParams.set('redirect_uri', `${url.origin}/api/callback`);
   github.searchParams.set('scope', 'public_repo');
   github.searchParams.set('state', state);
   return new Response(null, {

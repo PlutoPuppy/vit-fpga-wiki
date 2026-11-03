@@ -1,6 +1,5 @@
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
-  if (url.searchParams.get('provider') !== 'github') return new Response('Invalid provider', { status: 400 });
   const cookie = request.headers.get('Cookie')?.split(';').map(x => x.trim()).find(x => x.startsWith('wiki_oauth_state='))?.slice('wiki_oauth_state='.length);
   const state = url.searchParams.get('state');
   const code = url.searchParams.get('code');
@@ -9,7 +8,7 @@ export async function onRequestGet({ request, env }) {
   const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ client_id: env.GITHUB_OAUTH_CLIENT_ID, client_secret: env.GITHUB_OAUTH_CLIENT_SECRET, code, redirect_uri: `${url.origin}/api/callback?provider=github` })
+    body: JSON.stringify({ client_id: env.GITHUB_OAUTH_CLIENT_ID, client_secret: env.GITHUB_OAUTH_CLIENT_SECRET, code, redirect_uri: `${url.origin}/api/callback` })
   });
   if (!tokenResponse.ok) return new Response('GitHub sign-in failed.', { status: 502 });
   const result = await tokenResponse.json();
