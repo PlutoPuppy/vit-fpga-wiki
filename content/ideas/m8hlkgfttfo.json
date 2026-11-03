@@ -1,0 +1,11 @@
+{
+  "id": "m8hlkgfttfo",
+  "title": "Tile-based attention computation",
+  "description": "Partition the attention matrix into tiles that fit in on-chip BRAM to avoid expensive DRAM accesses during the softmax computation.",
+  "author": "Jerry (Chenjia)",
+  "tag": "Architecture",
+  "votes": 6,
+  "pinned": true,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z"
+}

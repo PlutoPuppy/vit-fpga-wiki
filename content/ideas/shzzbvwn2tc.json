@@ -1,0 +1,11 @@
+{
+  "id": "shzzbvwn2tc",
+  "title": "Explore Swin Transformer for local attention",
+  "description": "Swin's window-based attention has O(n) complexity vs O(n²) for standard ViT. Could significantly reduce hardware resource requirements.",
+  "author": "Stephanie (Yixin)",
+  "tag": "Research Direction",
+  "votes": 5,
+  "pinned": false,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z"
+}

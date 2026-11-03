@@ -1,0 +1,19 @@
+{
+  "id": "6nzhqbv6oa6",
+  "title": "FlightLLM: Efficient Large Language Model Inference with a Complete Mapping Flow on FPGAs",
+  "authors": "Zeng et al.",
+  "year": "2024",
+  "type": "paper",
+  "url": "https://arxiv.org/abs/2401.03868",
+  "description": "Recent work mapping transformer-based LLMs to FPGAs with custom sparse computation and memory optimization. Highly relevant to our ViT acceleration work.",
+  "venue": "FPGA 2024",
+  "citations": 85,
+  "createdAt": "2026-03-10T03:05:07.000Z",
+  "updatedAt": "2026-03-10T03:05:07.000Z",
+  "tags": [
+    "FPGA",
+    "Transformer",
+    "LLM",
+    "Acceleration"
+  ]
+}

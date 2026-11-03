@@ -1,0 +1,19 @@
+{
+  "id": "iatsazq3c6",
+  "title": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+  "authors": "Sze et al.",
+  "year": "2017",
+  "type": "survey",
+  "url": "https://arxiv.org/abs/1703.09039",
+  "description": "Essential survey covering DNN hardware acceleration fundamentals: dataflows, memory hierarchies, and hardware architectures for efficient inference.",
+  "venue": "Proceedings of the IEEE",
+  "citations": 4200,
+  "createdAt": "2026-03-10T03:05:07.000Z",
+  "updatedAt": "2026-03-10T03:05:07.000Z",
+  "tags": [
+    "Hardware",
+    "DNN",
+    "Survey",
+    "FPGA"
+  ]
+}

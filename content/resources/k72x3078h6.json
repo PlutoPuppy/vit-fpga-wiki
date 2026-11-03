@@ -1,0 +1,18 @@
+{
+  "id": "k72x3078h6",
+  "title": "FlightLLM",
+  "authors": "",
+  "year": "2026",
+  "type": "paper",
+  "url": "https://arxiv.org/abs/2401.03868",
+  "description": "",
+  "venue": "arxiv, think also FPGA Symp.",
+  "citations": null,
+  "createdAt": "2026-05-08T17:23:04.000Z",
+  "updatedAt": "2026-05-08T17:23:04.000Z",
+  "tags": [
+    "FPGA",
+    "LLM",
+    "transformer"
+  ]
+}

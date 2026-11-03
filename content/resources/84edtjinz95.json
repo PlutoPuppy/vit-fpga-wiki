@@ -1,0 +1,17 @@
+{
+  "id": "84edtjinz95",
+  "title": "H2PIPE",
+  "authors": "",
+  "year": "2024",
+  "type": "professor_suggested",
+  "url": "https://ieeexplore.ieee.org/document/10705520",
+  "description": "a CNN accelerator that uses a dataflow pipeline (done in Professor Betz's group, and the latest in a few related works), this accelerator style will be harder to make work for a transformer though.",
+  "venue": "",
+  "citations": null,
+  "createdAt": "2026-03-10T03:19:50.000Z",
+  "updatedAt": "2026-03-10T03:19:50.000Z",
+  "tags": [
+    "CNN",
+    "Accelerator"
+  ]
+}

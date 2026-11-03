@@ -1,0 +1,18 @@
+{
+  "id": "k1hmgs9gbi",
+  "title": "Training data-efficient image transformers & distillation through attention (DeiT)",
+  "authors": "Touvron et al.",
+  "year": "2021",
+  "type": "paper",
+  "url": "https://arxiv.org/abs/2012.12877",
+  "description": "Shows ViT can be trained efficiently on ImageNet alone using knowledge distillation, making it practical without massive pre-training datasets.",
+  "venue": "ICML 2021",
+  "citations": 7800,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z",
+  "tags": [
+    "DeiT",
+    "ViT",
+    "Distillation"
+  ]
+}

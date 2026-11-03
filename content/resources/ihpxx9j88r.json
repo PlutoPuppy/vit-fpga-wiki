@@ -1,0 +1,19 @@
+{
+  "id": "ihpxx9j88r",
+  "title": "Vitis HLS User Guide (UG1399)",
+  "authors": "AMD/Xilinx",
+  "year": "2024",
+  "type": "tutorial",
+  "url": "https://docs.xilinx.com/r/en-US/ug1399-vitis-hls",
+  "description": "Official Vitis HLS documentation covering pragmas, directives, dataflow optimization, and best practices for high-performance HLS design.",
+  "venue": "AMD Documentation",
+  "citations": null,
+  "createdAt": "2026-03-10T03:05:07.000Z",
+  "updatedAt": "2026-03-10T03:05:07.000Z",
+  "tags": [
+    "HLS",
+    "Vitis",
+    "FPGA",
+    "Xilinx"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "tzvgksavmop",
+  "title": "Auto-ViT-Acc: An FPGA-Aware Automatic Acceleration Framework for Vision Transformer with Mixed-Scheme Quantization",
+  "authors": "Li et al.",
+  "year": "2022",
+  "type": "paper",
+  "url": "https://arxiv.org/abs/2208.05163",
+  "description": "Directly relevant: proposes an automated framework for ViT acceleration on FPGAs with mixed-precision quantization and hardware-aware NAS.",
+  "venue": "FPL 2022",
+  "citations": 52,
+  "createdAt": "2026-03-10T03:05:07.000Z",
+  "updatedAt": "2026-03-10T03:05:07.000Z",
+  "tags": [
+    "ViT",
+    "FPGA",
+    "Quantization",
+    "AutoML"
+  ]
+}

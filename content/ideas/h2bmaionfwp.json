@@ -1,0 +1,11 @@
+{
+  "id": "h2bmaionfwp",
+  "title": "Double-buffering for weight loading",
+  "description": "Pre-fetch the next layer's weights while computing the current layer to hide DRAM latency.",
+  "author": "Winnie",
+  "tag": "Systems",
+  "votes": 3,
+  "pinned": false,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-03-10T03:05:06.000Z"
+}

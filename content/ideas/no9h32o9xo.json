@@ -1,0 +1,11 @@
+{
+  "id": "no9h32o9xo",
+  "title": "Use INT4 mixed-precision quantization",
+  "description": "Apply INT4 for weights and INT8 for activations to reduce model size by 2x while maintaining accuracy within 2% of FP32 baseline.",
+  "author": "Stephanie (Yixin)",
+  "tag": "Optimization",
+  "votes": 16,
+  "pinned": true,
+  "createdAt": "2026-03-10T03:05:06.000Z",
+  "updatedAt": "2026-08-22T16:10:20.000Z"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "member-jc",
+  "name": "Jerry (Chenjia)",
+  "role": "Hardware Architect",
+  "avatar": "JC",
+  "color": "amber",
+  "notes": "Designing the FPGA datapath, memory hierarchy, and systolic array for attention computation.",
+  "createdAt": "2026-03-10T03:04:40.000Z",
+  "updatedAt": "2026-03-10T03:04:40.000Z"
+}
