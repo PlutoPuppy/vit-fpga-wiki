@@ -1,0 +1,6 @@
+{
+  "title": "Project update on MNN backend and WIKI page",
+  "date": "2026-11-03",
+  "memberId": "member-sy",
+  "update": "Updated the wiki page to be vit-fpga-wiki.pages.dev and created github repo to allow members to edit website content through github: https://github.com/PlutoPuppy/vit-fpga-wiki\nMNN backend update: offload the first QK matmul from first attention module: [1,10,49,32] * [1,10,32,49] and speed up the end to end inference by 5.7%. Next step will try to offload more. See github here for details: https://github.com/PlutoPuppy/mnn-fpga"
+}
