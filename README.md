@@ -2,6 +2,8 @@
 
 This repository powers the ViT-FPGA team wiki. It is a static site built from versioned content and designed for Cloudflare Pages. It replaces the original Manus application after the domain is switched.
 
+Cloudflare Pages preview: [vit-fpga-wiki.pages.dev](https://vit-fpga-wiki.pages.dev/).
+
 ## Edit content
 
 Each record in `content/` is a JSON file. Edit one in GitHub and commit to `main`; Cloudflare Pages rebuilds the site and publishes the change. Once GitHub OAuth is configured, team members can also use the site's `/admin/` editor. Saving there creates a GitHub commit and triggers the same deployment.
