@@ -50,3 +50,11 @@ The live editor also provides dated Updates and ECE496 Files collections.
 ## Implementation workspace
 
 The Gantt tab transcribes the supplied September 2026–April 2027 plan. Current tasks include acceptance criteria; archived tasks remain versioned. Meetings are separated by type (professor/internal). Browser note drafts stay on that browser and can be downloaded; publish shared notes through the meeting’s editor link. Internal meetings have no assumed cadence. Stephanie’s integration update links the measured report; Tiffany’s update records planned responsibilities rather than unverified completion.
+
+## Member changelog
+
+Member Progress & Updates is one navigation page. Choose a member to see current tasks, compose a dated update with evidence URLs, and browse that member’s past entries. The old `#/updates` route opens the combined page.
+
+Drafts save in this browser per member. On the hosted wiki, Sign in & publish update uses the same GitHub OAuth setup as the team editor. The signed-in account needs repository write access. Every publication creates a new JSON file under `content/updates/` on main, and the returned commit links appear in the timeline. Previous entries are retained. The token is held in memory only; signing out or reloading clears it. Local static preview supports drafts and history; use the hosted site for OAuth publication.
+
+Run `npm test` for validation, Unicode publication, duplicate-retry, permissions and OAuth-origin checks.

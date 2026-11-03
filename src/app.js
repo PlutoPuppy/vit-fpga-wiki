@@ -1,9 +1,10 @@
+import { validateUpdate, publishUpdate, signInWithGitHub } from './member-publishing.js';
 const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule'];
 const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
-const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '' };
+const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '', memberId: 'member-jc', githubToken: null };
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
-const route = () => (location.hash.slice(1) || '/').replace(/\/$/, '') || '/';
+const route = () => { const path = (location.hash.slice(1) || '/').replace(/\/$/, '') || '/'; return path === '/updates' ? '/members' : path; };
 const link = url => /^https?:\/\//i.test(url || '') ? esc(url) : '#';
 const label = value => String(value || '').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
 const heading = (title, subtitle) => `<div class="page-head"><div><div class="eyebrow">CAPSTONE RESEARCH PROJECT · 2026</div><h1 class="page-title">${esc(title)}</h1><p class="page-subtitle">${esc(subtitle)}</p></div><a class="edit-cta" href="/admin/">Edit content ↗</a></div>`;
@@ -19,15 +20,28 @@ function dashboard() {
     </section><div class="grid-2"><section class="panel"><div class="section-head"><h2>Team Progress</h2><a href="#/members">View all →</a></div>${members.map(m => `<div class="member-mini"><div><strong>${esc(m.name)}</strong><br><small>${esc(m.role)}</small></div><b>${tasks.filter(t => !t.archived && t.memberId === m.id && t.status === 'done').length}/${tasks.filter(t => !t.archived && t.memberId === m.id).length}</b></div>`).join('')}</section>
     <section class="panel"><div class="section-head"><h2>Top Ideas</h2><a href="#/brainstorm">View board →</a></div>${topIdeas.map(i => `<div class="idea-mini"><span class="vote">▲ ${Number(i.votes) || 0}</span> &nbsp;${esc(i.title)}</div>`).join('')}</section>
     <section class="panel"><div class="section-head"><h2>Upcoming Meetings</h2><a href="#/calendar">Calendar →</a></div>${meetings.filter(m => m.date >= new Date().toISOString().slice(0, 10)).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3).map(m => `<div class="task-mini">${esc(m.date)} · ${esc(m.title)}</div>`).join('') || '<div class="empty">No upcoming meetings</div>'}</section>
-    <section class="panel"><div class="section-head"><h2>Quick Links</h2></div><div class="quick-links"><a href="#/members">Member Progress →</a><a href="#/updates">Dated Member Updates →</a><a href="#/files">ECE496 Files & Data →</a><a href="#/brainstorm">Brainstorm Board →</a><a href="#/calendar">Meeting Calendar →</a><a href="#/resources">Research Resources →</a></div></section></div>`;
+    <section class="panel"><div class="section-head"><h2>Quick Links</h2></div><div class="quick-links"><a href="#/members">Member Progress & Updates →</a><a href="#/files">ECE496 Files & Data →</a><a href="#/brainstorm">Brainstorm Board →</a><a href="#/calendar">Meeting Calendar →</a><a href="#/resources">Research Resources →</a></div></section></div>`;
 }
 
+const updateDraftKey = id => `vit-fpga:member-update:${id}`;
+function readUpdateDraft(id) {
+  try { return JSON.parse(localStorage.getItem(updateDraftKey(id)) || 'null'); } catch { return null; }
+}
+const torontoDate = () => new Intl.DateTimeFormat('en-CA', {timeZone:'America/Toronto'}).format(new Date());
+function updateInput(form) {
+  return {memberId:form.dataset.memberId, date:form.elements.date.value, title:form.elements.title.value, update:form.elements.update.value, links:form.elements.links.value.split('\n').map(s=>s.trim()).filter(Boolean).map(url=>({label:url,url}))};
+}
+function keepUpdateDraft(form, extra = {}) {
+  const draft = {...updateInput(form), linkText:form.elements.links.value, ...extra};
+  localStorage.setItem(updateDraftKey(form.dataset.memberId),JSON.stringify(draft));
+  return draft;
+}
 function members() {
-  const { members, tasks } = state.data;
-  return heading('Member Progress', 'Track individual tasks, roles, and research notes for each team member.') + `<div class="cards">${members.map(m => {
-    const own = tasks.filter(t => !t.archived && t.memberId === m.id);
-    return `<section class="card member-card"><div class="member-head"><div class="avatar">${esc(m.avatar || m.name.slice(0, 2).toUpperCase())}</div><div><h2>${esc(m.name)}</h2><p>${esc(m.role)}</p></div></div><p class="member-note">${esc(m.notes)}</p><div class="task-list"><div class="eyebrow">TASKS (${own.length})</div>${own.map(t => `<div class="task-row"><span>${esc(t.title)}${t.acceptance ? `<small class="task-acceptance">${esc(t.acceptance)}</small>` : ''}</span><span class="tag">${esc(t.tag)}</span><span class="status ${t.status === 'done' ? 'done' : t.status === 'todo' ? 'todo' : ''}">${esc(t.status === 'in-progress' ? 'In Progress' : t.status === 'done' ? 'Done' : 'To Do')}</span></div>`).join('') || '<div class="empty">No tasks yet</div>'}</div></section>`;
-  }).join('')}</div>`;
+  const member = state.data.members.find(m => m.id === state.memberId) || state.data.members[0];
+  const own = state.data.tasks.filter(t => !t.archived && t.memberId === member.id);
+  const history = state.data.updates.filter(u => u.memberId === member.id).sort((a,b) => b.date.localeCompare(a.date) || (b.createdAt || '').localeCompare(a.createdAt || '') || Number(Boolean(b.evidenceReviewed))-Number(Boolean(a.evidenceReviewed)));
+  const draft = readUpdateDraft(member.id);
+  return heading('Member Progress & Updates', 'Current work and a dated changelog for every team member.') + `<div class="member-tabs" aria-label="Choose a member">${state.data.members.map(m => `<button class="chip ${m.id === member.id ? 'active' : ''}" data-member-id="${esc(m.id)}" aria-pressed="${m.id===member.id}">${esc(m.name)}</button>`).join('')}</div><section class="card member-card"><div class="member-head"><div class="avatar">${esc(member.avatar)}</div><div><h2>${esc(member.name)}</h2><p>${esc(member.role)}</p></div><span class="member-count">${own.filter(t=>t.status==='done').length}/${own.length} tasks complete · ${history.length} ${history.length===1?'update':'updates'}</span></div><p class="member-note">${esc(member.notes)}</p><details class="current-work"><summary>Current tasks (${own.length})</summary><div class="task-list">${own.map(t => `<div class="task-row"><span>${esc(t.title)}<small class="task-acceptance">${esc(t.acceptance)}</small></span><span class="tag">${esc(t.tag)}</span><span class="status ${t.status === 'done' ? 'done' : t.status === 'todo' ? 'todo' : ''}">${esc(label(t.status.replaceAll('-',' ')))}</span></div>`).join('')}</div></details></section><section class="card update-composer"><div class="section-head"><h2>Post an update</h2><span class="pill">${esc(member.name)}</span></div><form class="member-update-form" data-member-id="${esc(member.id)}"><div class="update-fields"><label>Date<input name="date" type="date" required value="${esc(draft?.date || torontoDate())}"></label><label>Update title<input name="title" required maxlength="160" placeholder="What changed?" value="${esc(draft?.title || '')}"></label></div><label>Update, blockers and next step<textarea name="update" rows="5" required maxlength="20000" placeholder="Describe progress, results, blockers and what comes next.">${esc(draft?.update || '')}</textarea></label><label>Evidence links — one URL per line<textarea name="links" rows="2" placeholder="https://github.com/…">${esc(draft?.linkText || '')}</textarea></label><div class="note-buttons"><button type="button" class="edit-cta" data-publish-update>${state.githubToken ? 'Publish update to GitHub' : 'Sign in & publish update'}</button><button type="button" class="chip" data-save-update>Save draft</button><button type="button" class="chip" data-discard-update>Discard draft</button>${state.githubToken ? '<button type="button" class="chip" data-signout-update>Sign out</button>' : ''}</div><p class="publish-hint">Publishing adds a new entry to the team’s Git history. Earlier updates stay in the history below.</p><p class="update-status" role="status">${draft ? 'Draft restored from this browser.' : 'Use your GitHub account with repository write access to publish.'}</p></form></section><section class="update-history"><div class="section-head"><h2>Update history</h2><a class="text-link" href="https://github.com/PlutoPuppy/vit-fpga-wiki/commits/main/content/updates" target="_blank" rel="noopener noreferrer">Git history ↗</a></div><ol class="update-timeline">${history.map((u,i) => `<li><article class="card update-entry"><div class="update-meta"><time datetime="${esc(u.date)}">${esc(u.date)}</time><span class="pill">${i===0?'Latest update':'Past update'}</span></div><h3>${esc(u.title || 'Progress update')}</h3><p>${esc(u.update)}</p>${u.links?.length ? `<div class="evidence-links">${u.links.map(l => `<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>` : ''}<a class="text-link" href="${u.commitUrl ? link(u.commitUrl) : 'https://github.com/PlutoPuppy/vit-fpga-wiki/commits/main/content/updates/'+encodeURIComponent(u.id)+'.json'}" target="_blank" rel="noopener noreferrer">${u.commitSha ? esc(u.commitSha.slice(0,7)) : 'View Git history'} ↗</a></article></li>`).join('') || '<li class="empty">No updates yet. Post the first dated entry above.</li>'}</ol></section>`;
 }
 
 function brainstorm() {
@@ -59,7 +73,7 @@ function calendar() {
 function gantt() {
   const months = ['Sep 2026','Oct','Nov','Dec','Jan 2027','Feb','Mar','Apr'];
   const groups = ['Baseline and profiling','Hardware development','Software and peripherals','System integration and testing','Milestones'];
-  return heading('Gantt Chart', 'September 2026–April 2027 · implementation schedule and target milestones.') + `<p class="schedule-source">Transcribed from the supplied <strong>Inplementation Plan.docx</strong>. Bars show planned work windows, not completion. See <a href="#/updates">dated updates</a> for evidence. “Step” and “Tiff” in the source are Stephanie and Tiffany.</p><div class="gantt-scroll" role="region" aria-label="Project schedule" tabindex="0"><div class="gantt-table"><div class="gantt-label gantt-heading">Workstream / owner</div>${months.map((m,i) => `<div class="gantt-month ${i===2 ? 'current-month' : ''}">${m}</div>`).join('')}${groups.map(group => `<div class="gantt-group">${esc(group)}</div>${state.data.schedule.filter(r => r.group === group).sort((a,b) => a.startMonth-b.startMonth || a.title.localeCompare(b.title)).map(r => `<div class="gantt-label"><strong>${esc(r.title)}</strong><small>${esc(r.owner)}</small></div>${months.map((m,i) => `<div class="gantt-cell ${i===2?'current-month':''}">${i+1>=r.startMonth && i+1<=r.endMonth ? `<span class="${r.kind==='milestone'?'gantt-milestone':'gantt-bar'}" title="${esc(r.title)} · ${esc(r.owner)} · ${months[r.startMonth-1]}–${months[r.endMonth-1]}">${r.kind==='milestone'?'◆':'<span class="sr-only">Planned work</span>'}</span>` : ''}</div>`).join('')}`).join('')}`).join('')}</div></div><div class="panel schedule-note"><h2>Progress and planning notes</h2><p>The plan reports a GELU board-test pass; a linked test log is still needed. Standalone softmax passed simulation and timing near 90 MHz. Stephanie’s integrated model uses an 80 MHz full-SoC image and one selected offloaded operation; it does not establish full-model FPGA inference or consistent speedup.</p><p>February: hardware integration target · March: system prototype target · April: final demonstration. Future milestones remain planning targets.</p></div>`;
+  return heading('Gantt Chart', 'September 2026–April 2027 · implementation schedule and target milestones.') + `<p class="schedule-source">Transcribed from the supplied <strong>Inplementation Plan.docx</strong>. Bars show planned work windows, not completion. See <a href="#/members">dated updates</a> for evidence. “Step” and “Tiff” in the source are Stephanie and Tiffany.</p><div class="gantt-scroll" role="region" aria-label="Project schedule" tabindex="0"><div class="gantt-table"><div class="gantt-label gantt-heading">Workstream / owner</div>${months.map((m,i) => `<div class="gantt-month ${i===2 ? 'current-month' : ''}">${m}</div>`).join('')}${groups.map(group => `<div class="gantt-group">${esc(group)}</div>${state.data.schedule.filter(r => r.group === group).sort((a,b) => a.startMonth-b.startMonth || a.title.localeCompare(b.title)).map(r => `<div class="gantt-label"><strong>${esc(r.title)}</strong><small>${esc(r.owner)}</small></div>${months.map((m,i) => `<div class="gantt-cell ${i===2?'current-month':''}">${i+1>=r.startMonth && i+1<=r.endMonth ? `<span class="${r.kind==='milestone'?'gantt-milestone':'gantt-bar'}" title="${esc(r.title)} · ${esc(r.owner)} · ${months[r.startMonth-1]}–${months[r.endMonth-1]}">${r.kind==='milestone'?'◆':'<span class="sr-only">Planned work</span>'}</span>` : ''}</div>`).join('')}`).join('')}`).join('')}</div></div><div class="panel schedule-note"><h2>Progress and planning notes</h2><p>The plan reports a GELU board-test pass; a linked test log is still needed. Standalone softmax passed simulation and timing near 90 MHz. Stephanie’s integrated model uses an 80 MHz full-SoC image and one selected offloaded operation; it does not establish full-model FPGA inference or consistent speedup.</p><p>February: hardware integration target · March: system prototype target · April: final demonstration. Future milestones remain planning targets.</p></div>`;
 }
 
 function resources() {
@@ -69,13 +83,11 @@ function resources() {
   return heading('Research Resources', 'Curated papers, videos, and tutorials on Vision Transformers and FPGA acceleration.') + `<input class="search" id="resource-search" type="search" placeholder="Search resources…" aria-label="Search resources" value="${esc(state.search)}"><div class="toolbar">${types.map(type => `<button class="chip ${state.resourceType === type ? 'active' : ''}" data-resource-type="${esc(type)}" type="button">${esc(label(type))} (${type === 'All' ? all.length : all.filter(r => r.type === type).length})</button>`).join('')}</div><div class="resources">${visible.map(r => `<article class="card resource"><span class="pill">${esc(label(r.type))}</span><h2><a href="${link(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} ↗</a></h2><div class="resource-meta">${[r.authors, r.year, r.venue].filter(Boolean).map(esc).join(' · ')}</div>${r.description ? `<p>${esc(r.description)}</p>` : ''}${r.tags?.length ? `<div class="resource-tags">${r.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>` : ''}</article>`).join('') || '<div class="empty">No resources match your search.</div>'}</div>`;
 }
 
-function updates() {
-  return heading('Member Updates', 'Dated progress, blockers, next steps and evidence links for every member.') + state.data.members.map(member => `<section class="card"><h2>${esc(member.name)}</h2>${state.data.updates.filter(u => u.memberId === member.id).sort((a,b) => b.date.localeCompare(a.date) || Number(Boolean(b.evidenceReviewed))-Number(Boolean(a.evidenceReviewed))).map(u => `<article><h3>${esc(u.date)}${u.title ? ' · ' + esc(u.title) : ''}</h3><p>${esc(u.update)}</p>${(u.links || []).map(l => `<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a>`).join(' · ')}</article>`).join('') || '<p>No dated updates yet. Use Edit content → Member updates to add yours.</p>'}</section>`).join('');
-}
+
 function files() {
  return heading('ECE496 Files & Data', 'Deliverables, experiment data and demos. Add a file or shared link through Edit content.') + `<div class="cards">${state.data.files.map(f => `<article class="card"><h2><a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a></h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p>${esc(f.description)}</p></article>`).join('')}</div>`;
 }
-const pages = { '/': ['Dashboard', dashboard], '/members': ['Member Progress', members], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/updates': ['Member Updates', updates], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
+const pages = { '/': ['Dashboard', dashboard], '/members': ['Member Progress & Updates', members], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
 function render() {
   const path = route();
   const [title, component] = pages[path] || pages['/'];
@@ -110,6 +122,66 @@ document.addEventListener('click', event => {
   const text = `# ${meeting.title}\n\nDate: ${meeting.date || 'Unscheduled'}\n\n## Notes and decisions\n\n${form.elements.notes.value}\n\n## Action items\n\n${form.elements.actions.value}\n`;
   const url = URL.createObjectURL(new Blob([text], {type:'text/markdown'}));
   const a = document.createElement('a'); a.href=url; a.download=`${meeting.id}-notes.md`; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
+});
+let publishingUpdate = false;
+document.addEventListener('click', async event => {
+  const memberButton = event.target.closest('[data-member-id]');
+  if (memberButton && memberButton.tagName === 'BUTTON') {
+    if (publishingUpdate) return;
+    state.memberId=memberButton.dataset.memberId; render(); return;
+  }
+  const signout = event.target.closest('[data-signout-update]');
+  if (signout && !publishingUpdate) { state.githubToken=null; render(); return; }
+  const discard=event.target.closest('[data-discard-update]');
+  if (discard && !publishingUpdate) {
+    try { localStorage.removeItem(updateDraftKey(discard.closest('form').dataset.memberId)); render(); }
+    catch { discard.closest('form').querySelector('[role="status"]').textContent='Could not discard browser draft.'; }
+    return;
+  }
+  const save = event.target.closest('[data-save-update]');
+  const publish = event.target.closest('[data-publish-update]');
+  if (!save && !publish) return;
+  const form = (save || publish).closest('form');
+  const status = form.querySelector('[role="status"]');
+  if (save) {
+    try { keepUpdateDraft(form); status.textContent='Draft saved in this browser. It is not published yet.'; }
+    catch { status.textContent='Browser storage is unavailable. Keep this page open and copy your draft before leaving.'; }
+    return;
+  }
+  if (publishingUpdate || !form.reportValidity()) return;
+  let record;
+  try {
+    const input = validateUpdate(updateInput(form),state.data.members.map(m=>m.id));
+    const oldDraft = readUpdateDraft(input.memberId);
+    const signature = JSON.stringify(input);
+    record = oldDraft?.signature === signature && oldDraft?.pendingRecord ? oldDraft.pendingRecord : { ...input, id:`update-${input.memberId}-${crypto.randomUUID()}`, createdAt:new Date().toISOString() };
+    keepUpdateDraft(form,{pendingRecord:record,signature});
+  } catch(error) { status.textContent=error.message; return; }
+  publishingUpdate=true;
+  const controls=[...form.querySelectorAll('input,textarea,button')];
+  controls.forEach(control=>control.disabled=true);
+  try {
+    status.textContent=state.githubToken ? 'Publishing update to GitHub…' : 'Complete GitHub sign-in in the popup…';
+    state.githubToken ||= await signInWithGitHub();
+    const result = await publishUpdate(state.githubToken,record);
+    state.data.updates.unshift({...record,commitUrl:result.url,commitSha:result.sha});
+    try { localStorage.removeItem(updateDraftKey(record.memberId)); } catch {}
+    render();
+    const publishedStatus=document.querySelector('.member-update-form [role="status"]');
+    if (publishedStatus) publishedStatus.textContent='Published to GitHub and added to the history below. The shared site will refresh after deployment.';
+  } catch(error) {
+    if (error.message.includes('expired')) state.githubToken=null;
+    status.textContent=error.message;
+  } finally { publishingUpdate=false; controls.forEach(control=>control.disabled=false); }
+});
+document.addEventListener('submit', event => {
+  if (event.target.matches('.member-update-form')) { event.preventDefault(); event.target.querySelector('[data-publish-update]').click(); }
+});
+document.addEventListener('input', event => {
+  const form=event.target.closest('.member-update-form');
+  if (!form) return;
+  try { keepUpdateDraft(form); form.querySelector('[role="status"]').textContent='Draft saved in this browser.'; }
+  catch { form.querySelector('[role="status"]').textContent='Browser storage unavailable. Your text remains on this page.'; }
 });
 document.addEventListener('input', event => {
   if (event.target.id !== 'resource-search') return;

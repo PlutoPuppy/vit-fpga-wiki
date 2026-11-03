@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run check && node scripts/build.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "test": "node --test scripts/member-publishing.test.mjs"
   }
 }
