@@ -5,9 +5,9 @@
     "role": "Hardware Architect",
     "avatar": "JC",
     "color": "amber",
-    "notes": "Designing the FPGA datapath, memory hierarchy, and systolic array for attention computation.",
+    "notes": "Designing the FPGA datapath, memory hierarchy, and systolic array for attention computation. As of 2026-11-03, main includes contiguous host address remapping, a tiled output canvas and a host software tiling test program (4b749ce). Latest tiled board pass logs are not included; DMA address-window limits remain documented. See progress-2026-11-03.md.",
     "createdAt": "2026-03-10T03:04:40.000Z",
-    "updatedAt": "2026-03-10T03:04:40.000Z"
+    "updatedAt": "2026-11-03T18:32:16.340Z"
   },
   {
     "id": "member-sy",
@@ -35,8 +35,8 @@
     "role": "Systems & Integration",
     "avatar": "WN",
     "color": "purple",
-    "notes": "Handling end-to-end integration, board bring-up, and performance profiling on the FPGA.",
+    "notes": "Handling end-to-end integration, board bring-up, and performance profiling on the FPGA. As of 2026-11-03, implemented int8 bias/GELU RTL and a parallel matmul readout prototype; completed TinyViT softmax reference, fixed-point model, bit-exact standalone RTL verification and standalone Quartus timing near 90 MHz. Full-SoC integration, calibrated GELU scales and board validation remain pending. See progress-2026-11-03.md.",
     "createdAt": "2026-03-10T03:04:40.000Z",
-    "updatedAt": "2026-04-09T20:18:10.000Z"
+    "updatedAt": "2026-11-03T18:32:16.340Z"
   }
 ]

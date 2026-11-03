@@ -6,9 +6,10 @@ The original site is an interactive Manus application. This repository preserves
 
 - [Dashboard](dashboard.md)
 - [Member progress and tasks](members.md)
+- [Implementation progress: 2026-11-03](progress-2026-11-03.md)
 - [Brainstorm ideas](ideas.md)
 - [Meeting calendar and notes](meetings.md)
 - [Research resources](resources.md)
 - [Structured JSON](data/)
 
-External resources are linked, not copied. The JSON files retain the site's record IDs, timestamps, fields, and original ordering.
+External resources are linked, not copied. Original JSON records retain the site's IDs, timestamps, fields, and ordering. Subsequent repository updates add dated progress records and update affected member notes; these changes do not update the original Manus site.

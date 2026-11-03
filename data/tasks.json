@@ -106,5 +106,77 @@
     "tag": "Design",
     "createdAt": "2026-03-15T18:53:44.000Z",
     "updatedAt": "2026-03-15T18:53:44.000Z"
+  },
+  {
+    "id": "progress-20261103-matmul-remap",
+    "memberId": "member-jc",
+    "title": "Implement contiguous host address remapping and tiled output canvas",
+    "status": "done",
+    "tag": "Implementation",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-matmul-tiling",
+    "memberId": "member-jc",
+    "title": "Implement host software tiling and contraction accumulation tests",
+    "status": "done",
+    "tag": "Implementation",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-matmul-board-validation",
+    "memberId": "member-jc",
+    "title": "Validate tiled canvas on board and resolve DMA address-window limits",
+    "status": "in-progress",
+    "tag": "Experiment",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-gelu-reference",
+    "memberId": "member-wn",
+    "title": "Implement int8 GELU LUT and same-scale bias/GELU RTL tests",
+    "status": "done",
+    "tag": "Implementation",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-gelu-integration",
+    "memberId": "member-wn",
+    "title": "Validate parallel bias/GELU readout integration on full SoC",
+    "status": "in-progress",
+    "tag": "Integration",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-softmax-reference",
+    "memberId": "member-wn",
+    "title": "Capture TinyViT attention reference and select fixed-point softmax contract",
+    "status": "done",
+    "tag": "Experiment",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-softmax-rtl",
+    "memberId": "member-wn",
+    "title": "Verify standalone softmax RTL and close standalone Quartus timing near 90 MHz",
+    "status": "done",
+    "tag": "Implementation",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
+  },
+  {
+    "id": "progress-20261103-softmax-integration",
+    "memberId": "member-wn",
+    "title": "Integrate softmax accelerator interface and verify full-SoC timing",
+    "status": "todo",
+    "tag": "Integration",
+    "createdAt": "2026-11-03T18:32:16.340Z",
+    "updatedAt": "2026-11-03T18:32:16.340Z"
   }
 ]

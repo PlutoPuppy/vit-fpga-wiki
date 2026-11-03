@@ -1,5 +1,7 @@
 # Member progress and tasks
 
+Updated 2026-11-03. See [implementation progress and evidence](progress-2026-11-03.md). Original research tasks are retained.
+
 ## Jerry (Chenjia) — Hardware Architect
 
 Designing the FPGA datapath, memory hierarchy, and systolic array for attention computation.
@@ -7,6 +9,9 @@ Designing the FPGA datapath, memory hierarchy, and systolic array for attention 
 | Task | Status | Tag |
 | --- | --- | --- |
 | Review papers on ViT on FPGA architecture papers | in-progress | Literature |
+| Implement contiguous host address remapping and tiled output canvas | done | Implementation |
+| Implement host software tiling and contraction accumulation tests | done | Implementation |
+| Validate tiled canvas on board and resolve DMA address-window limits | in-progress | Experiment |
 
 ## Stephanie (Yixin) — ML Model Engineer
 
@@ -39,3 +44,8 @@ Handling end-to-end integration, board bring-up, and performance profiling on th
 | Integrate HLS IP cores into top-level design | todo | Integration |
 | Set up Vivado project and constraints | todo | Setup |
 | Research end-to-end implementation of vision transformer on FPGA | in-progress | Literature |
+| Implement int8 GELU LUT and same-scale bias/GELU RTL tests | done | Implementation |
+| Validate parallel bias/GELU readout integration on full SoC | in-progress | Integration |
+| Capture TinyViT attention reference and select fixed-point softmax contract | done | Experiment |
+| Verify standalone softmax RTL and close standalone Quartus timing near 90 MHz | done | Implementation |
+| Integrate softmax accelerator interface and verify full-SoC timing | todo | Integration |
