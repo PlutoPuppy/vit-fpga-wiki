@@ -30,7 +30,7 @@ Open `http://127.0.0.1:8765/`. The build aggregates `content/**/*.json` into `di
 
 ## Deploy
 
-Follow [DEPLOY.md](DEPLOY.md) for Cloudflare Pages, the editor's GitHub OAuth app, and the domain cutover. Connect this private repository to Cloudflare Pages with production branch `main`, build command `npm run build`, and output directory `dist`.
+Follow [DEPLOY.md](DEPLOY.md) for Cloudflare Pages, the editor's GitHub OAuth app, and the domain cutover. Connect this repository to Cloudflare Pages with production branch `main`, build command `npm run build`, and output directory `dist`.
 
 ## Historical snapshot
 

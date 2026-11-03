@@ -18,7 +18,7 @@ Wait for the first deployment, then open the `*.pages.dev` URL. Confirm the dash
 
 ## 2. Enable the on-site editor
 
-The `/admin/` page uses Decap CMS. Its GitHub backend needs a GitHub OAuth App to let collaborators edit this private repository. **The OAuth app requests GitHub's `repo` scope, which covers private repositories accessible to the signed-in editor.** Only team members with write access to this repository can save content here.
+The `/admin/` page uses Decap CMS. Its GitHub backend needs a GitHub OAuth App to let collaborators edit this repository. The OAuth app requests GitHub's `public_repo` scope. Only team members with write access to this repository can save content here.
 
 1. In GitHub, go to **Settings → Developer settings → OAuth Apps → New OAuth App**.
 2. Set Homepage URL to the new `https://<project>.pages.dev/` address and Authorization callback URL to `https://<project>.pages.dev/api/callback`.

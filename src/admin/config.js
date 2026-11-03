@@ -10,7 +10,7 @@ window.initCMS({ config: {
   load_config_file: false,
   backend: {
     name: 'github', repo: 'PlutoPuppy/vit-fpga-wiki', branch: 'main',
-    auth_scope: 'repo', base_url: location.origin, auth_endpoint: 'api/auth'
+    auth_scope: 'public_repo', base_url: location.origin, auth_endpoint: 'api/auth'
   },
   media_folder: 'assets/uploads', public_folder: '/assets/uploads',
   collections: [
