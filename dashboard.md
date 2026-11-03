@@ -14,3 +14,7 @@ Designing and implementing an efficient hardware accelerator for Vision Transfor
 See the linked pages in [README](README.md) for the full records.
 
 Latest update: [November 3 implementation progress](progress-2026-11-03.md) covers Winnie's softmax/GELU work and Jerry's matmul main-branch changes.
+
+Team workspace: [dated member updates](updates/README.md) · [biweekly professor meetings](meetings.md) · [ECE496 files and data](files/README.md).
+
+Next scheduled professor meeting: November 3, 2026, 4:00 p.m. Toronto time; [agenda and minutes](meetings/2026-11-03.md).

@@ -61,5 +61,26 @@
       "Winnie"
     ],
     "actionItems": []
+  },
+  {
+    "id": "prof-betz-20261103",
+    "date": "2026-11-03",
+    "title": "Biweekly meeting with Professor Vaughn Betz",
+    "time": "16:00",
+    "timezone": "America/Toronto",
+    "status": "scheduled",
+    "recurrence": "FREQ=WEEKLY;INTERVAL=2;BYDAY=TU",
+    "notes": "Agenda and minutes: meetings/2026-11-03.md. Location and duration TBD; attendance not yet recorded.",
+    "attendees": [],
+    "plannedAttendees": [
+      "Jerry (Chenjia)",
+      "Stephanie (Yixin)",
+      "Tiffany (Yiling)",
+      "Winnie (Weini)",
+      "Professor Vaughn Betz"
+    ],
+    "actionItems": [],
+    "createdAt": "2026-11-03T19:10:20.431Z",
+    "updatedAt": "2026-11-03T19:10:20.431Z"
   }
 ]

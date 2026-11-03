@@ -1,5 +1,21 @@
 # Meetings
 
+## Biweekly meeting with Professor Vaughn Betz
+
+Every other Tuesday at **4:00 p.m. America/Toronto**, anchored on **November 3, 2026**. Use Toronto local time when daylight saving changes. Duration and location/call link have not been specified. This is a repository schedule, not a calendar invitation.
+
+| Date | Time (Toronto) | Notes |
+| --- | --- | --- |
+| 2026-11-03 | 4:00 p.m. | [Agenda and minutes](meetings/2026-11-03.md) |
+| 2026-11-17 | 4:00 p.m. | Planned recurrence; create notes from template |
+| 2026-12-01 | 4:00 p.m. | Planned recurrence; create notes from template |
+| 2026-12-15 | 4:00 p.m. | Planned recurrence; create notes from template |
+| 2026-12-29 | 4:00 p.m. | Planned recurrence; create notes from template |
+
+Continue the same 14-day cadence after these dates unless the team reschedules. Copy [the meeting template](meetings/TEMPLATE.md) for each new meeting. Record member updates, professor feedback, decisions and actions with owners, due dates and links. Historical records below retain the original site's notes.
+
+# Historical meeting notes
+
 ## 2026-03-06 — Kickoff First meeting with Professor Betz
 
 Attendees: Stephanie (Yixin), Jerry (Chenjia), Winnie

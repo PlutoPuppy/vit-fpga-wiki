@@ -6,6 +6,8 @@ The original site is an interactive Manus application. This repository preserves
 
 - [Dashboard](dashboard.md)
 - [Member progress and tasks](members.md)
+- [Dated member update logs](updates/README.md)
+- [ECE496 files, submissions and data](files/README.md)
 - [Implementation progress: 2026-11-03](progress-2026-11-03.md)
 - [Brainstorm ideas](ideas.md)
 - [Meeting calendar and notes](meetings.md)

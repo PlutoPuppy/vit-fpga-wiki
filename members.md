@@ -1,6 +1,6 @@
 # Member progress and tasks
 
-Updated 2026-11-03. See [implementation progress and evidence](progress-2026-11-03.md). Original research tasks are retained.
+Updated 2026-11-03. See [implementation progress and evidence](progress-2026-11-03.md). Original research tasks are retained. Add dated progress and evidence links in [member update logs](updates/README.md).
 
 ## Jerry (Chenjia) — Hardware Architect
 
