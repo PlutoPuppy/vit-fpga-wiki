@@ -58,3 +58,7 @@ Member Progress & Updates is one navigation page. Choose a member to see current
 Drafts save in this browser per member. On the hosted wiki, Sign in & publish update uses the same GitHub OAuth setup as the team editor. The signed-in account needs repository write access. Every publication creates a new JSON file under `content/updates/` on main, and the returned commit links appear in the timeline. Previous entries are retained. The token is held in memory only; signing out or reloading clears it. Local static preview supports drafts and history; use the hosted site for OAuth publication.
 
 Run `npm test` for validation, Unicode publication, duplicate-retry, permissions and OAuth-origin checks.
+
+## Meeting popup
+
+Both Add meeting buttons open a popup on the calendar. Choose type, title, date, Toronto time, location, notes, attendees and actions. Save to shared wiki uses the existing GitHub sign-in and commits the meeting; Save in this browser keeps a clearly labeled local copy. Edit meeting / shared notes uses the same popup. Popup drafts are retained locally on failure; shared edits check for concurrent changes before writing. No meeting action opens Decap.

@@ -1,3 +1,4 @@
+import { validateMeeting, publishMeeting } from './meeting-publishing.js';
 import { validateUpdate, publishUpdate, signInWithGitHub } from './member-publishing.js';
 const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule'];
 const app = document.getElementById('app');
@@ -57,17 +58,42 @@ function readDraft(id) {
 }
 function meetingCard(m) {
   const draft = readDraft(m.id);
-  return `<article class="card meeting"><div class="meeting-date">${esc(m.date || 'Date to be agreed')}${m.time ? ' · ' + esc(m.time) + ' ' + esc(m.timezone) : ''}</div><h3>${esc(m.title)}</h3><p class="published-notes">${esc(m.notes || 'No shared notes yet.')}</p><small>Recorded attendees: ${esc((m.attendees || []).join(', ') || 'Not recorded')}</small>${m.actionItems?.length ? `<h4>Shared action items</h4><ul>${m.actionItems.map(a => `<li>${esc(a)}</li>`).join('')}</ul>` : ''}<details ${m.id === 'prof-betz-20261103' || m.id === 'internal-planning' ? 'open' : ''}><summary>Take notes</summary><form class="meeting-note-form" data-meeting-id="${esc(m.id)}"><label>Notes and decisions<textarea name="notes" rows="6">${esc(draft?.notes ?? m.notes ?? '')}</textarea></label><label>Action items — include owner and due date<textarea name="actions" rows="3">${esc(draft?.actions ?? (m.actionItems || []).join('\n'))}</textarea></label><div class="note-buttons"><button class="chip" type="button" data-save-meeting="${esc(m.id)}">Save browser draft</button><button class="chip" type="button" data-export-meeting="${esc(m.id)}">Download notes</button><a class="text-link" href="/admin/#/collections/meetings/entries/${encodeURIComponent(m.id)}">Edit shared notes ↗</a></div><p class="draft-status" role="status">${draft ? 'Draft saved in this browser. ' : ''}Shared notes are published through the team editor.</p></form></details></article>`;
+  return `<article class="card meeting"><div class="meeting-date">${esc(m.date || 'Date to be agreed')}${m.time ? ' · ' + esc(m.time) + ' ' + esc(m.timezone) : ''}</div><h3>${esc(m.title)}</h3>${m.localOnly ? `<span class="pill">This browser only</span> <button class="chip" type="button" data-remove-local-meeting="${esc(m.id)}">Remove local copy</button>` : ''}${m.location ? `<p>${esc(m.location)}</p>` : ''}<p class="published-notes">${esc(m.notes || 'No shared notes yet.')}</p><small>Recorded attendees: ${esc((m.attendees || []).join(', ') || 'Not recorded')}</small>${m.actionItems?.length ? `<h4>Shared action items</h4><ul>${m.actionItems.map(a => `<li>${esc(a)}</li>`).join('')}</ul>` : ''}<details ${m.id === 'prof-betz-20261103' || m.id === 'internal-planning' ? 'open' : ''}><summary>Take notes</summary><form class="meeting-note-form" data-meeting-id="${esc(m.id)}"><label>Notes and decisions<textarea name="notes" rows="6">${esc(draft?.notes ?? m.notes ?? '')}</textarea></label><label>Action items — include owner and due date<textarea name="actions" rows="3">${esc(draft?.actions ?? (m.actionItems || []).join('\n'))}</textarea></label><div class="note-buttons"><button class="chip" type="button" data-save-meeting="${esc(m.id)}">Save browser draft</button><button class="chip" type="button" data-export-meeting="${esc(m.id)}">Download notes</button><button class="chip" type="button" data-edit-meeting="${esc(m.id)}">Edit meeting / shared notes</button></div><p class="draft-status" role="status">${draft ? 'Draft saved in this browser. ' : ''}Use Edit meeting / shared notes to publish to the team.</p></form></details></article>`;
+}
+function readLocalMeetings() {
+  try { return JSON.parse(localStorage.getItem('vit-fpga:local-meetings') || '[]'); } catch { return []; }
+}
+let meetingDialogState = null;
+function meetingFormValue(form) {
+  const values=new FormData(form);
+  return {title:values.get('title'),type:values.get('type'),date:values.get('date'),time:values.get('time'),location:values.get('location'),notes:values.get('notes'),attendees:String(values.get('attendees')).split('\n').map(s=>s.trim()).filter(Boolean),actionItems:String(values.get('actions')).split('\n').map(s=>s.trim()).filter(Boolean),timezone:'America/Toronto'};
+}
+function openMeetingDialog(type, id) {
+  document.getElementById('meeting-dialog')?.remove();
+  const original=id ? state.data.meetings.find(m=>m.id===id) : null;
+  const local=id ? readLocalMeetings().find(m=>m.id===id) : null;
+  const key=`vit-fpga:meeting-popup:${id || type}`;
+  let saved; try { saved=JSON.parse(localStorage.getItem(key) || 'null'); } catch {}
+  const noteDraft=id ? readDraft(id) : null;
+  const initial=saved || {...(local || original || {title:type==='professor'?'Meeting with Professor Vaughn Betz':'Internal team meeting',type,date:torontoDate(),time:type==='professor'?'16:00':'',notes:'',attendees:[],actionItems:[]}),...(noteDraft?{notes:noteDraft.notes,actionItems:noteDraft.actions.split('\n').filter(Boolean)}:{})};
+  const dialog=document.createElement('dialog');dialog.id='meeting-dialog';dialog.className='meeting-dialog';dialog.setAttribute('aria-labelledby','meeting-dialog-title');
+  dialog.innerHTML=`<div class="section-head"><h2 id="meeting-dialog-title">${id?'Edit meeting':'Add meeting'}</h2><button class="chip" type="button" data-close-meeting aria-label="Close meeting popup">✕</button></div><form id="meeting-popup-form"><label>Meeting title<input name="title" required maxlength="160" value="${esc(initial.title)}"></label><div class="update-fields"><label>Meeting type<select name="type"><option value="professor" ${initial.type==='professor'?'selected':''}>With Professor Betz</option><option value="internal" ${initial.type==='internal'?'selected':''}>Internal team</option></select></label><label>Date<input name="date" type="date" required value="${esc(initial.date)}"></label><label>Time (Toronto)<input name="time" type="time" value="${esc(initial.time || '')}"></label><label>Location or call link<input name="location" value="${esc(initial.location || '')}" placeholder="Optional"></label></div><label>Agenda, notes and decisions<textarea name="notes" rows="4" maxlength="20000">${esc(initial.notes || '')}</textarea></label><label>Attendees — one per line<textarea name="attendees" rows="2">${esc((initial.attendees || []).join('\n'))}</textarea></label><label>Action items — one per line, with owner and due date<textarea name="actions" rows="2">${esc((initial.actionItems || []).join('\n'))}</textarea></label><div class="note-buttons"><button class="edit-cta" type="button" data-publish-meeting>Save to shared wiki</button><button class="chip" type="button" data-local-meeting>Save in this browser</button><button class="chip" type="button" data-close-meeting>Cancel</button></div><p class="publish-hint">Shared saves use GitHub sign-in. Browser-only meetings stay on this device.</p><p role="status" class="update-status">${saved?'Popup draft restored.':''}</p></form>`;
+  meetingDialogState={original,id:id || saved?.id || `meeting-${crypto.randomUUID()}`,key,busy:false};
+  document.body.append(dialog);
+  dialog.addEventListener('cancel',event=>{if(meetingDialogState?.busy)event.preventDefault();});
+  dialog.addEventListener('close',()=>{if(!meetingDialogState?.busy){dialog.remove();meetingDialogState=null;}});
+  dialog.showModal();
 }
 function calendar() {
   const today = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Toronto'}).format(new Date());
-  const meetings = [...state.data.meetings].sort((a,b) => {
+  const savedLocal = readLocalMeetings();
+  const meetings = [...state.data.meetings.filter(m=>!savedLocal.some(l=>l.id===m.id)),...savedLocal].sort((a,b) => {
     if (!a.date || !b.date) return !a.date ? -1 : 1;
     const upcomingA=a.date>=today, upcomingB=b.date>=today;
     if (upcomingA!==upcomingB) return upcomingA ? -1 : 1;
     return upcomingA ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date);
   });
-  const column = (type,title,subtitle) => `<section class="meeting-column"><div class="section-head"><div><h2>${title}</h2><p>${subtitle}</p></div><a class="text-link" href="/admin/#/collections/meetings/new">Add meeting ↗</a></div><div class="cards">${meetings.filter(m => m.type === type).map(meetingCard).join('') || '<p class="empty">No meetings yet.</p>'}</div></section>`;
+  const column = (type,title,subtitle) => `<section class="meeting-column"><div class="section-head"><div><h2>${title}</h2><p>${subtitle}</p></div><button class="chip" type="button" data-add-meeting="${type}">+ Add meeting</button></div><div class="cards">${meetings.filter(m => m.type === type).map(meetingCard).join('') || '<p class="empty">No meetings yet.</p>'}</div></section>`;
   return heading('Meeting Calendar', 'Separate spaces for professor guidance and team coordination. Keep decisions and actions with each meeting.') + `<div class="meeting-columns">${column('professor','With Professor Betz','Every other Tuesday · 4 p.m. Toronto · from Nov 3, 2026')}${column('internal','Internal team meetings','Team-selected dates · integration blockers and next steps')}</div>`;
 }
 function gantt() {
@@ -111,14 +137,14 @@ document.addEventListener('click', event => {
   const status = form.querySelector('[role="status"]');
   try {
     localStorage.setItem(meetingDraftKey(form.dataset.meetingId), JSON.stringify({ notes: form.elements.notes.value, actions: form.elements.actions.value, savedAt: new Date().toISOString() }));
-    status.textContent = 'Draft saved in this browser. Use Edit shared notes to publish to the team.';
+    status.textContent = 'Draft saved in this browser. Use Edit meeting / shared notes to publish to the team.';
   } catch { status.textContent = 'Browser storage unavailable. Download notes to keep a copy.'; }
 });
 document.addEventListener('click', event => {
   const button = event.target.closest('[data-export-meeting]');
   if (!button) return;
   const form = button.closest('form');
-  const meeting = state.data.meetings.find(m => m.id === button.dataset.exportMeeting);
+  const meeting = readLocalMeetings().find(m => m.id === button.dataset.exportMeeting) || state.data.meetings.find(m => m.id === button.dataset.exportMeeting);
   const text = `# ${meeting.title}\n\nDate: ${meeting.date || 'Unscheduled'}\n\n## Notes and decisions\n\n${form.elements.notes.value}\n\n## Action items\n\n${form.elements.actions.value}\n`;
   const url = URL.createObjectURL(new Blob([text], {type:'text/markdown'}));
   const a = document.createElement('a'); a.href=url; a.download=`${meeting.id}-notes.md`; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
@@ -176,6 +202,46 @@ document.addEventListener('click', async event => {
 });
 document.addEventListener('submit', event => {
   if (event.target.matches('.member-update-form')) { event.preventDefault(); event.target.querySelector('[data-publish-update]').click(); }
+});
+document.addEventListener('click', async event => {
+  const remove=event.target.closest('[data-remove-local-meeting]');
+  if(remove){localStorage.setItem('vit-fpga:local-meetings',JSON.stringify(readLocalMeetings().filter(m=>m.id!==remove.dataset.removeLocalMeeting)));render();return;}
+  const add=event.target.closest('[data-add-meeting]');
+  if(add){openMeetingDialog(add.dataset.addMeeting);return;}
+  const edit=event.target.closest('[data-edit-meeting]');
+  if(edit){const id=edit.dataset.editMeeting;const noteForm=edit.closest('.meeting-note-form');if(noteForm){try{localStorage.setItem(meetingDraftKey(id),JSON.stringify({notes:noteForm.elements.notes.value,actions:noteForm.elements.actions.value}));}catch{}} const m=readLocalMeetings().find(m=>m.id===id) || state.data.meetings.find(m=>m.id===id);openMeetingDialog(m.type,id);return;}
+  if(event.target.closest('[data-close-meeting]')){if(!meetingDialogState?.busy)document.getElementById('meeting-dialog')?.close();return;}
+  const publish=event.target.closest('[data-publish-meeting]');
+  const local=event.target.closest('[data-local-meeting]');
+  if(!publish && !local)return;
+  const context=meetingDialogState,form=(publish || local).closest('form'),status=form.querySelector('[role="status"]');
+  if(context.busy || !form.reportValidity())return;
+  let record;
+  try {record={...context.original,...validateMeeting(meetingFormValue(form)),id:context.id,updatedAt:new Date().toISOString()};delete record.localOnly;localStorage.setItem(context.key,JSON.stringify(record));}
+  catch(error){status.textContent=error.message;return;}
+  if(local){
+    try {const saved=readLocalMeetings().filter(m=>m.id!==record.id);saved.push({...record,localOnly:true});localStorage.setItem('vit-fpga:local-meetings',JSON.stringify(saved));localStorage.removeItem(context.key);localStorage.removeItem(meetingDraftKey(record.id));document.getElementById('meeting-dialog').close();render();}
+    catch{status.textContent='Browser storage is unavailable. Your text is still in this popup.';}
+    return;
+  }
+  context.busy=true;const controls=[...form.querySelectorAll('input,textarea,select,button')];controls.forEach(c=>c.disabled=true);
+  try {
+    status.textContent=state.githubToken?'Saving meeting…':'Complete GitHub sign-in in the popup…';
+    state.githubToken ||= await signInWithGitHub();
+    await publishMeeting(state.githubToken,record,context.original);
+    state.data.meetings=state.data.meetings.filter(m=>m.id!==record.id);state.data.meetings.push(record);
+    try { localStorage.setItem('vit-fpga:local-meetings',JSON.stringify(readLocalMeetings().filter(m=>m.id!==record.id)));localStorage.removeItem(context.key);localStorage.removeItem(meetingDraftKey(record.id)); } catch {}
+    context.busy=false;document.getElementById('meeting-dialog').close();render();
+  } catch(error) {if(error.message.includes('expired'))state.githubToken=null;status.textContent=error.message;}
+  finally {context.busy=false;controls.forEach(c=>c.disabled=false);}
+});
+document.addEventListener('input',event=>{
+  const form=event.target.closest('#meeting-popup-form');if(!form || !meetingDialogState)return;
+  try {localStorage.setItem(meetingDialogState.key,JSON.stringify({...meetingFormValue(form),id:meetingDialogState.id}));}
+  catch {form.querySelector('[role="status"]').textContent='Browser draft storage is unavailable.';}
+});
+document.addEventListener('submit',event=>{
+  if(event.target.id==='meeting-popup-form'){event.preventDefault();event.target.querySelector('[data-publish-meeting]').click();}
 });
 document.addEventListener('input', event => {
   const form=event.target.closest('.member-update-form');
