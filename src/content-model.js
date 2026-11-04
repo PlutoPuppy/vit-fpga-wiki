@@ -5,6 +5,7 @@ const notes=field('notes','Notes','textarea');
 const member=field('memberId','Member','member',{required:true});
 const select=(name,label,options)=>field(name,label,'select',{options});
 export const collections={
+  biweekly:{label:'Biweekly updates',fields:[title,field('date','Update date','date',{required:true}),field('jerry','Jerry (Chenjia)','textarea'),field('stephanie','Stephanie (Yixin)','textarea'),field('tiffany','Tiffany (Yiling)','textarea'),field('winnie','Winnie (Weini)','textarea'),field('notes','Team decisions / next steps','textarea'),field('links','Evidence links — label | URL, one per line','links')]},
   overview:{label:'Dashboard updates',fields:[title,date,field('description','Update','textarea',{required:true})]},
   pages:{label:'Page introduction',fields:[title,field('subtitle','Introduction','textarea'),field('description','Overview','textarea'),field('notes','Additional notes','textarea')]},
   members:{label:'Member profiles',fields:[field('name','Name','text',{required:true}),field('role','Role'),field('avatar','Initials'),notes]},
@@ -40,6 +41,7 @@ export function validateContent(type,record){
     cleaned[f.name]=v;
   }
   if(type==='schedule' && cleaned.endMonth<cleaned.startMonth)throw new Error('End month must follow start month.');
+  if(type==='biweekly' && !['jerry','stephanie','tiffany','winnie'].some(key=>cleaned[key]?.trim()))throw new Error('Add an update for at least one teammate.');
   if(type==='updates' && !cleaned.date)throw new Error('Update date is required.');
   return cleaned;
 }

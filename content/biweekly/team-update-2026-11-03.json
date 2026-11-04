@@ -1,0 +1,16 @@
+{
+  "id": "team-update-2026-11-03",
+  "title": "Biweekly team update — November 3, 2026",
+  "date": "2026-11-03",
+  "jerry": "Matmul main includes contiguous host address remapping, a tiled output canvas and software tiling tests. Next: record tiled board pass logs and resolve full-canvas DMA reachability.",
+  "stephanie": "Selected attention MatMul runs through MNN and Jerry’s 16×16 FPGA array in 320 PIO jobs. The integrated image runs at 80 MHz after timing issues at 90 MHz. Single-run results were 5.74% faster for zeros and 2.71% slower for nonuniform input; repeated measurements and real-image accuracy checks remain pending.",
+  "tiffany": "Planned responsibilities: camera/Linux integration during November–January, requirement-to-test traceability, Test and Verification, and the SyRs appendix. The implementation plan does not establish completion of these tasks.",
+  "winnie": "Standalone softmax passed bit-exact RTL verification and timing near 90 MHz; full-SoC/MNN integration remains pending. Bias/GELU readout integration is implemented; the plan reports a board pass with evidence still to link. Reported CPU NEON throughput: 692 million arithmetic operations per second; benchmark setup and repeat-run details remain to be supplied.",
+  "notes": "Coordinate matmul, nonlinear-unit and MNN interfaces. Keep standalone 90 MHz timing separate from the integrated 80 MHz image. Collect matched benchmark and verification evidence for the next professor meeting.",
+  "links": [
+    {
+      "label": "MNN integration report",
+      "url": "https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md"
+    }
+  ]
+}

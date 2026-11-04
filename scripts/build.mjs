@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 const dist = new URL('../dist/', import.meta.url);
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly'];
 
 await mkdir(dist, { recursive: true });
 // Keep dist itself available when the local preview server uses it as cwd.

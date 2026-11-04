@@ -20,3 +20,7 @@ Run npm test for automated checks and npm run build to build dist and the server
 - [Research resources](resources.md)
 
 The original Manus snapshot remains in archive/data/. Historical Markdown pages remain for reference; new edits use the live content database once production storage is connected.
+
+## Biweekly team overview
+
+Project Updates is a primary navigation item immediately below Dashboard. Overview lists biweekly reports newest first. Each report is one entry with a date, title, separate Jerry/Stephanie/Tiffany/Winnie fields, team next steps and evidence links. Add biweekly update and entry Edit use the same single form. Earlier individual Result/Issue/Decision records remain in member update histories; no category filters or badges appear in Overview.
