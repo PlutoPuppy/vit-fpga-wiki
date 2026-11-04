@@ -2,21 +2,16 @@ import {createServer} from 'node:http';
 import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {DatabaseSync} from 'node:sqlite';
+import {localFileStore,migrateLegacyPreview} from '../server/local-file-store.mjs';
 import {onRequest} from '../functions/api/content.js';
 
-export function sqliteBinding(database){
-  return {
-    exec:async sql=>database.exec(sql),
-    prepare(sql){return {bind(...args){return {first:async()=>database.prepare(sql).get(...args) || null,all:async()=>({results:database.prepare(sql).all(...args)}),run:async()=>({meta:{changes:Number(database.prepare(sql).run(...args).changes)}}),_sql:sql,_args:args};},all:async()=>({results:database.prepare(sql).all()})};},
-    async batch(statements){database.exec('BEGIN');try{const result=[];for(const stmt of statements)result.push({meta:{changes:Number(database.prepare(stmt._sql).run(...stmt._args).changes)}});database.exec('COMMIT');return result;}catch(error){database.exec('ROLLBACK');throw error;}}
-  };
-}
-export async function createPreview({port=8767,dbFile,quiet=false}={}){
+export async function createPreview({port=8767,stateFile,quiet=false}={}){
   const root=fileURLToPath(new URL('../',import.meta.url));
   await mkdir(resolve(root,'.local'),{recursive:true});
-  const db=new DatabaseSync(dbFile || resolve(root,'.local/content.sqlite'));
-  const env={WIKI_DB:sqliteBinding(db)},dist=resolve(root,'dist');
+  const file=stateFile || resolve(root,'.local/content.json');
+  if(!stateFile)await migrateLegacyPreview(resolve(root,'.local/content.sqlite'),file);
+  const store=localFileStore(file);
+  const env={WIKI_FILE_STORE:store},dist=resolve(root,'dist');
   const server=createServer(async(req,res)=>{
     try{
       const url=new URL(req.url,`http://127.0.0.1:${server.address().port}`);
@@ -36,6 +31,6 @@ export async function createPreview({port=8767,dbFile,quiet=false}={}){
   });
   await new Promise(done=>server.listen(port,'127.0.0.1',done));
   if(!quiet)console.log(`Editable wiki preview: http://127.0.0.1:${server.address().port}/`);
-  return {server,db,close:()=>new Promise(done=>server.close(()=>{db.close();done();}))};
+  return {server,store,close:()=>new Promise(done=>server.close(done))};
 }
 if(process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url))await createPreview();

@@ -20,7 +20,7 @@ export const collections={
 export const contentTypes=Object.keys(collections);
 export function validateContent(type,record){
   if(!Object.hasOwn(collections,type))throw new Error('Unknown content collection.');
-  if(!record || !/^[a-zA-Z0-9_-]{1,120}$/.test(record.id))throw new Error('Invalid content identifier.');
+  if(!record || ['__proto__','constructor','prototype'].includes(record.id) || !/^[a-zA-Z0-9_-]{1,120}$/.test(record.id))throw new Error('Invalid content identifier.');
   const cleaned={id:record.id};
   for(const f of collections[type].fields){
     let v=record[f.name];

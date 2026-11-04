@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run check && node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "test": "npm run build && node --test scripts/content-api.test.mjs scripts/biweekly.test.mjs scripts/project-updates.test.mjs scripts/member-publishing.test.mjs scripts/meeting-publishing.test.mjs",
+    "test": "npm run build && node --test scripts/content-api.test.mjs scripts/github-store.test.mjs scripts/biweekly.test.mjs scripts/project-updates.test.mjs scripts/member-publishing.test.mjs scripts/meeting-publishing.test.mjs",
     "preview": "npm run build && node scripts/preview.mjs"
   }
 }

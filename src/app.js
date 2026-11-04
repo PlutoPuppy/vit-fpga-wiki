@@ -138,7 +138,7 @@ function render() {
   if(page && pageId!=='dashboard' && page.notes){
     const note=document.createElement('p');note.className='project-update-body';note.textContent=page.notes;app.querySelector('.page-head')?.after(note);
   }
-  if(!state.shared){const notice=document.createElement('p');notice.className='storage-notice';notice.textContent='Shared saving is waiting for storage setup. Browser drafts are still available.';app.prepend(notice);}
+  if(!state.shared){const notice=document.createElement('p');notice.className='storage-notice';notice.textContent='The site owner needs to enable GitHub file saving once. No database is required. Browser drafts are still available.';app.prepend(notice);}
   sidebar.classList.remove('open');
 }
 
