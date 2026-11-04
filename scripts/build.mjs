@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 const dist = new URL('../dist/', import.meta.url);
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview'];
 
 await mkdir(dist, { recursive: true });
 // Keep dist itself available when the local preview server uses it as cwd.
@@ -11,6 +11,7 @@ await cp(new URL('../src/', import.meta.url), dist, { recursive: true });
 await cp(new URL('../assets/', import.meta.url), new URL('../dist/assets/', import.meta.url), { recursive: true });
 await mkdir(new URL('../dist/data/', import.meta.url), { recursive: true });
 
+const seed = {};
 for (const type of types) {
   const directory = new URL(`../content/${type}/`, import.meta.url);
   const files = (await readdir(directory)).filter(name => name.endsWith('.json')).sort();
@@ -20,9 +21,13 @@ for (const type of types) {
     record.id ||= name.slice(0, -5);
     records.push(record);
   }
+  seed[type]=records;
   await writeFile(new URL(`../dist/data/${type}.json`, import.meta.url), JSON.stringify(records, null, 2) + '\n');
 }
 
 console.log('Built dist/ from content/');
 
 await cp(new URL('../files/', import.meta.url), new URL('../dist/files/', import.meta.url), { recursive: true });
+
+await mkdir(new URL('../server/',import.meta.url),{recursive:true});
+await writeFile(new URL('../server/seed.js',import.meta.url),'export default '+JSON.stringify(seed)+';\n');

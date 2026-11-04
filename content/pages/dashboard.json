@@ -1,0 +1,7 @@
+{
+  "id": "dashboard",
+  "title": "Vision Transformer on FPGA",
+  "subtitle": "Designing and implementing an efficient hardware accelerator for Vision Transformer inference on reconfigurable FPGA fabric.",
+  "description": "Designing and implementing an efficient hardware accelerator for Vision Transformer inference on reconfigurable FPGA fabric.",
+  "notes": ""
+}
