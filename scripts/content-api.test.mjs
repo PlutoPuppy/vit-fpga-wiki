@@ -16,6 +16,7 @@ const get=async()=>{const response=await onRequest({request:new Request('https:/
 const save=(collection,record,revision=0,deleted=false,origin='https://wiki.test')=>onRequest({env,request:new Request('https://wiki.test/api/content',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({collection,record,revision,deleted})})});
 const samples={
   biweekly:{title:'Team report',date:'2026-11-04',jerry:'Matmul',stephanie:'MNN',tiffany:'Camera',winnie:'Softmax'},
+  summary:{body:'Where the project stands'},
   overview:{title:'Dashboard note',description:'Update'},pages:{title:'Page intro'},members:{name:'Test member'},tasks:{title:'Task',memberId:'member-wn',status:'todo'},updates:{title:'Progress',memberId:'member-wn',date:'2026-11-04',update:'Test result'},meetings:{title:'Meeting',type:'internal',date:'2026-11-04',notes:'Notes'},ideas:{title:'Idea',description:'Experiment'},resources:{title:'Resource',url:'https://example.com'},files:{title:'File',url:'/files/test.pdf'},schedule:{title:'Schedule',group:'Hardware development',kind:'task',startMonth:3,endMonth:4}
 };
 test('every tab collection supports no-login add, edit and soft removal',async()=>{

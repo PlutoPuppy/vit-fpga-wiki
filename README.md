@@ -1,6 +1,6 @@
 # ViT-FPGA Research Wiki
 
-Team wiki for the TinyViT / DE1-SoC capstone. Every tab has an Add entry popup, and each saved entry has Edit and Remove controls. Member profiles, tasks, updates, meetings, ideas, resources, file links, Gantt entries and dashboard notes are editable directly on the page without login. Introductions can also be edited.
+Team wiki for the TinyViT / DE1-SoC capstone. Every tab has an Add entry popup, and each saved entry has Edit and Remove controls. Progress summary entries, biweekly updates, meetings, ideas, resources, file links, Gantt entries and dashboard notes are editable directly on the page without login. Member profiles, tasks and individual updates remain as data in content/ and feed the Dashboard; they have no tab of their own. Introductions can also be edited.
 
 Content saves use /api/content. Production shared saves require the server secret WIKI_GITHUB_TOKEN; see [DEPLOY.md](DEPLOY.md). Website code is maintained separately in Git. Initial JSON records seed the text file view, and saved changes override them. Removed entries remain in revision history.
 
@@ -23,7 +23,11 @@ The original Manus snapshot remains in archive/data/. Historical Markdown pages 
 
 ## Biweekly team overview
 
-Project Updates is a primary navigation item immediately below Dashboard. Overview lists biweekly reports newest first. Each report is one entry with a date, title, separate Jerry/Stephanie/Tiffany/Winnie fields, team next steps and evidence links. Add biweekly update and entry Edit use the same single form. Earlier individual Result/Issue/Decision records remain in member update histories; no category filters or badges appear in Overview.
+Project Updates is a primary navigation item immediately below Dashboard. Overview lists biweekly reports newest first. Each report is one entry with a date, title, separate Jerry/Stephanie/Tiffany/Winnie fields, team next steps and evidence links. Add biweekly update and entry Edit use the same single form. Earlier individual Result/Issue/Decision records remain in content/updates/; no category filters or badges appear in Overview.
+
+## Progress summary
+
+Progress Summary is a navigation item below Project Updates. It shows one block of text that the team writes; nothing is generated. Click Edit progress summary on the tab to change it. Line breaks and blank lines are kept. The page shows the date it was last saved. The starting text is the body field of content/summary/progress-summary.json; text saved on the site replaces it.
 
 ## No-database saving
 

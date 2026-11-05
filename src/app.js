@@ -1,17 +1,18 @@
 import { newestBiweeklyFirst, teammates } from './biweekly.js';
 import {loadContent,saveContent} from './content-store.js';
 import {installContentEditor,tabCollections} from './content-editor.js';
+import {collections} from './content-model.js';
 import { validateMeeting } from './meeting-publishing.js';
-import { validateUpdate } from './member-publishing.js';
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary'];
 const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
-const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '', memberId: 'member-jc', shared: false };
+const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '', shared: false };
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const route = () => { const path = (location.hash.slice(1) || '/').replace(/\/$/, '') || '/'; return path; };
 const link = url => /^https?:\/\//i.test(url || '') ? esc(url) : '#';
 const label = value => String(value || '').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
-const heading = (title, subtitle) => `<div class="page-head"><div><div class="eyebrow">CAPSTONE RESEARCH PROJECT · 2026</div><h1 class="page-title">${esc(title)}</h1><p class="page-subtitle">${esc(subtitle)}</p></div><button class="edit-cta" type="button" data-entry-add="${tabCollections[route().slice(1)||'dashboard'][0]}">${route()==='/updates'?'+ Add biweekly update':'+ Add entry'}</button></div>`;
+const heading = (title, subtitle) => `<div class="page-head"><div><div class="eyebrow">CAPSTONE RESEARCH PROJECT · 2026</div><h1 class="page-title">${esc(title)}</h1><p class="page-subtitle">${esc(subtitle)}</p></div>${headingButton(tabCollections[route().slice(1)||'dashboard'][0])}</div>`;
+const headingButton = type => collections[type]?.single ? `<button class="edit-cta" type="button" data-entry-type="${type}" data-entry-edit="${collections[type].single}">Edit ${esc(collections[type].label.toLowerCase())}</button>` : `<button class="edit-cta" type="button" data-entry-add="${type}">${route()==='/updates'?'+ Add biweekly update':'+ Add entry'}</button>`;
 
 function dashboard() {
   const { members, tasks, ideas, resources, meetings } = state.data;
@@ -21,37 +22,21 @@ function dashboard() {
   return heading('Dashboard','Team progress, notes and project overview.') + `<section class="hero" data-content-type="pages" data-content-id="dashboard"><div class="hero-content"><div class="hero-meta">CAPSTONE RESEARCH PROJECT · 2026</div><h2>${esc(state.data.pages.find(p=>p.id==='dashboard')?.title || 'Vision Transformer on FPGA')}</h2><p>${esc(state.data.pages.find(p=>p.id==='dashboard')?.description || '')}</p><div class="hero-meta">TEAM RESEARCH WIKI</div></div></section>
     <section class="stats" aria-label="Project statistics">
       <div class="stat"><strong>${members.length}</strong><span>Team members</span></div><div class="stat"><strong>${currentTasks.filter(t => t.status === 'done').length}/${currentTasks.length}</strong><span>Tasks done · ${inProgress.length} in progress</span></div><div class="stat"><strong>${ideas.length}</strong><span>Brainstorm ideas · ${ideas.filter(i => i.pinned).length} pinned</span></div><div class="stat"><strong>${resources.length}</strong><span>Research resources</span></div>
-    </section><div class="grid-2"><section class="panel"><div class="section-head"><h2>Team Progress</h2><a href="#/members">View all →</a></div>${members.map(m => `<div class="member-mini"><div><strong>${esc(m.name)}</strong><br><small>${esc(m.role)}</small></div><b>${tasks.filter(t => !t.archived && t.memberId === m.id && t.status === 'done').length}/${tasks.filter(t => !t.archived && t.memberId === m.id).length}</b></div>`).join('')}</section>
+    </section><div class="grid-2"><section class="panel"><div class="section-head"><h2>Team Progress</h2></div>${members.map(m => `<div class="member-mini"><div><strong>${esc(m.name)}</strong><br><small>${esc(m.role)}</small></div><b>${tasks.filter(t => !t.archived && t.memberId === m.id && t.status === 'done').length}/${tasks.filter(t => !t.archived && t.memberId === m.id).length}</b></div>`).join('')}</section>
     <section class="panel"><div class="section-head"><h2>Top Ideas</h2><a href="#/brainstorm">View board →</a></div>${topIdeas.map(i => `<div class="idea-mini"><span class="vote">▲ ${Number(i.votes) || 0}</span> &nbsp;${esc(i.title)}</div>`).join('')}</section>
     <section class="panel"><div class="section-head"><h2>Upcoming Meetings</h2><a href="#/calendar">Calendar →</a></div>${meetings.filter(m => m.date >= new Date().toISOString().slice(0, 10)).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3).map(m => `<div class="task-mini">${esc(m.date)} · ${esc(m.title)}</div>`).join('') || '<div class="empty">No upcoming meetings</div>'}</section>
-    <section class="panel"><div class="section-head"><h2>Quick Links</h2></div><div class="quick-links"><a href="#/members">Member Progress & Updates →</a><a href="#/updates">Biweekly Updates →</a><a href="#/files">ECE496 Files & Data →</a><a href="#/brainstorm">Brainstorm Board →</a><a href="#/calendar">Meeting Calendar →</a><a href="#/resources">Research Resources →</a></div></section></div><section class="dashboard-notes cards">${state.data.overview.map(n=>`<article class="card" data-content-type="overview" data-content-id="${esc(n.id)}"><h2>${esc(n.title)}</h2><small>${esc(n.date)}</small><p class="project-update-body">${esc(n.description)}</p></article>`).join('')}</section>`;
+    <section class="panel"><div class="section-head"><h2>Quick Links</h2></div><div class="quick-links"><a href="#/updates">Biweekly Updates →</a><a href="#/files">ECE496 Files & Data →</a><a href="#/brainstorm">Brainstorm Board →</a><a href="#/calendar">Meeting Calendar →</a><a href="#/resources">Research Resources →</a></div></section></div><section class="dashboard-notes cards">${state.data.overview.map(n=>`<article class="card" data-content-type="overview" data-content-id="${esc(n.id)}"><h2>${esc(n.title)}</h2><small>${esc(n.date)}</small><p class="project-update-body">${esc(n.description)}</p></article>`).join('')}</section>`;
 }
 
-const updateDraftKey = id => `vit-fpga:member-update:${id}`;
-function readUpdateDraft(id) {
-  try { return JSON.parse(localStorage.getItem(updateDraftKey(id)) || 'null'); } catch { return null; }
-}
 const torontoDate = () => new Intl.DateTimeFormat('en-CA', {timeZone:'America/Toronto'}).format(new Date());
-function updateInput(form) {
-  return {memberId:form.dataset.memberId, date:form.elements.date.value, title:form.elements.title.value, update:form.elements.update.value, links:form.elements.links.value.split('\n').map(s=>s.trim()).filter(Boolean).map(url=>({label:url,url}))};
-}
-function keepUpdateDraft(form, extra = {}) {
-  const draft = {...updateInput(form), linkText:form.elements.links.value, ...extra};
-  localStorage.setItem(updateDraftKey(form.dataset.memberId),JSON.stringify(draft));
-  return draft;
-}
-function members() {
-  const member = state.data.members.find(m => m.id === state.memberId) || state.data.members[0];
-  if(!member)return heading('Member Progress & Updates','Add a member profile to start.');
-  const own = state.data.tasks.filter(t => !t.archived && t.memberId === member.id);
-  const history = state.data.updates.filter(u => u.memberId === member.id).sort((a,b) => b.date.localeCompare(a.date) || (b.createdAt || '').localeCompare(a.createdAt || '') || Number(Boolean(b.evidenceReviewed))-Number(Boolean(a.evidenceReviewed)));
-  const draft = readUpdateDraft(member.id);
-  return heading('Member Progress & Updates', 'Current work and a dated changelog for every team member.') + `<div class="member-tabs" aria-label="Choose a member">${state.data.members.map(m => `<button class="chip ${m.id === member.id ? 'active' : ''}" data-member-id="${esc(m.id)}" aria-pressed="${m.id===member.id}">${esc(m.name)}</button>`).join('')}</div><section class="card member-card" data-content-type="members" data-content-id="${esc(member.id)}"><div class="member-head"><div class="avatar">${esc(member.avatar)}</div><div><h2>${esc(member.name)}</h2><p>${esc(member.role)}</p></div><span class="member-count">${own.filter(t=>t.status==='done').length}/${own.length} tasks complete · ${history.length} ${history.length===1?'update':'updates'}</span></div><p class="member-note">${esc(member.notes)}</p><details class="current-work"><summary>Current tasks (${own.length})</summary><div class="task-list">${own.map(t => `<div class="task-row" data-content-type="tasks" data-content-id="${esc(t.id)}"><span>${esc(t.title)}<small class="task-acceptance">${esc(t.acceptance)}</small></span><span class="tag">${esc(t.tag)}</span><span class="status ${t.status === 'done' ? 'done' : t.status === 'todo' ? 'todo' : ''}">${esc(label(t.status.replaceAll('-',' ')))}</span></div>`).join('')}</div></details></section><section class="card update-composer"><div class="section-head"><h2>Post an update</h2><span class="pill">${esc(member.name)}</span></div><form class="member-update-form" data-member-id="${esc(member.id)}"><div class="update-fields"><label>Date<input name="date" type="date" required value="${esc(draft?.date || torontoDate())}"></label><label>Update title<input name="title" required maxlength="160" placeholder="What changed?" value="${esc(draft?.title || '')}"></label></div><label>Update, blockers and next step<textarea name="update" rows="5" required maxlength="20000" placeholder="Describe progress, results, blockers and what comes next.">${esc(draft?.update || '')}</textarea></label><label>Evidence links — one URL per line<textarea name="links" rows="2" placeholder="https://github.com/…">${esc(draft?.linkText || '')}</textarea></label><div class="note-buttons"><button type="button" class="edit-cta" data-publish-update>Save update</button><button type="button" class="chip" data-save-update>Save draft</button><button type="button" class="chip" data-discard-update>Discard draft</button></div><p class="publish-hint">Saved updates appear in the team history below.</p><p class="update-status" role="status">${draft ? 'Draft restored from this browser.' : 'Add your update here and save it to the wiki.'}</p></form></section><section class="update-history"><div class="section-head"><h2>Update history</h2></div><ol class="update-timeline">${history.map((u,i) => `<li><article class="card update-entry" data-content-type="updates" data-content-id="${esc(u.id)}"><div class="update-meta"><time datetime="${esc(u.date)}">${esc(u.date)}</time><span class="pill">${i===0?'Latest update':'Past update'}</span></div><h3>${esc(u.title || 'Progress update')}</h3>${u.measurement ? `<p class="result-value">${esc(u.measurement)}</p>` : ''}<p>${esc(u.update)}</p>${u.context ? `<details class="measurement-context"><summary>Measurement context / follow-up</summary><p>${esc(u.context)}</p></details>` : ''}${u.links?.length ? `<div class="evidence-links">${u.links.map(l => `<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>` : ''}</article></li>`).join('') || '<li class="empty">No updates yet. Post the first dated entry above.</li>'}</ol></section>`;
-}
 
 function projectUpdates() {
   const entries=newestBiweeklyFirst(state.data.biweekly);
   return heading('Project Updates','Biweekly progress from all four teammates, newest first.') + `<div class="toolbar overview-toolbar"><button class="chip active" type="button" aria-pressed="true">Overview</button></div><div class="cards biweekly-feed">${entries.map(entry=>`<article class="card biweekly-entry" data-content-type="biweekly" data-content-id="${esc(entry.id)}"><div class="update-meta"><time datetime="${esc(entry.date)}">${esc(entry.date)}</time><span>Biweekly team update</span></div><h2>${esc(entry.title)}</h2><div class="teammate-updates">${teammates.map(member=>`<section class="teammate-update"><h3>${esc(member.name)}</h3><p>${esc(entry[member.key] || 'No update recorded for this period.')}</p></section>`).join('')}</div>${entry.notes?`<section class="team-next-steps"><h3>Team decisions / next steps</h3><p>${esc(entry.notes)}</p></section>`:''}${entry.links?.length?`<div class="evidence-links">${entry.links.map(l=>`<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>`:''}</article>`).join('') || '<div class="empty">No biweekly updates yet. Add the first team update above.</div>'}</div>`;
+}
+function summary() {
+  const doc = state.data.summary.find(r => r.id === collections.summary.single);
+  return heading('Progress Summary', 'Overall project progress, written by the team.') + `<section class="card summary-doc">${doc?.body?.trim() ? `<div class="summary-text">${esc(doc.body)}</div>` : '<p class="empty">No summary written yet. Click Edit progress summary to write it.</p>'}${doc?.updatedAt ? `<p class="summary-updated">Last updated ${esc(new Intl.DateTimeFormat('en-CA', {timeZone:'America/Toronto'}).format(new Date(doc.updatedAt)))}</p>` : ''}</section>`;
 }
 function brainstorm() {
   const ideas = [...state.data.ideas].sort((a, b) => Number(b.pinned) - Number(a.pinned) || Number(b.votes) - Number(a.votes));
@@ -107,7 +92,7 @@ function calendar() {
 function gantt() {
   const months = ['Sep 2026','Oct','Nov','Dec','Jan 2027','Feb','Mar','Apr'];
   const groups = ['Baseline and profiling','Hardware development','Software and peripherals','System integration and testing','Milestones'];
-  return heading('Gantt Chart', 'September 2026–April 2027 · implementation schedule and target milestones.') + `<p class="schedule-source">Transcribed from the supplied <strong>Inplementation Plan.docx</strong>. Bars show planned work windows, not completion. See <a href="#/members">dated updates</a> for evidence. “Step” and “Tiff” in the source are Stephanie and Tiffany.</p><div class="gantt-scroll" role="region" aria-label="Project schedule" tabindex="0"><div class="gantt-table"><div class="gantt-label gantt-heading">Workstream / owner</div>${months.map((m,i) => `<div class="gantt-month ${i===2 ? 'current-month' : ''}">${m}</div>`).join('')}${groups.map(group => `<div class="gantt-group">${esc(group)}</div>${state.data.schedule.filter(r => r.group === group).sort((a,b) => a.startMonth-b.startMonth || a.title.localeCompare(b.title)).map(r => `<div class="gantt-label" data-content-type="schedule" data-content-id="${esc(r.id)}"><strong>${esc(r.title)}</strong><small>${esc(r.owner)}</small></div>${months.map((m,i) => `<div class="gantt-cell ${i===2?'current-month':''}">${i+1>=r.startMonth && i+1<=r.endMonth ? `<span class="${r.kind==='milestone'?'gantt-milestone':'gantt-bar'}" title="${esc(r.title)} · ${esc(r.owner)} · ${months[r.startMonth-1]}–${months[r.endMonth-1]}">${r.kind==='milestone'?'◆':'<span class="sr-only">Planned work</span>'}</span>` : ''}</div>`).join('')}`).join('')}`).join('')}</div></div><div class="panel schedule-note"><h2>Progress and planning notes</h2><p>The plan reports a GELU board-test pass; a linked test log is still needed. Standalone softmax passed simulation and timing near 90 MHz. Stephanie’s integrated model uses an 80 MHz full-SoC image and one selected offloaded operation; it does not establish full-model FPGA inference or consistent speedup.</p><p>February: hardware integration target · March: system prototype target · April: final demonstration. Future milestones remain planning targets.</p></div>`;
+  return heading('Gantt Chart', 'September 2026–April 2027 · implementation schedule and target milestones.') + `<p class="schedule-source">Transcribed from the supplied <strong>Inplementation Plan.docx</strong>. Bars show planned work windows, not completion. See <a href="#/updates">Project Updates</a> for evidence. “Step” and “Tiff” in the source are Stephanie and Tiffany.</p><div class="gantt-scroll" role="region" aria-label="Project schedule" tabindex="0"><div class="gantt-table"><div class="gantt-label gantt-heading">Workstream / owner</div>${months.map((m,i) => `<div class="gantt-month ${i===2 ? 'current-month' : ''}">${m}</div>`).join('')}${groups.map(group => `<div class="gantt-group">${esc(group)}</div>${state.data.schedule.filter(r => r.group === group).sort((a,b) => a.startMonth-b.startMonth || a.title.localeCompare(b.title)).map(r => `<div class="gantt-label" data-content-type="schedule" data-content-id="${esc(r.id)}"><strong>${esc(r.title)}</strong><small>${esc(r.owner)}</small></div>${months.map((m,i) => `<div class="gantt-cell ${i===2?'current-month':''}">${i+1>=r.startMonth && i+1<=r.endMonth ? `<span class="${r.kind==='milestone'?'gantt-milestone':'gantt-bar'}" title="${esc(r.title)} · ${esc(r.owner)} · ${months[r.startMonth-1]}–${months[r.endMonth-1]}">${r.kind==='milestone'?'◆':'<span class="sr-only">Planned work</span>'}</span>` : ''}</div>`).join('')}`).join('')}`).join('')}</div></div><div class="panel schedule-note"><h2>Progress and planning notes</h2><p>The plan reports a GELU board-test pass; a linked test log is still needed. Standalone softmax passed simulation and timing near 90 MHz. Stephanie’s integrated model uses an 80 MHz full-SoC image and one selected offloaded operation; it does not establish full-model FPGA inference or consistent speedup.</p><p>February: hardware integration target · March: system prototype target · April: final demonstration. Future milestones remain planning targets.</p></div>`;
 }
 
 function resources() {
@@ -121,7 +106,7 @@ function resources() {
 function files() {
  return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2><a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a></h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p>${esc(f.description)}</p></article>`).join('')}</div>`;
 }
-const pages = { '/': ['Dashboard', dashboard], '/members': ['Member Progress & Updates', members], '/updates': ['Project Updates', projectUpdates], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
+const pages = { '/': ['Dashboard', dashboard], '/updates': ['Project Updates', projectUpdates], '/summary': ['Progress Summary', summary], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
 function render() {
   const path = route();
   const [title, component] = pages[path] || pages['/'];
@@ -167,56 +152,6 @@ document.addEventListener('click', event => {
   const url = URL.createObjectURL(new Blob([text], {type:'text/markdown'}));
   const a = document.createElement('a'); a.href=url; a.download=`${meeting.id}-notes.md`; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
 });
-let publishingUpdate = false;
-document.addEventListener('click', async event => {
-  const memberButton = event.target.closest('[data-member-id]');
-  if (memberButton && memberButton.tagName === 'BUTTON') {
-    if (publishingUpdate) return;
-    state.memberId=memberButton.dataset.memberId; render(); return;
-  }
-  const discard=event.target.closest('[data-discard-update]');
-  if (discard && !publishingUpdate) {
-    try { localStorage.removeItem(updateDraftKey(discard.closest('form').dataset.memberId)); render(); }
-    catch { discard.closest('form').querySelector('[role="status"]').textContent='Could not discard browser draft.'; }
-    return;
-  }
-  const save = event.target.closest('[data-save-update]');
-  const publish = event.target.closest('[data-publish-update]');
-  if (!save && !publish) return;
-  const form = (save || publish).closest('form');
-  const status = form.querySelector('[role="status"]');
-  if (save) {
-    try { keepUpdateDraft(form); status.textContent='Draft saved in this browser. It is not published yet.'; }
-    catch { status.textContent='Browser storage is unavailable. Keep this page open and copy your draft before leaving.'; }
-    return;
-  }
-  if (publishingUpdate || !form.reportValidity()) return;
-  let record;
-  try {
-    const input = validateUpdate(updateInput(form),state.data.members.map(m=>m.id));
-    const oldDraft = readUpdateDraft(input.memberId);
-    const signature = JSON.stringify(input);
-    record = oldDraft?.signature === signature && oldDraft?.pendingRecord ? oldDraft.pendingRecord : { ...input, id:`update-${input.memberId}-${crypto.randomUUID()}`, createdAt:new Date().toISOString() };
-    keepUpdateDraft(form,{pendingRecord:record,signature});
-  } catch(error) { status.textContent=error.message; return; }
-  publishingUpdate=true;
-  const controls=[...form.querySelectorAll('input,textarea,button')];
-  controls.forEach(control=>control.disabled=true);
-  try {
-    status.textContent='Saving update…';
-    const result=await saveContent('updates',record);
-    state.data.updates.unshift(result.record);
-    try { localStorage.removeItem(updateDraftKey(record.memberId)); } catch {}
-    render();
-    const publishedStatus=document.querySelector('.member-update-form [role="status"]');
-    if (publishedStatus) publishedStatus.textContent='Saved to the wiki and added to the history below.';
-  } catch(error) {
-    status.textContent=error.message;
-  } finally { publishingUpdate=false; controls.forEach(control=>control.disabled=false); }
-});
-document.addEventListener('submit', event => {
-  if (event.target.matches('.member-update-form')) { event.preventDefault(); event.target.querySelector('[data-publish-update]').click(); }
-});
 document.addEventListener('click', async event => {
   const remove=event.target.closest('[data-remove-local-meeting]');
   if(remove){localStorage.setItem('vit-fpga:local-meetings',JSON.stringify(readLocalMeetings().filter(m=>m.id!==remove.dataset.removeLocalMeeting)));render();return;}
@@ -255,12 +190,6 @@ document.addEventListener('input',event=>{
 });
 document.addEventListener('submit',event=>{
   if(event.target.id==='meeting-popup-form'){event.preventDefault();event.target.querySelector('[data-publish-meeting]').click();}
-});
-document.addEventListener('input', event => {
-  const form=event.target.closest('.member-update-form');
-  if (!form) return;
-  try { keepUpdateDraft(form); form.querySelector('[role="status"]').textContent='Draft saved in this browser.'; }
-  catch { form.querySelector('[role="status"]').textContent='Browser storage unavailable. Your text remains on this page.'; }
 });
 document.addEventListener('input', event => {
   if (event.target.id !== 'resource-search') return;

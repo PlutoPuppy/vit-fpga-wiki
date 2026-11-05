@@ -6,6 +6,8 @@ const member=field('memberId','Member','member',{required:true});
 const select=(name,label,options)=>field(name,label,'select',{options});
 export const collections={
   biweekly:{label:'Biweekly updates',fields:[title,field('date','Update date','date',{required:true}),field('jerry','Jerry (Chenjia)','textarea'),field('stephanie','Stephanie (Yixin)','textarea'),field('tiffany','Tiffany (Yiling)','textarea'),field('winnie','Winnie (Weini)','textarea'),field('notes','Team decisions / next steps','textarea'),field('links','Evidence links — label | URL, one per line','links')]},
+  // single: the tab holds exactly one record with this id; it is edited, never added or removed.
+  summary:{label:'Progress summary',single:'progress-summary',fields:[field('body','Progress summary text','textarea',{rows:20})]},
   overview:{label:'Dashboard updates',fields:[title,date,field('description','Update','textarea',{required:true})]},
   pages:{label:'Page introduction',fields:[title,field('subtitle','Introduction','textarea'),field('description','Overview','textarea'),field('notes','Additional notes','textarea')]},
   members:{label:'Member profiles',fields:[field('name','Name','text',{required:true}),field('role','Role'),field('avatar','Initials'),notes]},

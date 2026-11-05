@@ -1,7 +1,7 @@
 import {collections,validateContent} from './content-model.js';
 import {saveContent} from './content-store.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export const tabCollections={dashboard:['overview','pages'],members:['updates','tasks','members','pages'],updates:['biweekly','pages'],brainstorm:['ideas','pages'],gantt:['schedule','pages'],calendar:['meetings','pages'],resources:['resources','pages'],files:['files','pages']};
+export const tabCollections={dashboard:['overview','pages'],updates:['biweekly','pages'],summary:['summary','pages'],brainstorm:['ideas','pages'],gantt:['schedule','pages'],calendar:['meetings','pages'],resources:['resources','pages'],files:['files','pages']};
 export function installContentEditor({getData,tab,onChange}){
   let context;
   function choices(type,field){
@@ -12,7 +12,7 @@ export function installContentEditor({getData,tab,onChange}){
     document.getElementById('content-entry-dialog')?.remove();
     const original=getData()[type]?.find(r=>r.id===id);
     const tabId=tab();
-    const record=original || {id:`${type}-${crypto.randomUUID()}`,date:new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(new Date()),scope:tabId==='updates'?'project':'member',status:'todo',category:'General',type:'internal',timezone:'America/Toronto',startMonth:3,endMonth:3,group:'Hardware development',kind:'task'};
+    const record=original || {id:id || `${type}-${crypto.randomUUID()}`,date:new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(new Date()),scope:tabId==='updates'?'project':'member',status:'todo',category:'General',type:'internal',timezone:'America/Toronto',startMonth:3,endMonth:3,group:'Hardware development',kind:'task'};
     const key=`vit-fpga:entry-draft:${type}:${id || tabId}`;
     let draft;try{draft=JSON.parse(localStorage.getItem(key)||'null');}catch{}
     const values=draft && (!original || draft._revision===original._revision)?draft:record;
@@ -22,11 +22,11 @@ export function installContentEditor({getData,tab,onChange}){
       const value=values[f.name];let control;
       if(f.type==='boolean')control=`<input name="${f.name}" type="checkbox" ${value?'checked':''}>`;
       else if(f.type==='select' || f.type==='member')control=`<select name="${f.name}">${choices(type,f).map(([v,l])=>`<option value="${esc(v)}" ${v===value?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
-      else if(['textarea','list','links'].includes(f.type))control=`<textarea name="${f.name}" rows="${f.type==='textarea'?4:2}" ${f.required?'required':''}>${esc(f.type==='links'?(value||[]).map(l=>`${l.label} | ${l.url}`).join('\n'):f.type==='list'?(value||[]).join('\n'):value||'')}</textarea>`;
+      else if(['textarea','list','links'].includes(f.type))control=`<textarea name="${f.name}" rows="${f.rows || (f.type==='textarea'?4:2)}" ${f.required?'required':''}>${esc(f.type==='links'?(value||[]).map(l=>`${l.label} | ${l.url}`).join('\n'):f.type==='list'?(value||[]).join('\n'):value||'')}</textarea>`;
       else control=`<input name="${f.name}" type="${['date','time','number'].includes(f.type)?f.type:'text'}" ${f.min!==undefined?`min="${f.min}"`:''} ${f.max!==undefined?`max="${f.max}"`:''} ${f.required?'required':''} value="${esc(value??'')}">`;
       return `<label class="${['jerry','stephanie','tiffany','winnie'].includes(f.name)?'teammate-field':''}">${esc(f.label)}${control}</label>`;
     }).join('');
-    dialog.innerHTML=`<div class="section-head"><h2 id="content-entry-title">${remove?'Remove entry':type==='biweekly'?(id?'Edit biweekly update':'Add biweekly update'):id?'Edit entry':'Add entry'}</h2><button class="chip" type="button" data-editor-close aria-label="Close entry popup">✕</button></div>${remove?`<p>Remove “${esc(record.title || record.name)}” from the wiki? It remains in the saved revision history.</p>`:!id && tabCollections[tabId].filter(t=>t!=='pages').length>1?`<label>Entry type<select data-editor-collection>${selector}</select></label>`:''}<form id="content-entry-form">${remove?'':fields}<div class="note-buttons"><button type="submit" class="edit-cta">${remove?'Remove entry':type==='biweekly'?'Save update':'Save entry'}</button><button class="chip" type="button" data-editor-close>Cancel</button></div><p role="status" class="update-status"></p></form>`;
+    dialog.innerHTML=`<div class="section-head"><h2 id="content-entry-title">${remove?'Remove entry':collections[type].single?`Edit ${esc(collections[type].label.toLowerCase())}`:type==='biweekly'?(id?'Edit biweekly update':'Add biweekly update'):id?'Edit entry':'Add entry'}</h2><button class="chip" type="button" data-editor-close aria-label="Close entry popup">✕</button></div>${remove?`<p>Remove “${esc(record.title || record.name)}” from the wiki? It remains in the saved revision history.</p>`:!id && tabCollections[tabId].filter(t=>t!=='pages').length>1?`<label>Entry type<select data-editor-collection>${selector}</select></label>`:''}<form id="content-entry-form">${remove?'':fields}<div class="note-buttons"><button type="submit" class="edit-cta">${remove?'Remove entry':type==='biweekly'?'Save update':'Save entry'}</button><button class="chip" type="button" data-editor-close>Cancel</button></div><p role="status" class="update-status"></p></form>`;
     context={type,record,key,remove,busy:false};
     document.body.append(dialog);dialog.addEventListener('cancel',event=>{if(context.busy)event.preventDefault();});dialog.addEventListener('close',()=>{dialog.remove();context=null;});dialog.showModal();
   }
@@ -43,7 +43,7 @@ export function installContentEditor({getData,tab,onChange}){
     const add=event.target.closest('[data-entry-add]');if(add){open(add.dataset.entryAdd);return;}
     const edit=event.target.closest('[data-entry-edit]');if(edit){open(edit.dataset.entryType,edit.dataset.entryEdit);return;}
     const remove=event.target.closest('[data-entry-remove]');if(remove){open(remove.dataset.entryType,remove.dataset.entryRemove,true);return;}
-    const manage=event.target.closest('[data-manage-content]');if(manage){open(tabCollections[tab()][0]);return;}
+    const manage=event.target.closest('[data-manage-content]');if(manage){const type=tabCollections[tab()][0];open(type,collections[type].single);return;}
     if(event.target.closest('[data-editor-close]') && !context?.busy)document.getElementById('content-entry-dialog')?.close();
   });
   document.addEventListener('change',event=>{if(event.target.matches('[data-editor-collection]'))open(event.target.value);});
