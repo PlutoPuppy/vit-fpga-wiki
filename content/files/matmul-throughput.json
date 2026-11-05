@@ -6,5 +6,5 @@
   "status": "Measured on DE1-SoC",
   "url": "/files/data/matmul-throughput-2026-11-05.csv",
   "description": "Throughput of an N×N int8 matmul at each size, CPU baseline (matmul_baseline) next to the systolic array (matmul_accel_cli). Speedup = systolic array GOP/s ÷ CPU baseline GOP/s.",
-  "table": "Matrix size,CPU baseline (GOP/s),Systolic array (GOP/s),Speedup\n64×64,1.255,6.043,4.82×\n128×128,1.382,11.403,8.25×\n256×256,1.442,10.473,7.26×\n512×512,1.454,7.159,4.92×"
+  "table": "Matrix size,CPU baseline (GOP/s),Systolic array (GOP/s),Speedup\n64×64,1.255,6.043,4.82×\n128×128,1.382,11.392,8.24×\n256×256,1.442,18.302,12.69×\n512×512,1.454,18.884,12.99×"
 }
