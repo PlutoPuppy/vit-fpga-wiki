@@ -19,6 +19,8 @@ For large datasets, checkpoints and videos, keep the content in shared storage a
 
 | Date | Owner | Description / version | Status | File or shared link |
 | --- | --- | --- | --- | --- |
+| 2026-11-05 | Jerry | Matmul throughput, CPU baseline vs systolic array, N = 64–512 | Measured on DE1-SoC | [data/matmul-throughput-2026-11-05.csv](data/matmul-throughput-2026-11-05.csv) |
+| 2026-11-05 | Jerry | Systolic array build: Quartus fitter resource utilization summary (ALMs 74%, block memory 53%, DSP 2%) | Quartus fitter summary | Table on the wiki Files & Data tab |
 
 ## Experiment data
 

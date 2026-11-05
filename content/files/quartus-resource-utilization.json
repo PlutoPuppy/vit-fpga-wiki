@@ -1,0 +1,9 @@
+{
+  "id": "quartus-resource-utilization",
+  "title": "Quartus resource utilization: systolic array",
+  "date": "2026-11-05",
+  "owner": "Jerry",
+  "status": "Quartus fitter summary · timing models: Final",
+  "description": "FPGA resource usage of the systolic array build on the DE1-SoC (Cyclone V), from the Quartus fitter summary.",
+  "table": "Resource,Used,Available,Utilization\nLogic utilization (ALMs),23759,32070,74%\nTotal registers,25737,—,—\nTotal pins,107,457,23%\nTotal virtual pins,0,—,—\nTotal block memory bits,2155472,4065280,53%\nTotal DSP blocks,2,87,2%\nTotal HSSI RX PCSs,0,—,—\nTotal HSSI PMA RX deserializers,0,—,—\nTotal HSSI TX PCSs,0,—,—\nTotal HSSI PMA TX serializers,0,—,—\nTotal PLLs,1,6,17%\nTotal DLLs,1,4,25%"
+}

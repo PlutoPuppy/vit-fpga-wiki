@@ -103,8 +103,15 @@ function resources() {
 }
 
 
+// Renders comma-separated text (first line = header) as a table.
+function dataTable(text) {
+  const rows = String(text || '').split('\n').map(line => line.trim()).filter(Boolean).map(line => line.split(',').map(cell => cell.trim()));
+  if (!rows.length) return '';
+  const [head, ...body] = rows;
+  return `<div class="table-scroll"><table class="data-table"><thead><tr>${head.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${body.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
 function files() {
- return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2><a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a></h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p>${esc(f.description)}</p></article>`).join('')}</div>`;
+ return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${f.url ? `<a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a>` : esc(f.title)}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p>${esc(f.description)}</p>${dataTable(f.table)}</article>`).join('')}</div>`;
 }
 const pages = { '/': ['Dashboard', dashboard], '/updates': ['Project Updates', projectUpdates], '/summary': ['Progress Summary', summary], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
 function render() {
