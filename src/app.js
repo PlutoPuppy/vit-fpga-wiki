@@ -3,7 +3,7 @@ import {loadContent,saveContent} from './content-store.js';
 import {installContentEditor,tabCollections} from './content-editor.js';
 import {collections} from './content-model.js';
 import { validateMeeting } from './meeting-publishing.js';
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary', 'repos'];
 const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
 const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '', shared: false };
@@ -111,9 +111,13 @@ function dataTable(text) {
   return `<div class="table-scroll"><table class="data-table"><thead><tr>${head.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${body.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function files() {
- return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${f.url ? `<a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a>` : esc(f.title)}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p>${esc(f.description)}</p>${dataTable(f.table)}</article>`).join('')}</div>`;
+ return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${f.url ? `<a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a>` : esc(f.title)}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p class="file-description">${esc(f.description)}</p>${dataTable(f.table)}</article>`).join('')}</div>`;
 }
-const pages = { '/': ['Dashboard', dashboard], '/updates': ['Project Updates', projectUpdates], '/summary': ['Progress Summary', summary], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt] };
+function repos() {
+  const list = [...state.data.repos].sort((a, b) => a.title.localeCompare(b.title));
+  return heading('GitHub Repos', 'Code repositories for the project.') + `<div class="cards">${list.map(r => `<article class="card repo-card" data-content-type="repos" data-content-id="${esc(r.id)}"><h2><a href="${link(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} ↗</a></h2><p class="repo-url">${esc(r.url)}</p>${r.owner ? `<p>Owner: ${esc(r.owner)}</p>` : ''}${r.description ? `<p class="file-description">${esc(r.description)}</p>` : ''}</article>`).join('') || '<div class="empty">No repositories yet. Use + Add entry to add one.</div>'}</div>`;
+}
+const pages = { '/': ['Dashboard', dashboard], '/updates': ['Project Updates', projectUpdates], '/summary': ['Progress Summary', summary], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt], '/repos': ['GitHub Repos', repos] };
 function render() {
   const path = route();
   const [title, component] = pages[path] || pages['/'];

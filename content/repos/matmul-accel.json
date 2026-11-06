@@ -1,0 +1,7 @@
+{
+  "id": "matmul-accel",
+  "title": "j3rryhu/matmul-accel",
+  "url": "https://github.com/j3rryhu/matmul-accel",
+  "owner": "Jerry",
+  "description": "int8 weight-stationary systolic matrix-multiply accelerator (16×16 array) with an Avalon-MM slave interface, targeting the DE1-SoC (Cyclone V). Includes RTL, testbenches and PERF_ANALYSIS.md."
+}

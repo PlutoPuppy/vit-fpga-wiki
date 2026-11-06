@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 
-const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary'];
+const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary', 'repos'];
 const data = {};
 for (const type of types) {
   const dir = new URL(`../content/${type}/`, import.meta.url);
@@ -17,6 +17,7 @@ for (const type of types) {
 const members = new Set(data.members.map(row => row.id));
 for (const task of data.tasks) assert.ok(members.has(task.memberId), `unknown member ${task.memberId}`);
 for (const resource of data.resources) assert.match(resource.url, /^https?:\/\//, `invalid resource URL ${resource.id}`);
+for (const repo of data.repos) assert.match(repo.url, /^https:\/\//, `invalid repository URL ${repo.id}`);
 console.log(Object.fromEntries(types.map(type => [type, data[type].length])));
 
 for (const item of data.schedule) {

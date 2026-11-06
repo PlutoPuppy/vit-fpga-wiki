@@ -17,3 +17,7 @@
 .summary-doc{padding:28px 30px}.summary-text{white-space:pre-wrap;overflow-wrap:anywhere;color:#c2d3df;font-size:15px;line-height:1.8;max-width:860px}.summary-updated{margin:22px 0 0;padding-top:14px;border-top:1px solid #294055;color:#7f9aaf;font:500 11px 'JetBrains Mono',monospace}.meeting-dialog textarea[name=body]{min-height:340px;font-size:14px;line-height:1.7}@media(max-width:700px){.summary-doc{padding:20px}}
 
 .table-scroll{overflow-x:auto;margin-top:16px;border:1px solid #294055;border-radius:9px}.data-table{width:100%;border-collapse:collapse;font-size:13px}.data-table th,.data-table td{padding:11px 16px;text-align:right;white-space:nowrap;border-bottom:1px solid #23364b}.data-table th:first-child,.data-table td:first-child{text-align:left}.data-table th{background:#152b3f;color:#aed0df;font-weight:600}.data-table td{color:#c2d3df;font-family:'JetBrains Mono',monospace}.data-table tbody tr:last-child td{border-bottom:0}.data-table td:last-child{color:#5adea0;font-weight:600}
+
+.file-description{white-space:pre-wrap;line-height:1.65}.repo-url{font:12px 'JetBrains Mono',monospace;color:#7fb6c9;overflow-wrap:anywhere}
+.cards{grid-template-columns:minmax(0,1fr)}
+.data-table th,.data-table td{padding:10px 12px}.data-table th{white-space:normal;vertical-align:bottom}

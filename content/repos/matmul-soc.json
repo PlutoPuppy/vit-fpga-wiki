@@ -1,0 +1,7 @@
+{
+  "id": "matmul-soc",
+  "title": "j3rryhu/matmul-soc",
+  "url": "https://github.com/j3rryhu/matmul-soc",
+  "owner": "Jerry",
+  "description": "DE1-SoC system project around the matmul accelerator: Quartus / Platform Designer design with DMA, the softmax and GELU/bias units, and host test programs (e.g. matmul_baseline, matmul_accel_cli)."
+}

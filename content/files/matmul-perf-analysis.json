@@ -1,0 +1,10 @@
+{
+  "id": "matmul-perf-analysis",
+  "title": "Matmul performance analysis (summary)",
+  "date": "2026-11-05",
+  "owner": "Jerry",
+  "status": "Summary · full write-up on GitHub",
+  "url": "https://github.com/j3rryhu/matmul-accel",
+  "description": "Summary of PERF_ANALYSIS.md for the 16×16 int8 weight-stationary systolic array at 90 MHz on the DE1-SoC. Full write-up in the matmul-accel repo (link above).\n\nMain conclusion: performance is bound by the software tiling scheme. Each matmul the hardware runs multiplies a tk×tn slab of W by a tn×tm slab of X into a tk×tm output patch. A bigger output patch gets more MACs from each byte sent over the bridge (density), so the same problem needs fewer matmuls and fewer bytes.\n\n- A 256×256 matmul tiled into 128×128 output tiles runs at the same speed as a single 128×128 matmul: same tile shape, density and utilization. Tiling it as one 256×256 output (W in 256×64 strips, X in 64×256 strips) halves the matmul count and roughly doubles throughput.\n- A 128×128 matmul is capped at 64 MAC/B because a tile cannot be larger than the matrix. 256×256 reaches 128 MAC/B, the limit set by the 64 KB output canvas, so 512×512 plateaus at the same density.\n- Peak compute is 46.1 GOP/s (2 ops × 256 PEs × 90 MHz). Best measured compute-only throughput is 40.15 GOP/s, about 87% of peak.\n- The gap comes from 16 head and 16 tail cycles per weight block: utilization = tm / (tm + 32), 80% at tm = 128 and 88.9% at tm = 256. Overlapping the next block's head with the previous block's tail would bring utilization close to 100%; that needs the output path to hold two blocks in flight.\n\nTiling schemes for a 256×256 matmul (16.78 MMAC):",
+  "table": "Scheme,tk / tn / tm,Matmuls,Density (MAC/B),Operand bytes,Projected (GOP/s),Measured (GOP/s)\nA: 64×256 strips,64 / 64 / 256,16,51.2,320 KB,10.60,10.47\nB: 128×128 tiles,128 / 128 / 128,8,64.0,256 KB,11.94,—\nC: 256×256 square,256 / 64 / 256,4,128.0,128 KB,18.36,18.30"
+}

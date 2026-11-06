@@ -29,6 +29,10 @@ Project Updates is a primary navigation item immediately below Dashboard. Overvi
 
 Progress Summary is a navigation item below Project Updates. It shows one block of text that the team writes; nothing is generated. Click Edit progress summary on the tab to change it. Line breaks and blank lines are kept. The page shows the date it was last saved. The starting text is the body field of content/summary/progress-summary.json; text saved on the site replaces it.
 
+## GitHub repos
+
+GitHub Repos is the last navigation item. Each card has a repository name, URL, owner and description, and is added, edited and removed like other tab entries. Seed records live in content/repos/.
+
 ## No-database saving
 
 The server writes wiki text to content/live-state.json in this GitHub repository. Editors save on the wiki without login. The site owner must set WIKI_GITHUB_TOKEN once; see DEPLOY.md. Local saves use a JSON text file. No D1 or other database is needed.

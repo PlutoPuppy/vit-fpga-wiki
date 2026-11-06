@@ -1,7 +1,7 @@
 import {collections,validateContent} from './content-model.js';
 import {saveContent} from './content-store.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export const tabCollections={dashboard:['overview','pages'],updates:['biweekly','pages'],summary:['summary','pages'],brainstorm:['ideas','pages'],gantt:['schedule','pages'],calendar:['meetings','pages'],resources:['resources','pages'],files:['files','pages']};
+export const tabCollections={dashboard:['overview','pages'],updates:['biweekly','pages'],summary:['summary','pages'],brainstorm:['ideas','pages'],gantt:['schedule','pages'],calendar:['meetings','pages'],resources:['resources','pages'],files:['files','pages'],repos:['repos','pages']};
 export function installContentEditor({getData,tab,onChange}){
   let context;
   function choices(type,field){
