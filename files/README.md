@@ -25,6 +25,8 @@ For large datasets, checkpoints and videos, keep the content in shared storage a
 | 2026-11-03 | Stephanie (Yixin) | MNN / TinyViT integration: one attention MatMul offloaded during full-model inference | Functional integration demonstrated | [Integration report](https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md) |
 | 2026-11-03 | Stephanie (Yixin) | Full-model CPU vs FPGA-offload timing for two synthetic inputs; one run each | Preliminary measurements | [data/tinyvit-inference-timing-2026-11-03.csv](data/tinyvit-inference-timing-2026-11-03.csv) |
 
+The Q × Kᵀ workload share on the wiki compares 768,320 useful MACs from the integration report with the [published TinyViT-21M 224 reference of 4.3 billion MACs](https://github.com/microsoft/Cream/blob/main/TinyViT/README.md#model-zoo). This is an estimate; the deployed MNN graph has not been profiled for a full-model MAC total.
+
 ## Experiment data
 
 Use [data/](data/README.md) for measured results and dataset manifests. Record the commit, board/model configuration, commands, units and calibration/validation split so another member can reproduce the result.
