@@ -1,0 +1,10 @@
+{
+  "id": "mnn-inference-timing",
+  "title": "TinyViT full-model inference timing",
+  "date": "2026-11-03",
+  "owner": "Stephanie (Yixin)",
+  "status": "Two single-run measurements · synthetic inputs",
+  "url": "/files/data/tinyvit-inference-timing-2026-11-03.csv",
+  "description": "DE1-SoC, two CPU threads, one selected attention MatMul offloaded to the FPGA. Each row is one inference with no warm-up; times exclude model loading and preprocessing. The mixed results do not establish a reliable full-model speedup or accuracy on real images. Source: MNN / TinyViT FPGA integration report linked in this tab.",
+  "table": "Synthetic input,CPU only (ms),One MatMul offloaded (ms),Change vs CPU,FPGA jobs\nZeros,1265.17,1192.56,5.74% faster,320\nNonuniform tensor,1230.07,1263.35,2.71% slower,320"
+}

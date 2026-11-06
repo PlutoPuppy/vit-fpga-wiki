@@ -1,0 +1,9 @@
+{
+  "id": "mnn-integration-report",
+  "title": "MNN / TinyViT FPGA integration report",
+  "date": "2026-11-03",
+  "owner": "Stephanie (Yixin)",
+  "status": "Functional integration demonstrated · full report on GitHub",
+  "url": "https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md",
+  "description": "Full TinyViT inference completed on the DE1-SoC with one attention matrix multiplication offloaded to the FPGA and the remaining operations on the CPU. Both synthetic inputs completed; six physical matrix tests passed. The report covers the hardware setup, tiling, numerical comparison and remaining performance work."
+}

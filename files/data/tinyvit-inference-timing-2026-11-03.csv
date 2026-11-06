@@ -1,0 +1,3 @@
+synthetic_input,cpu_only_ms,one_matmul_offloaded_ms,time_reduction_percent,fpga_jobs
+zeros,1265.17,1192.56,5.74,320
+nonuniform_tensor,1230.07,1263.35,-2.71,320
