@@ -60,3 +60,16 @@ test('simultaneous unrelated saves retry without losing either entry',async()=>{
   assert.deepEqual(results.map(r=>r.status),[200,200]);
   const {data}=await get();assert.ok(data.overview.some(r=>r.id==='concurrent-a'));assert.ok(data.overview.some(r=>r.id==='concurrent-b'));
 });
+
+test('adding and editing summary blocks preserves every earlier summary body',async()=>{
+  const before=(await get()).data.summary;
+  const first={id:'summary-create-first',title:'First new block',date:'2026-11-16',body:''};
+  const second={id:'summary-create-second',title:'Second new block',date:'2026-11-16',body:''};
+  assert.equal((await save('summary',first)).status,200);
+  assert.equal((await save('summary',second)).status,200);
+  assert.equal((await save('summary',{...first,body:'Edited only this block'},1)).status,200);
+  const after=(await get()).data.summary;
+  for(const original of before)assert.deepEqual(after.find(r=>r.id===original.id),original);
+  assert.equal(after.find(r=>r.id===second.id).body || '','');
+  assert.equal(after.find(r=>r.id===first.id).body,'Edited only this block');
+});

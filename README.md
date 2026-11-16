@@ -36,3 +36,7 @@ GitHub Repos is the last navigation item. Each card has a repository name, URL, 
 ## No-database saving
 
 The server writes wiki text to content/live-state.json in this GitHub repository. Editors save on the wiki without login. The site owner must set WIKI_GITHUB_TOKEN once; see DEPLOY.md. Local saves use a JSON text file. No D1 or other database is needed.
+
+## Multiple project summaries
+
+On Progress Summary, each click on Create new project summary creates a separate dated block. Existing blocks and their content are retained. Use the Edit control on a block to change its title, date or text. Connected shared saving persists new blocks for the team; when shared saving is unavailable, new blocks are labeled browser-only and persist in that browser, where they remain editable.

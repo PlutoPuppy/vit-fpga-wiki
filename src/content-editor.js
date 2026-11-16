@@ -2,7 +2,7 @@ import {collections,validateContent} from './content-model.js';
 import {saveContent} from './content-store.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const tabCollections={dashboard:['overview','pages'],updates:['biweekly','pages'],summary:['summary','pages'],brainstorm:['ideas','pages'],gantt:['schedule','pages'],calendar:['meetings','pages'],resources:['resources','pages'],files:['files','pages'],repos:['repos','pages']};
-export function installContentEditor({getData,tab,onChange}){
+export function installContentEditor({getData,tab,onChange,saveEntry=saveContent}){
   let context;
   function choices(type,field){
     if(field.type==='member')return (getData().members || []).map(m=>[m.id,m.name]);
@@ -53,7 +53,7 @@ export function installContentEditor({getData,tab,onChange}){
     const current=context;try{
       const record=current.remove?current.record:parse(form);validateContent(current.type,record);
       current.busy=true;for(const control of form.elements)control.disabled=true;status.textContent='Saving…';
-      const result=await saveContent(current.type,record,{deleted:current.remove});
+      const result=await saveEntry(current.type,record,{deleted:current.remove});
       try{localStorage.removeItem(current.key);}catch{}
       document.getElementById('content-entry-dialog').close();onChange(current.type,result.record,result.deleted);
     }catch(error){status.textContent=error.message;current.busy=false;for(const control of form.elements)control.disabled=false;}

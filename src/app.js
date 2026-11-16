@@ -1,3 +1,4 @@
+import {newSummaryBlock,sortSummaryBlocks,localSummaryBlocks,saveLocalSummary} from './summary-blocks.js';
 import { newestBiweeklyFirst, teammates } from './biweekly.js';
 import {loadContent,saveContent} from './content-store.js';
 import {installContentEditor,tabCollections} from './content-editor.js';
@@ -12,7 +13,7 @@ const route = () => { const path = (location.hash.slice(1) || '/').replace(/\/$/
 const link = url => /^https?:\/\//i.test(url || '') ? esc(url) : '#';
 const label = value => String(value || '').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
 const heading = (title, subtitle) => `<div class="page-head"><div><div class="eyebrow">CAPSTONE RESEARCH PROJECT · 2026</div><h1 class="page-title">${esc(title)}</h1><p class="page-subtitle">${esc(subtitle)}</p></div>${headingButton(tabCollections[route().slice(1)||'dashboard'][0])}</div>`;
-const headingButton = type => collections[type]?.single ? `<button class="edit-cta" type="button" data-entry-type="${type}" data-entry-edit="${collections[type].single}">Edit ${esc(collections[type].label.toLowerCase())}</button>` : `<button class="edit-cta" type="button" data-entry-add="${type}">${route()==='/updates'?'+ Add biweekly update':'+ Add entry'}</button>`;
+const headingButton = type => collections[type]?.single ? `<button class="edit-cta" type="button" data-entry-type="${type}" data-entry-edit="${collections[type].single}">Edit ${esc(collections[type].label.toLowerCase())}</button>` : `<button class="edit-cta" type="button" ${type==='summary'?'data-create-summary':`data-entry-add="${type}"`}>${type==='summary'?'Create new project summary':route()==='/updates'?'+ Add biweekly update':'+ Add entry'}</button>`;
 
 function dashboard() {
   const { members, tasks, ideas, resources, meetings } = state.data;
@@ -35,9 +36,10 @@ function projectUpdates() {
   return heading('Project Updates','Biweekly progress from all four teammates, newest first.') + `<div class="toolbar overview-toolbar"><button class="chip active" type="button" aria-pressed="true">Overview</button></div><div class="cards biweekly-feed">${entries.map(entry=>`<article class="card biweekly-entry" data-content-type="biweekly" data-content-id="${esc(entry.id)}"><div class="update-meta"><time datetime="${esc(entry.date)}">${esc(entry.date)}</time><span>Biweekly team update</span></div><h2>${esc(entry.title)}</h2><div class="teammate-updates">${teammates.map(member=>`<section class="teammate-update"><h3>${esc(member.name)}</h3><p>${esc(entry[member.key] || 'No update recorded for this period.')}</p></section>`).join('')}</div>${entry.notes?`<section class="team-next-steps"><h3>Team decisions / next steps</h3><p>${esc(entry.notes)}</p></section>`:''}${entry.links?.length?`<div class="evidence-links">${entry.links.map(l=>`<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>`:''}</article>`).join('') || '<div class="empty">No biweekly updates yet. Add the first team update above.</div>'}</div>`;
 }
 function summary() {
-  const doc = state.data.summary.find(r => r.id === collections.summary.single);
-  return heading('Progress Summary', 'Overall project progress, written by the team.') + `<section class="card summary-doc">${doc?.body?.trim() ? `<div class="summary-text">${esc(doc.body)}</div>` : '<p class="empty">No summary written yet. Click Edit progress summary to write it.</p>'}${doc?.updatedAt ? `<p class="summary-updated">Last updated ${esc(new Intl.DateTimeFormat('en-CA', {timeZone:'America/Toronto'}).format(new Date(doc.updatedAt)))}</p>` : ''}</section>`;
+  const blocks=sortSummaryBlocks(state.data.summary);
+  return heading('Progress Summary', 'Project summary blocks, with earlier updates kept below.') + `<p class="summary-create-status" role="status">${esc(state.summaryNotice || '')}</p><div class="cards summary-blocks">${blocks.map(doc=>`<section class="card summary-doc" data-content-type="summary" data-content-id="${esc(doc.id)}"><div class="section-head"><h2>${esc(doc.title || 'Previous summary')}</h2>${doc.date?`<time class="meeting-date" datetime="${esc(doc.date)}">${esc(doc.date)}</time>`:''}</div>${doc._localOnly?'<p class="pill local-summary-notice">This browser only — not shared with the team</p>':''}${doc.body?.trim()?`<div class="summary-text">${esc(doc.body)}</div>`:'<p class="empty">No updates added yet. Click Edit to fill in this week’s progress.</p>'}${doc.updatedAt?`<p class="summary-updated">Last updated ${esc(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(new Date(doc.updatedAt)))}</p>`:''}</section>`).join('') || '<p class="empty">No summary blocks yet. Click Create new project summary above.</p>'}</div>`;
 }
+
 function brainstorm() {
   const ideas = [...state.data.ideas].sort((a, b) => Number(b.pinned) - Number(a.pinned) || Number(b.votes) - Number(a.votes));
   const tags = ['All', ...new Set(ideas.map(i => i.tag).filter(Boolean))];
@@ -202,6 +204,22 @@ document.addEventListener('input',event=>{
 document.addEventListener('submit',event=>{
   if(event.target.id==='meeting-popup-form'){event.preventDefault();event.target.querySelector('[data-publish-meeting]').click();}
 });
+let creatingSummary=false;
+document.addEventListener('click',async event=>{
+  const button=event.target.closest('[data-create-summary]');
+  if(!button || creatingSummary)return;
+  creatingSummary=true;button.disabled=true;
+  const record=newSummaryBlock();
+  state.summaryNotice='Creating a new summary block…';
+  document.querySelector('.summary-create-status').textContent=state.summaryNotice;
+  try{
+    const result=state.shared?await saveContent('summary',record):saveLocalSummary(record);
+    state.data.summary=[result.record,...state.data.summary];
+    state.summaryNotice=result.record._localOnly?'New block saved in this browser. The existing summaries are unchanged.':'New project summary created.';
+    render();
+  }catch(error){state.summaryNotice=error.message;const status=document.querySelector('.summary-create-status');if(status)status.textContent=error.message;}
+  finally{creatingSummary=false;button.disabled=false;}
+});
 document.addEventListener('input', event => {
   if (event.target.id !== 'resource-search') return;
   state.search = event.target.value;
@@ -213,7 +231,7 @@ document.addEventListener('input', event => {
 document.getElementById('menu-toggle').addEventListener('click', () => sidebar.classList.toggle('open'));
 window.addEventListener('hashchange', render);
 
-const entryEditor=installContentEditor({getData:()=>state.data,tab:()=>route().slice(1)||'dashboard',onChange:(type,record,deleted)=>{
+const entryEditor=installContentEditor({getData:()=>state.data,tab:()=>route().slice(1)||'dashboard',saveEntry:(type,record,options)=>type==='summary' && record._localOnly?saveLocalSummary(record,options):saveContent(type,record,options),onChange:(type,record,deleted)=>{
   state.data[type]=state.data[type].filter(r=>r.id!==record.id);if(!deleted)state.data[type].push(record);render();
 }});
 try {
@@ -223,6 +241,7 @@ try {
     if(responses.some(response=>!response.ok))throw new Error('Content could not be loaded.');
     const rows=await Promise.all(responses.map(response=>response.json()));state.data=Object.fromEntries(types.map((type,index)=>[type,rows[index]]));
   }
+  state.data.summary=[...state.data.summary,...localSummaryBlocks().filter(local=>!state.data.summary.some(shared=>shared.id===local.id))];
   render();
 } catch (error) {
   app.innerHTML = `<div class="error">Unable to load wiki content. ${esc(error.message)}</div>`;
