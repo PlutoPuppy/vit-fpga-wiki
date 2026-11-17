@@ -19,6 +19,7 @@ For large datasets, checkpoints and videos, keep the content in shared storage a
 
 | Date | Owner | Description / version | Status | File or shared link |
 | --- | --- | --- | --- | --- |
+| 2026-11-17 | Tiffany (Yiling) | USB camera and CPU-only live image classification; earlier recording with Windows preprocessing | Functional demo; hybrid integration pending | [Demo video](videos/tiffany-cpu-live-demo.mp4) |
 | 2026-11-05 | Jerry | Matmul throughput, CPU baseline vs systolic array, N = 64–512 | Measured on DE1-SoC | [data/matmul-throughput-2026-11-05.csv](data/matmul-throughput-2026-11-05.csv) |
 | 2026-11-05 | Jerry | Systolic array build: Quartus fitter resource utilization summary (ALMs 74%, block memory 53%, DSP 2%) | Quartus fitter summary | Table on the wiki Files & Data tab |
 | 2026-11-05 | Jerry | Matmul performance analysis summary: tiling schemes, density, peak vs achieved throughput | Stale (old 90 MHz build) | [j3rryhu/matmul-accel](https://github.com/j3rryhu/matmul-accel) (PERF_ANALYSIS.md) |

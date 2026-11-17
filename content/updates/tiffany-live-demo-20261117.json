@@ -1,0 +1,13 @@
+{
+  "id": "tiffany-live-demo-20261117",
+  "title": "USB camera setup and HPS-only live classification",
+  "memberId": "member-ty",
+  "date": "2026-11-17",
+  "update": "USB camera and HPS-only live classification (Nov 17, 2026)\n\n- Completed USB camera peripheral setup on the DE1-SoC and verified live image capture through Linux/UVC.\n- Created a live image-classification demo with TinyViT inference running on the HPS CPU, displaying the camera feed and predicted ImageNet class labels on the connected computer.\n- Added a recording of the earlier CPU-only inference demo to ECE496 Files & Data. That recording uses Windows preprocessing; it does not document the subsequent HPS-local preprocessing work.\n\nNext steps\n- Integrate all team members’ software and FPGA hardware code to run end-to-end live image classification on the hybrid CPU–FPGA design, keeping image capture and preprocessing on HPS.\n- Build and validate a timing measurement tool to separate capture/decode, preprocessing, CPU inference, FPGA computation, HPS–FPGA transfer/control, and result-display overhead. Record per-frame measurements and end-to-end latency to identify bottlenecks and compare the HPS-only and hybrid pipelines under matched settings.",
+  "links": [
+    {
+      "label": "Earlier CPU-only inference demo",
+      "url": "/files/videos/tiffany-cpu-live-demo.mp4"
+    }
+  ]
+}
