@@ -22,6 +22,7 @@ For large datasets, checkpoints and videos, keep the content in shared storage a
 | 2026-11-05 | Jerry | Matmul throughput, CPU baseline vs systolic array, N = 64–512 | Measured on DE1-SoC | [data/matmul-throughput-2026-11-05.csv](data/matmul-throughput-2026-11-05.csv) |
 | 2026-11-05 | Jerry | Systolic array build: Quartus fitter resource utilization summary (ALMs 74%, block memory 53%, DSP 2%) | Quartus fitter summary | Table on the wiki Files & Data tab |
 | 2026-11-05 | Jerry | Matmul performance analysis summary: tiling schemes, density, peak vs achieved throughput | Summary | [j3rryhu/matmul-accel](https://github.com/j3rryhu/matmul-accel) (PERF_ANALYSIS.md) |
+| 2026-11-16 | Jerry | Matmul throughput by tile size at 75 MHz (tk/tm/tn 16–128, bias off/on) | Measured on DE1-SoC | [data/matmul-tile-sweep-75mhz-2026-11-16.csv](data/matmul-tile-sweep-75mhz-2026-11-16.csv) |
 | 2026-11-03 | Stephanie (Yixin) | MNN / TinyViT integration: one attention MatMul offloaded during full-model inference | Functional integration demonstrated | [Integration report](https://github.com/PlutoPuppy/mnn-fpga/blob/main/docs/tinyvit-fpga-integration-report.md) |
 | 2026-11-03 | Stephanie (Yixin) | Full-model CPU vs FPGA-offload timing for two synthetic inputs; one run each | Preliminary measurements | [data/tinyvit-inference-timing-2026-11-03.csv](data/tinyvit-inference-timing-2026-11-03.csv) |
 

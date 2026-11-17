@@ -2,7 +2,7 @@
   "id": "team-update-2026-11-16",
   "title": "Biweekly team update — November 16, 2026",
   "date": "2026-11-16",
-  "jerry": "",
+  "jerry": "The clock frequency is now 75 MHz.\n\nTiling\n- New registers: TILE_CFG (0x70): tile_r, tile_c, use_prev_out; CANVAS_WIDTH (0x80); TILE_ROWS / TILE_COLS (0xA0 / 0xB0).\n- output_buffer is now a canvas. A matmul's WEIGHT_ROWS × INPUT_COLS result lands with its top-left corner at canvas row tile_r × TILE_ROWS, column tile_c × TILE_COLS.\n\nBias + GELU\n- New register ACT_CFG (0x90): bias_en, gelu_en, prev_int8, out_raw.\n- New bias buffer: 256 × int32, one bias per canvas row, write-only host window at 0x0800.\n- New internal psum buffer: raw 32-bit sums now live here between contraction blocks. output_buffer holds only the int8 result, one byte at its canvas position, and is 64 KB (a 256×256 canvas).\n- Output pipeline: sum + bias → rescale by OUTPUT_SCALE → add the previous int8 value (prev_int8) → saturate → optional GELU lookup table.\n- out_raw: leaves the raw sums in the psum buffer, with no int8 written, for a later use_prev_out matmul to continue.\n\nSmaller psum buffer\n- The psum buffer went from 4096 to 1024 slots per bank and now holds a single tile, addressed relative to the tile instead of the canvas.\n- Limit: a tile can hold at most 128×128 elements.\n\nMeasured throughput at 75 MHz: ECE496 Files & Data → \"Matmul throughput by tile size (75 MHz)\" (link below).",
   "stephanie": "",
   "tiffany": "",
   "winnie": "Softmax Implementation\n\n- Changed to signed INT8 scores/probabilities (0–127), using a 256 × 16-bit exponential LUT and 23-cycle unsigned restoring division. Supports up to 196 values per row.\n- All 578 rows / 25,999 RTL outputs matched the integer reference. Standalone 90 MHz timing passed: 175 ALMs, 3 M10Ks, 0 DSPs. Ten-image relative RMSE: 6.634% for probabilities and 2.532% for P@V; long-row accuracy and probability row sums still need attention.\n\nLayerNorm Implementation and Timing\n\n- Built signed INT8 LayerNorm for up to 576 channels, using a 25-cycle digit-by-digit integer square root and 41-cycle restoring division. Calibrated validation relative RMSE: 3.485%.\n- All 744 rows / 200,296 RTL outputs matched the integer reference. Pipeline/width optimizations preserved integer results and passed standalone 90 MHz timing: 510 ALMs, 4 M10Ks, 8 DSPs.\n\nNext: integrate both operators with matmul and the full SoC, verify scales/data layouts and more model sites, and perform board and end-to-end testing. Neither module has been run on the board or shown full-system speedup yet.",
@@ -14,6 +14,10 @@
     {
       "label": "INT8 LayerNorm — commit 332e6d6",
       "url": "https://github.com/j3rryhu/matmul-soc/commit/332e6d6"
+    },
+    {
+      "label": "Measured throughput at 75 MHz (Files & Data)",
+      "url": "https://vit-fpga-wiki.pages.dev/#/files"
     }
   ],
   "createdAt": "2026-11-16T14:21:55.881Z"
