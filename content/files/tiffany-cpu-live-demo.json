@@ -1,0 +1,9 @@
+{
+  "id": "tiffany-cpu-live-demo",
+  "title": "Tiffany — USB camera / CPU-only live classification demo",
+  "date": "2026-11-17",
+  "owner": "Tiffany (Yiling)",
+  "status": "Functional demo; hybrid integration and stage timing measurements pending",
+  "url": "/files/videos/tiffany-cpu-live-demo.mp4",
+  "description": "Arducam-1080P-HDR connected to DE1-SoC Linux, with TinyViT inference on the ARM Cortex-A9 HPS and live camera/prediction display on Windows. This earlier recording uses Windows preprocessing and is not evidence of an entirely HPS-local pipeline. Added November 17, 2026; exact capture date and source commit were not recorded. No FPGA offload or measured end-to-end speedup is claimed by this video."
+}
