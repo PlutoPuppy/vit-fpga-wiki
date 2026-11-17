@@ -25,7 +25,7 @@ export async function createPreview({port=8767,stateFile,quiet=false}={}){
       const target=resolve(dist,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
       if(!target.startsWith(dist+sep)){res.writeHead(403).end();return;}
       const bytes=await readFile(target);
-      const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webp':'image/webp','.pdf':'application/pdf'}[extname(target)] || 'application/octet-stream';
+      const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webp':'image/webp','.pdf':'application/pdf','.txt':'text/plain; charset=utf-8'}[extname(target)] || 'application/octet-stream';
       res.writeHead(200,{'Content-Type':mime,'Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:bytes);
     }catch(error){res.writeHead(error.code==='ENOENT'?404:500,{'Content-Type':'text/plain'}).end(error.code==='ENOENT'?'Not found':'Preview request failed.');}
   });

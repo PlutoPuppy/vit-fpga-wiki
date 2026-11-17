@@ -1,0 +1,71 @@
+CPU baseline: NxN int8 matmul throughput on the DE1-SoC
+=======================================================
+
+Program   matmul_baseline_mt
+Settings  32x32 tiling, 2 threads, NEON SIMD kernel (see Optimization setup)
+Hardware  DE1-SoC HPS, dual-core ARM Cortex-A9
+Owner     Jerry
+Added     2026-11-17
+
+
+Optimization setup
+------------------
+1. Tiling. 32x32 tiles.
+
+2. Two threads. The DE1-SoC's ARM Cortex-A9 has 2 cores. The rows of C are
+   split into two contiguous runs of 32-row blocks, one per thread. A and B
+   are read-only and each thread writes only its own rows, so the threads
+   never need to synchronise.
+
+3. SIMD NEON kernel. The inner loop uses ARM NEON instructions, which work
+   on 16 int8 values per 128-bit register: vmull_s8 multiplies 8 int8 pairs
+   into 16-bit products and vpadalq_s16 adds them into 32-bit sums. The
+   kernel computes 4 output columns at once from one load of the A row,
+   with 4 independent accumulators.
+
+Compiled with: gcc -O3 -mcpu=cortex-a9 -mfpu=neon ... -lpthread
+
+
+Raw output (in the order it was run)
+------------------------------------
+256x256 tile 32  2 threads  kernel neon: 5042.71 us, 6.654 GOP/s
+512x512 tile 32  2 threads  kernel neon: 38625.32 us, 6.950 GOP/s
+64x64 tile 32  2 threads  kernel neon: 105.09 us, 4.989 GOP/s
+128x128 tile 32  2 threads  kernel neon: 689.52 us, 6.083 GOP/s
+32x32 tile 32  2 threads  kernel neon: 36.53 us, 1.794 GOP/s
+
+
+Results
+-------
+   N   time (us)    MACs (N^3)   operations (2*N^3)   GOP/s   recomputed
+----  ----------  ------------  -------------------  ------  -----------
+  32       36.53         32768                65536   1.794       1.7940
+  64      105.09        262144               524288   4.989       4.9889
+ 128      689.52       2097152              4194304   6.083       6.0829
+ 256     5042.71      16777216             33554432   6.654       6.6540
+ 512    38625.32     134217728            268435456   6.950       6.9497
+
+"recomputed" is 2*N^3 / time worked out from the measured time; it matches
+the printed GOP/s for every size.
+
+
+How GOP/s is calculated
+-----------------------
+    GOP/s = 2 * N^3 / time
+
+1. Work in one matmul. An NxN by NxN matmul has N^2 outputs. Each output is
+   a dot product of length N, which is N multiply-accumulates (MACs). The
+   whole matmul therefore does N^2 * N = N^3 MACs.
+
+2. Operations. Each MAC counts as 2 operations: one multiply and one add.
+   Total operations = 2 * N^3.
+
+3. Rate. Divide the operations by the measured time in seconds to get
+   operations per second, then divide by 10^9 to get GOP/s (billions of
+   operations per second).
+
+Worked example, N = 128:
+    MACs        = 128^3     = 2,097,152
+    operations  = 2 * 128^3 = 4,194,304
+    time        = 689.52 us = 0.00068952 s
+    GOP/s       = 4,194,304 / 0.00068952 / 10^9 = 6.083

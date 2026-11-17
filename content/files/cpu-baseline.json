@@ -1,0 +1,10 @@
+{
+  "id": "cpu-baseline",
+  "title": "CPU baseline matmul throughput",
+  "date": "2026-11-17",
+  "owner": "Jerry",
+  "status": "Measured on DE1-SoC · ARM Cortex-A9 · 2 threads, NEON SIMD kernel, 32×32 tiling",
+  "url": "/files/data/cpu-baseline-2026-11-17.txt",
+  "description": "CPU baseline for an N×N int8 matmul, measured with matmul_baseline_mt (tile 32, 2 threads, NEON kernel) on the DE1-SoC's dual-core ARM Cortex-A9. The linked text file has the raw output, every number and the full calculation.\n\nOptimization setup:\n- Tiling: 32×32 tiles.\n- 2 threads: one per Cortex-A9 core. The rows of C are split between the threads, which never need to synchronise.\n- SIMD NEON kernel: NEON instructions process 16 int8 values per 128-bit register. The kernel computes 4 output columns at once with 4 independent accumulators.\n- Compiled with gcc -O3 -mcpu=cortex-a9 -mfpu=neon.\n\nHow GOP/s is calculated: GOP/s = 2 × N³ / time.\n- An N×N by N×N matmul has N² outputs, and each output is a dot product of length N, so it does N³ multiply-accumulates (MACs).\n- Each MAC counts as 2 operations (one multiply and one add), so the total is 2 × N³ operations.\n- Dividing by the measured time in seconds gives operations per second; dividing by 10⁹ gives GOP/s.\n- Example, N = 128: 2 × 128³ = 4,194,304 operations in 689.52 µs = 4,194,304 / 0.00068952 s = 6.083 × 10⁹ operations per second = 6.083 GOP/s.",
+  "table": "Matrix size,Tile,Time (µs),MACs (N³),Operations (2·N³),GOP/s\n32×32,32,36.53,32768,65536,1.794\n64×64,32,105.09,262144,524288,4.989\n128×128,32,689.52,2097152,4194304,6.083\n256×256,32,5042.71,16777216,33554432,6.654\n512×512,32,38625.32,134217728,268435456,6.950"
+}
