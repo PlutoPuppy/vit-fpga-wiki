@@ -1,0 +1,7 @@
+{
+  "id": "vit-fpga-accel",
+  "title": "YilingZha233/ViT_fpga_accel",
+  "url": "https://github.com/YilingZha233/ViT_fpga_accel",
+  "owner": "Tiffany (Yiling)",
+  "description": "Runs live TinyViT image classification on the DE1-SoC using MNN, with camera capture and preprocessing on the HPS and selected model layers on the FPGA."
+}
