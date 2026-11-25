@@ -1,0 +1,10 @@
+{
+  "id": "softmax-layernorm-per-image-2026-11-25",
+  "title": "Softmax and LayerNorm: per-image compute and transfer estimates",
+  "date": "2026-11-25",
+  "owner": "Winnie",
+  "status": "Per-image estimates; fabric RTL projected at 75 MHz",
+  "url": "/files/data/softmax-layernorm-per-image-2026-11-25.csv",
+  "description": "Transcribed from the supplied table. Workload: 4704 Softmax rows of 49 scores and 784 LayerNorm tokens of 192 channels per image. Totals combine compute / RTL time and estimated bulk transfer; these are not measured full-model end-to-end inference times. The listed LayerNorm fabric path assumes 0 ms bulk transfer. Original table: /files/data/softmax-layernorm-per-image-2026-11-25.png",
+  "table": "Operator and execution path,Work per image,Compute / RTL time,Estimated bulk transfer,Total\nSoftmax on HPS INT8,4704 rows × 49 scores,25.93 ms,2.51 ms,28.44 ms\nSoftmax on fabric,4704 rows × 49 scores,38.01 ms,2.01 ms,40.02 ms\nLayerNorm on HPS INT8,784 tokens × 192 channels,31.70 ms,1.25 ms,32.95 ms\nLayerNorm on fabric,784 tokens × 192 channels,34.88 ms,0 ms,34.88 ms\nBoth on HPS INT8,,57.63 ms,3.76 ms,61.39 ms\nBoth on fabric,,72.89 ms,2.01 ms,74.90 ms"
+}
