@@ -1,0 +1,8 @@
+TinyViT operation,FPGA,HPS
+QKV projections,10/10,—
+Attention output projections,10/10,—
+MLP FC1,10/10,—
+MLP FC2,9/10,Final-stage block 0 FC2 in FP32
+CNN pointwise convolution,Final downsample expansion 196×160 by 160×320,Other pointwise convolutions
+MLP GELU,8/10 inline between FC1 and FC2,Both final-stage MLP GELUs
+Dynamic attention,—,All QKᵀ plus scale and relative-position bias plus softmax plus attention × V

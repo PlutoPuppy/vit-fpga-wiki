@@ -19,6 +19,7 @@ For large datasets, checkpoints and videos, keep the content in shared storage a
 
 | Date | Owner | Description / version | Status | File or shared link |
 | --- | --- | --- | --- | --- |
+| 2026-11-26 | Stephanie (Yixin) | TinyViT-5M 90 MHz matched timing, placement, fitted resources, and overview | Measured on DE1-SoC; same 200 labeled images for accuracy | [Timing table](#/files/tinyvit-5m-90mhz-timing-2026-11-26) · [Operation map](#/files/tinyvit-5m-90mhz-placement-2026-11-26) · [Fitted resources](#/files/tinyvit-5m-90mhz-resources-2026-11-26) · [Overview image](data/vit-offload-overview.png) |
 | 2026-11-17 | Tiffany (Yiling) | USB camera and CPU-only live image classification; earlier recording with Windows preprocessing | Functional demo; hybrid integration pending | [Demo video](videos/tiffany-cpu-live-demo.mp4) |
 | 2026-11-05 | Jerry | Systolic array build: Quartus fitter resource utilization summary (ALMs 74%, block memory 53%, DSP 2%) | Quartus fitter summary | Table on the wiki Files & Data tab |
 | 2026-11-25 | Jerry | Matmul throughput by tile size at 80 MHz (tk/tm/tn 16–128, bias off/on) | Measured on DE1-SoC | [data/matmul-tile-sweep-80mhz-2026-11-25.csv](data/matmul-tile-sweep-80mhz-2026-11-25.csv) |

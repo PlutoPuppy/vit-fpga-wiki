@@ -1,0 +1,9 @@
+Resource,Latest fitted design
+ALMs,24435 / 32070 (76%)
+Combinational ALUTs,41773 logic plus 5445 route-throughs
+Memory ALUTs,2048
+DSP blocks,35 / 87 (40%)
+M10K blocks,304 / 397 (77%); previously 368
+Embedded RAM bits,1652176 / 4065280 (41%)
+Registers,30709
+PLLs,1 / 6

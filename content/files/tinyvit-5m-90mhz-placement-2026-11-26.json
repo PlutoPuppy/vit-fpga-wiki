@@ -1,0 +1,9 @@
+{
+  "id": "tinyvit-5m-90mhz-placement-2026-11-26",
+  "title": "TinyViT-5M at 90 MHz — FPGA and HPS operation map",
+  "date": "2026-11-26",
+  "owner": "Stephanie (Yixin)",
+  "status": "40 static-weight GEMMs; 454 FPGA jobs per image",
+  "description": "Capacity-aware driver tiles each job for 32 KiB activation, 64 KiB weight, and 64 KiB output banks. Full K stays within each job for this model; compute tails are padded to 16 lanes for the 16×16 array. Traversal reuses a resident operand and transfers only live rows where supported. Eight MLP pairs in layers.1 and layers.2 run FC1 → inline GELU LUT → local FPGA feedback → FC2 with the hidden INT8 tensor resident in FPGA RAM.",
+  "table": "TinyViT operation,FPGA,HPS\nQKV projections,10/10,—\nAttention output projections,10/10,—\nMLP FC1,10/10,—\nMLP FC2,9/10,Final-stage block 0 FC2 in FP32\nCNN pointwise convolution,Final downsample expansion 196×160 by 160×320,Other pointwise convolutions\nMLP GELU,8/10 inline between FC1 and FC2,Both final-stage MLP GELUs\nDynamic attention,—,All QKᵀ plus scale and relative-position bias plus softmax plus attention × V"
+}

@@ -1,0 +1,15 @@
+Metric,Original FP32 CPU,Mixed W8A8 CPU,Mixed W8A8 + FPGA
+Warm mean (ms/image),1192.68,1028.36,706.09
+Warm median (ms/image),1162.56,1018.90,697.15
+Speedup vs original FP32,1.000×,1.160×,1.689×
+Top-1 correct (same 200 images),153/200,155/200,154/200
+Selected 40 GEMM callbacks (ms),505.80,403.82,169.39
+Remaining convolutions and classifier (ms),264.17,276.35,263.74
+Attention incl. internal layout (ms),195.89,124.12,118.03
+GELU and other unary callbacks (ms),125.31,103.78,77.13
+Graph quant/dequant outside attention (ms),0.00,37.69,19.35
+Other layout copies (ms),52.34,62.14,44.80
+Residual and elementwise (ms),14.95,17.70,15.08
+Normalization and reductions (ms),7.91,8.82,7.84
+Framework outside regions (ms),8.87,12.23,9.90
+Profiled first forward (ms),1175.25,1046.65,725.27

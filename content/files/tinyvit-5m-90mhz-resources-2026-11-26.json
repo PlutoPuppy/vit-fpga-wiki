@@ -1,0 +1,9 @@
+{
+  "id": "tinyvit-5m-90mhz-resources-2026-11-26",
+  "title": "TinyViT-5M at 90 MHz — fitted FPGA resources",
+  "date": "2026-11-26",
+  "owner": "Stephanie (Yixin)",
+  "status": "Latest fitted 90 MHz design",
+  "description": "M10K usage is down from 368 blocks in the previous fit.",
+  "table": "Resource,Latest fitted design\nALMs,24435 / 32070 (76%)\nCombinational ALUTs,41773 logic plus 5445 route-throughs\nMemory ALUTs,2048\nDSP blocks,35 / 87 (40%)\nM10K blocks,304 / 397 (77%); previously 368\nEmbedded RAM bits,1652176 / 4065280 (41%)\nRegisters,30709\nPLLs,1 / 6"
+}

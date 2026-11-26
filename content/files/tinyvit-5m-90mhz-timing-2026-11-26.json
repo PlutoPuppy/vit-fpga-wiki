@@ -1,0 +1,13 @@
+{
+  "id": "tinyvit-5m-90mhz-timing-2026-11-26",
+  "title": "TinyViT-5M at 90 MHz — matched pipeline timing",
+  "date": "2026-11-26",
+  "owner": "Stephanie (Yixin)",
+  "status": "Measured on DE1-SoC; warm full-forward means and separate first-forward profile",
+  "url": "/files/data/tinyvit-5m-90mhz-timing-2026-11-26.csv",
+  "description": "224×224 input; batch one; two Cortex-A9 threads; same 20 uniform-random RGB input hashes for all three pipelines. Warm timing follows one untimed forward. The component breakdown is from separate profiled first forwards and should not be summed to infer the warm mean. Top-1 counts use the same 200 labeled images. The supplied overview image summarizes the architecture and offload path.",
+  "image": "/files/data/vit-offload-overview.png",
+  "imageAlt": "TinyViT-5M CPU and CPU–FPGA latency comparison, model architecture, offloaded blocks and static-weight operation count",
+  "imageCaption": "TinyViT-5M offload overview supplied by Stephanie. Open image for full resolution.",
+  "table": "Metric,Original FP32 CPU,Mixed W8A8 CPU,Mixed W8A8 + FPGA\nWarm mean (ms/image),1192.68,1028.36,706.09\nWarm median (ms/image),1162.56,1018.90,697.15\nSpeedup vs original FP32,1.000×,1.160×,1.689×\nTop-1 correct (same 200 images),153/200,155/200,154/200\nSelected 40 GEMM callbacks (ms),505.80,403.82,169.39\nRemaining convolutions and classifier (ms),264.17,276.35,263.74\nAttention incl. internal layout (ms),195.89,124.12,118.03\nGELU and other unary callbacks (ms),125.31,103.78,77.13\nGraph quant/dequant outside attention (ms),0.00,37.69,19.35\nOther layout copies (ms),52.34,62.14,44.80\nResidual and elementwise (ms),14.95,17.70,15.08\nNormalization and reductions (ms),7.91,8.82,7.84\nFramework outside regions (ms),8.87,12.23,9.90\nProfiled first forward (ms),1175.25,1046.65,725.27"
+}
