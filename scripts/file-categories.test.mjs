@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {fileCategory, filterFiles} from '../src/file-categories.js';
+const files = [{id:'proposal'}, {id:'softmax-results'}, {id:'demo', url:'/files/demo.mp4'}, {id:'old',status:'Superseded'}, {id:'quartus-resources'}];
+assert.equal(filterFiles(files).length,5);
+assert.deepEqual(filterFiles(files,'Performance & Benchmarks'),[files[1]]);
+assert.equal(fileCategory(files[0]),'ECE496 Deliverables');
+assert.equal(fileCategory(files[2]),'Demos & Videos');
+assert.equal(fileCategory(files[3]),'Archive');
+assert.equal(fileCategory(files[4]),'FPGA Resources & Integration');
+assert.equal(fileCategory({category:'Other',title:'Timing'}),'Other');
