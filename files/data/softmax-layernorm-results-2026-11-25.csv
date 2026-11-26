@@ -1,8 +1,11 @@
-Metric,Softmax — 49-key row,LayerNorm — 192-channel token
+Metric,Softmax — 49 scores per row,LayerNorm — 192 channels per token
 FPGA block RAM,1 M10K; 8192 bits,6 M10Ks; 22016 bits
-FPGA logic,225 ALMs; 0 DSPs,950 ALMs; 13 DSPs
-HPS INT8 — measured,5.51 µs,40.43 µs with exact correction; 158.13 µs with integer division
-HPS FP32 — measured,13.12 µs,7.76 µs
-Latest fabric RTL at 75 MHz — projected,606 cycles; 8.08 µs,3337 cycles; 44.49 µs
-Top-1 / top-5 on 10 local images,100% / 100% agreement with FP32,100% / 100% accuracy against image labels for both FP32 and the INT8 replacement
-INT8 numerical error vs FP32 — relative RMSE,6.56% on probabilities; 2.60% on attention context,3.49% on LayerNorm outputs
+FPGA logic and arithmetic,432 ALMs; 0 DSPs,949 ALMs; 13 DSPs
+HPS INT8 — measured on board,5.404 µs,40.487 µs with exact correction; 157.588 µs with integer division
+HPS FP32 — measured on board,12.715 µs,7.751 µs
+FPGA fabric INT8 — projected from RTL at 75 MHz,228 cycles; 3.04 µs,472 cycles; 6.29 µs
+FPGA fabric INT8 — measured on board,5.088 µs,6.362 µs
+Latency reduction vs HPS INT8,5.8%,84.3% vs exact correction
+Fabric vs HPS INT8 output agreement,100% (23520 tested bytes),100% (55296 tested bytes)
+INT8 output error vs FP32 — relative RMSE,6.56%,3.49%
+Top-1 prediction agreement with FP32,100% (3/3 validation images),100% (3/3 validation images)
