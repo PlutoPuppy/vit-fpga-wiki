@@ -1,0 +1,10 @@
+{
+  "id": "tiffany-tinyvit-5m-camera-latency-20261125",
+  "title": "TinyViT-5M live camera latency on DE1-SoC",
+  "date": "2026-11-25",
+  "owner": "Tiffany (Yiling)",
+  "status": "Measured on DE1-SoC",
+  "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/board-measurements.md",
+  "description": "Mean of 20 timed frames per mode using the same ARM runner, two HPS threads, and a 640 × 480 MJPEG feed requested at 30 fps. DMC1 improved MNN inference by 1.52× and JPEG receipt to logits by 1.43× versus original FP32 CPU. The timing difference includes JPEG decoding, preprocessing, and runner communication. The board report lists the raw CSV locations and reproduction commands.",
+  "table": "Mode,MNN inference (ms),JPEG receipt to logits (ms),Time outside MNN (ms)\nOriginal FP32 CPU,1264.9,1435.7,170.8\nMixed CPU,1190.7,1367.2,176.5\nDMC1 FPGA offload,832.0,1003.8,171.8"
+}

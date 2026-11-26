@@ -1,0 +1,10 @@
+{
+  "id": "tiffany-tinyvit-fp32-accuracy-20261125",
+  "title": "TinyViT-5M vs. TinyViT-21M FP32 accuracy",
+  "date": "2026-11-25",
+  "owner": "Tiffany (Yiling)",
+  "status": "Measured on DE1-SoC HPS",
+  "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/README.md#hps-accuracy-comparison-on-200-images",
+  "description": "Both FP32 MNN models used identical inputs from a balanced Imagenette validation subset of 200 images, with 20 images per class. The linked README lists the evaluation manifest and reproduction command.",
+  "table": "FP32 model,Top-1 correct,Top-5 correct\nTinyViT-5M,158/200 (79.0%),195/200 (97.5%)\nTinyViT-21M,167/200 (83.5%),199/200 (99.5%)"
+}

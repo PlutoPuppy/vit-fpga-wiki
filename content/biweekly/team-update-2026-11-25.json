@@ -4,12 +4,32 @@
   "date": "2026-11-25",
   "jerry": "Matmul throughput at 80 MHz\n\nThe clock is now 80 MHz. A new single-matmul sweep (tk/tm/tn 16–128, bias off and on) shows much higher end-to-end throughput than the Nov 16 run:\n- 128×128×128: 19.40 GOP/s end-to-end, up from 9.71 GOP/s. Compute alone: 30.84 GOP/s, up from 28.78 GOP/s.\n- Input DMA for a 32 KB transfer: 661 MB/s, up from 129 MB/s.\n\nWhere the gain came from\nThe gain comes mainly from debugging the system, not from the clock change:\n- Removed unused on-chip RAM. It forced the interconnect to break DMA bursts into smaller pieces.\n- Removed a stale AXI merger that tied signals off. A repo found online presented it as a speed-up, but here it slowed transfers down.\n\nWhy bandwidth rises with transfer size\n- Every transfer pays a fixed overhead: register writes to set it up, polling for completion, and similar control steps. This cost is about the same whether the transfer is 512 bytes or 32 KB.\n- Small transfers spend most of their time on that overhead; large transfers spread it over many more bytes. Measured input bandwidth rises from 74 MB/s at 512 B to 661 MB/s at 32 KB, and output bandwidth from 67 MB/s at 256 B to about 550 MB/s at 16 KB.\n\nFull table: [Matmul throughput by tile size (80 MHz)](#/files/matmul-tile-sweep-80mhz) on ECE496 Files & Data.",
   "stephanie": "",
-  "tiffany": "",
+  "tiffany": "Completed the hybrid CPU–FPGA TinyViT-5M live classification demo on the DE1-SoC. The board’s ARM HPS captures the USB camera feed, preprocesses each frame, and runs a persistent MNN session. The 90 MHz DMC1 FPGA executes selected model operations and the HPS returns ImageNet labels to the terminal and browser preview.\n\nMeasured mean latency on the same 640 × 480 MJPEG feed with two HPS threads and 20 timed frames per mode. Each line gives MNN inference / JPEG receipt to logits.\n• Original FP32 CPU — 1,264.9 ms / 1,435.7 ms\n• Mixed CPU — 1,190.7 ms / 1,367.2 ms\n• DMC1 FPGA offload — 832.0 ms / 1,003.8 ms\nDMC1 achieved 1.52× MNN inference speedup and 1.43× JPEG-to-logits speedup versus FP32 CPU. JPEG decoding, preprocessing, and runner communication added about 170–177 ms per frame across the three modes. The JPEG-to-logits timer starts at complete JPEG receipt and ends at returned logits. Sensor exposure, camera buffering, and display are outside that window.\n\nImage preprocessing on the HPS\n1. Capture an MJPEG frame through Linux V4L2 and decode the JPEG to RGB.\n2. Bicubic-resize the shorter edge to 256 pixels while preserving the aspect ratio, then take a 224 × 224 center crop.\n3. Divide RGB values by 255. Subtract the ImageNet channel means (0.485, 0.456, 0.406) and divide by the channel standard deviations (0.229, 0.224, 0.225).\n4. Pack the normalized image as a 1 × 3 × 224 × 224 FP32 NCHW tensor for MNN.\n\nCompared FP32 prediction accuracy on the HPS using the same 200 labeled Imagenette validation images, with 20 images per class. TinyViT-5M scored 158/200 top-1 (79.0%) and 195/200 top-5 (97.5%). TinyViT-21M scored 167/200 top-1 (83.5%) and 199/200 top-5 (99.5%), gains of 4.5 and 2.0 percentage points.\n\nIntegrated the second accelerated MNN build with the USB camera and recorded a follow-up demo. The reported MNN inference speedup for that build was 1.67×. The linked DMC1 v2 clip accompanies the earlier comparison. Timing logs and the recording link for the 1.67× build are pending.\n\nNext steps\n• Repeat all three modes with the second build under the same camera settings and publish per-frame CSVs, mean and p95 latency, and the follow-up recording.\n• Evaluate the accelerated TinyViT-5M build on the same labeled images to measure its accuracy against the FP32 baseline.",
   "winnie": "Softmax\n\n- For 49 scores per row: standalone core uses 432 ALMs, 0 DSPs and 1 M10K (8192 bits), excluding packed readback logic.\n- Measured on DE1-SoC: HPS INT8 5.404 µs; HPS FP32 12.715 µs; FPGA fabric INT8 5.088 µs — a 5.8% latency reduction vs HPS INT8. Board timing includes HPS launch, polling and output readback. RTL projects 228 cycles / 3.04 µs at 75 MHz.\n- Fabric and HPS INT8 outputs matched 100% across 23520 tested bytes. INT8 output relative RMSE vs FP32: 6.56%. Top-1 predictions matched FP32 on 3/3 validation images.\n\nLayerNorm\n\n- For 192 channels per token: isolated canvas uses 949 ALMs, 13 DSPs and 6 M10Ks (22016 bits).\n- Measured on DE1-SoC: HPS INT8 40.487 µs with exact correction or 157.588 µs with integer division; HPS FP32 7.751 µs; FPGA fabric INT8 6.362 µs — an 84.3% latency reduction vs HPS INT8 exact correction. Board timing includes HPS launch and polling, averaged over 24-token batches with in-place writeback. RTL projects 472 cycles / 6.29 µs at 75 MHz.\n- Fabric and HPS INT8 outputs matched 100% across 55296 tested bytes. INT8 output relative RMSE vs FP32: 3.49%. Top-1 predictions matched FP32 on 3/3 validation images.\n- Top-1 agreement measures prediction agreement with FP32, not dataset-wide classification accuracy. These operator benchmarks do not establish full-model end-to-end speedup. Earlier per-image projections are superseded; full table and CSV: ECE496 Files & Data (https://vit-fpga-wiki.pages.dev/#/files).",
   "links": [
     {
       "label": "Latest DE1-SoC resources, timing and accuracy (CSV)",
       "url": "/files/data/softmax-layernorm-results-2026-11-25.csv"
+    },
+    {
+      "label": "Accelerator repo and setup instructions",
+      "url": "https://github.com/YilingZha233/ViT_fpga_accel"
+    },
+    {
+      "label": "TinyViT-5M board latency measurements",
+      "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/board-measurements.md"
+    },
+    {
+      "label": "TinyViT-5M vs. 21M accuracy methodology",
+      "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/README.md#hps-accuracy-comparison-on-200-images"
+    },
+    {
+      "label": "CPU FP32 v2 demo",
+      "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/videos/cpu-fp32-v2.mp4"
+    },
+    {
+      "label": "DMC1 FPGA offload v2 demo",
+      "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/videos/fpga-dmc1-1.5x-v2.mp4"
     }
   ],
   "createdAt": "2026-11-25T22:23:36.5770793Z"

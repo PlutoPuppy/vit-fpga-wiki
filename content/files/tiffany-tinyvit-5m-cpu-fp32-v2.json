@@ -1,0 +1,9 @@
+{
+  "id": "tiffany-tinyvit-5m-cpu-fp32-v2",
+  "title": "TinyViT-5M live camera demo · CPU FP32 v2",
+  "date": "2026-11-25",
+  "owner": "Tiffany (Yiling)",
+  "status": "Demo recording",
+  "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/videos/cpu-fp32-v2.mp4",
+  "description": "Shows live USB camera classification with the original FP32 MNN model running on the HPS CPU of the DE1-SoC."
+}
