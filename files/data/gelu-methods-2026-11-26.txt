@@ -1,0 +1,6 @@
+Sources inspected on November 26, 2026: main 08a807d and GELU branch ab43bd2. These are separate experiments and versions. Current main integrates GELU in output_loader; the older readout benchmark does not establish current integrated resources, timing or latency. No standalone HPS/FPGA GELU latency comparison was found. Model validation replaces only layers.1.blocks.0.mlp.act in TinyViT-21M, with 7 calibration and 3 held-out images. Prediction agreement is not dataset accuracy; no candidate scale was accepted for deployment. Historical board correctness uses the example LUT and has no recorded bitstream hash.
+
+Main model results: https://github.com/j3rryhu/matmul-soc/blob/08a807d/matmul_accel/activation/RESULTS.md
+Current main datapath: https://github.com/j3rryhu/matmul-soc/blob/08a807d/matmul_accel/output_loader.v
+Historical board test: https://github.com/j3rryhu/matmul-soc/blob/08a807d/matmul_accel/activation/HPS_TEST.md
+Readout timing benchmark: https://github.com/j3rryhu/matmul-soc/blob/ab43bd2/activation/quartus/README.md

@@ -1,0 +1,20 @@
+Metric,GELU result,Scope / method
+Implementation,256-entry INT8 LUT; 16 lanes in historical readout benchmark,Current main applies GELU in output_loader before canvas writeback
+Standalone target clock,90 MHz; all four timing corners passed,Historical registered readout harness; branch ab43bd2
+Worst setup / hold slack,+1.925 ns / +0.172 ns,Harness only; not full-SoC timing
+Lowest slow-corner Fmax,108.86 MHz,Historical harness
+ALMs,1707 → 957,Original divider vs registered boundary comparisons; harness included
+Registers,2509 → 1493,Historical harness included
+Block RAM / DSPs,16 M10Ks / 0 DSPs,Historical harness; not current integrated resource usage
+HPS INT8 / HPS FP32 / FPGA board latency,Not reported in the inspected GELU evidence,No measured GELU speedup claimed
+Board correctness — reported October 11,0/1024 mismatches for raw identity; bias + GELU; bypass,Historical readout integration; example LUT; no bitstream hash
+Model evaluation,TinyViT-21M; one MLP GELU replacement,7 calibration images; 3 validation images; rest of model FP32
+Original LUT — activation MAE / RMSE / maximum error,0.00851507 / 0.00999788 / 0.392292,Absolute errors on held-out activations; not relative RMSE
+Minimum-calibration-RMSE LUT — activation MAE / RMSE / maximum error,0.00768286 / 0.00976887 / 1.10967,Candidate scale; not accepted deployment configuration
+Range-covering LUT — activation MAE / RMSE / maximum error,0.00855735 / 0.010941 / 0.147533,Candidate scale; not accepted deployment configuration
+Original LUT — top-1 / top-5 set agreement,3/3 / 2/3,Agreement with FP32; not label accuracy
+Minimum-RMSE and range-covering LUTs — top-1 / top-5 set agreement,3/3 / 3/3,Only three validation images
+Original LUT — logit RMSE,0.0412169,FP32 model vs isolated GELU replacement
+Minimum-RMSE LUT — logit RMSE,0.0166008,FP32 model vs isolated GELU replacement
+Range-covering LUT — logit RMSE,0.0140319,FP32 model vs isolated GELU replacement
+Current main integration,Final accumulated sum + INT32 bias → requantization → optional GELU → canvas,GELU applies only on final contraction pass; not intermediate partial sums
