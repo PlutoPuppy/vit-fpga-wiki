@@ -2,9 +2,9 @@
   "id": "current-ty-camera",
   "memberId": "member-ty",
   "title": "Bring up Linux UVC capture and save reproducible input frames",
-  "status": "todo",
+  "status": "done",
   "tag": "Peripherals",
-  "acceptance": "Plan window Nov–Jan; document camera format, resolution, capture command and prerecorded fallback.",
+  "acceptance": "Plan window Nov–Jan; document camera format, resolution, capture command and prerecorded fallback. Verified 640 × 480 MJPEG capture over Linux V4L2 on the DE1-SoC. Saved a source JPEG from a live hybrid prediction and replayed it through the CPU runner. Capture and replay commands are in the accelerator README.",
   "archived": false,
-  "updatedAt": "2026-11-03T21:00:00.000Z"
+  "updatedAt": "2026-11-26T17:10:43.717Z"
 }

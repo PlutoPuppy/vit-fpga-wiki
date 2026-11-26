@@ -2,9 +2,9 @@
   "id": "current-ty-preprocess",
   "memberId": "member-ty",
   "title": "Connect captured frames to MNN preprocessing smoke test",
-  "status": "todo",
+  "status": "done",
   "tag": "Integration",
-  "acceptance": "Check tensor shape, color order, normalization and repeatability before live inference.",
+  "acceptance": "Check tensor shape, color order, normalization and repeatability before live inference. Verified HPS-side RGB conversion, resize, crop, ImageNet normalization and 1 × 3 × 224 × 224 FP32 NCHW input. The live hybrid snapshot and CPU replay produced byte-identical MNN input tensors.",
   "archived": false,
-  "updatedAt": "2026-11-03T21:00:00.000Z"
+  "updatedAt": "2026-11-26T17:10:43.717Z"
 }
