@@ -4,6 +4,6 @@
   "date": "2026-11-25",
   "owner": "Tiffany (Yiling)",
   "status": "Demo recording",
-  "url": "https://github.com/YilingZha233/ViT_fpga_accel/blob/main/evidence/5m/videos/fpga-dmc1-1.5x-v2.mp4",
+  "url": "https://raw.githubusercontent.com/YilingZha233/ViT_fpga_accel/main/evidence/5m/videos/fpga-dmc1-1.5x-v2.mp4",
   "description": "Shows live USB camera classification with the 90 MHz DMC1 FPGA offload path from the comparison that measured a 1.52× mean MNN inference speedup."
 }

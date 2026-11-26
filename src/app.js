@@ -117,7 +117,19 @@ function dataTable(text) {
   return `<div class="table-scroll"><table class="data-table"><thead><tr>${head.map(c => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${body.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function files() {
- return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${state.data.files.map(f => `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${f.url ? `<a href="${/^\/files\//.test(f.url) ? esc(f.url) : link(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a>` : esc(f.title)}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p class="file-description">${esc(f.description)}</p>${dataTable(f.table)}${/^\/files\/[a-zA-Z0-9_./%-]+\.(?:png|webp|jpg|jpeg)$/.test(f.image || '') ? `<figure class="file-figure"><a href="${esc(f.image)}" target="_blank" rel="noopener noreferrer"><img src="${esc(f.image)}" alt="${esc(f.imageAlt || f.title)}" loading="lazy"></a>${f.imageCaption ? `<figcaption>${esc(f.imageCaption)}</figcaption>` : ''}</figure>` : ''}</article>`).join('')}</div>`;
+  const target = routeTarget();
+  const cards = state.data.files.map(f => {
+    const href = /^\/files\//.test(f.url) ? esc(f.url) : link(f.url);
+    const isVideo = /^(?:\/files\/|https:\/\/)[^?#]+\.mp4(?:[?#].*)?$/i.test(f.url || '');
+    const title = f.url && !isVideo
+      ? `<a href="${href}" target="_blank" rel="noopener noreferrer">${esc(f.title)} ↗</a>`
+      : esc(f.title);
+    const player = isVideo
+      ? `<video class="file-video" controls playsinline preload="${f.id === target ? 'metadata' : 'none'}" aria-label="${esc(f.title)}"><source src="${href}" type="video/mp4">Your browser does not support embedded video.</video>`
+      : '';
+    return `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${title}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p class="file-description">${esc(f.description)}</p>${player}${dataTable(f.table)}${/^\/files\/[a-zA-Z0-9_./%-]+\.(?:png|webp|jpg|jpeg)$/.test(f.image || '') ? `<figure class="file-figure"><a href="${esc(f.image)}" target="_blank" rel="noopener noreferrer"><img src="${esc(f.image)}" alt="${esc(f.imageAlt || f.title)}" loading="lazy"></a>${f.imageCaption ? `<figcaption>${esc(f.imageCaption)}</figcaption>` : ''}</figure>` : ''}</article>`;
+  });
+  return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + `<div class="cards">${cards.join('')}</div>`;
 }
 function repos() {
   const list = [...state.data.repos].sort((a, b) => a.title.localeCompare(b.title));
@@ -146,8 +158,12 @@ function render() {
   const card = target && [...app.querySelectorAll('[data-content-id]')].find(node => node.dataset.contentId === target);
   if (card) {
     card.classList.add('is-target');
-    if (scrolledTo !== location.hash) { scrolledTo = location.hash; card.scrollIntoView({ block: 'start' }); }
+    if (scrolledTo !== location.hash) {
+      card.scrollIntoView({ block: 'start' });
+      card.querySelector('video')?.focus({ preventScroll: true });
+    }
   }
+  scrolledTo = card ? location.hash : '';
   sidebar.classList.remove('open');
 }
 
