@@ -1,4 +1,4 @@
-import {fileCategories,fileCategory,filterFiles} from './file-categories.js';
+import {fileCategories,fileCategory,filterFiles,isArchived,visibleFiles} from './file-categories.js';
 import {newSummaryBlock,sortSummaryBlocks,localSummaryBlocks,saveLocalSummary} from './summary-blocks.js';
 import { newestBiweeklyFirst, teammates } from './biweekly.js';
 import {loadContent,saveContent} from './content-store.js';
@@ -9,7 +9,7 @@ import { validateMeeting } from './meeting-publishing.js';
 const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary', 'repos'];
 const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
-const state = { data: {}, ideaTag: 'All', resourceType: 'All', fileCategory: 'All', search: '', shared: false };
+const state = { data: {}, ideaTag: 'All', resourceType: 'All', fileCategory: 'All', filesArchived: false, search: '', shared: false };
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const hashPath = () => (location.hash.slice(1) || '/').replace(/\/$/, '') || '/';
 // #/files/<card-id> opens the Files & Data tab and jumps to that card.
@@ -119,9 +119,12 @@ function dataTable(text) {
 }
 function files() {
   const target = routeTarget();
-  const category = target ? 'All' : state.fileCategory;
+  const targetFile = state.data.files.find(f => f.id === target);
+  const category = targetFile ? fileCategory(targetFile) : state.fileCategory;
+  const archived = targetFile ? isArchived(targetFile) : state.filesArchived;
   const toolbar = `<div class="toolbar" role="group" aria-label="File categories">${fileCategories.filter(c => c === 'All' || state.data.files.some(f => fileCategory(f) === c)).map(c => `<button type="button" class="chip ${category === c ? 'active' : ''}" aria-pressed="${category === c}" data-file-category="${esc(c)}">${esc(c)} (${filterFiles(state.data.files,c).length})</button>`).join('')}</div>`;
-  const cards = filterFiles(state.data.files,category).map(f => {
+  const archiveToolbar = `<div class="toolbar" role="group" aria-label="Current or archived files">${[false,true].map(value => `<button class="chip ${archived === value ? 'active' : ''}" aria-pressed="${archived === value}" type="button" data-files-archived="${value}">${value ? 'Archive' : 'Current'} (${visibleFiles(state.data.files,category,value).length})</button>`).join('')}</div>`;
+  const cards = visibleFiles(state.data.files,category,archived).map(f => {
     const href = /^\/files\//.test(f.url) ? esc(f.url) : link(f.url);
     const isVideo = /^(?:\/files\/|https:\/\/)[^?#]+\.mp4(?:[?#].*)?$/i.test(f.url || '');
     const title = f.url && !isVideo
@@ -132,7 +135,7 @@ function files() {
       : '';
     return `<article class="card" data-content-type="files" data-content-id="${esc(f.id)}"><h2>${title}</h2><p>${esc(f.date)} · ${esc(f.owner)} · ${esc(f.status)}</p><p class="file-description">${esc(f.description)}</p>${player}${f.summaryTable ? `<h3>Quick comparison</h3>${dataTable(f.summaryTable)}<h3>Detailed results and methods</h3>` : ''}${dataTable(f.table)}${/^\/files\/[a-zA-Z0-9_./%-]+\.(?:png|webp|jpg|jpeg)$/.test(f.image || '') ? `<figure class="file-figure"><a href="${esc(f.image)}" target="_blank" rel="noopener noreferrer"><img src="${esc(f.image)}" alt="${esc(f.imageAlt || f.title)}" loading="lazy"></a>${f.imageCaption ? `<figcaption>${esc(f.imageCaption)}</figcaption>` : ''}</figure>` : ''}</article>`;
   });
-  return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + toolbar + `<div class="cards">${cards.join('') || '<p class="empty">No files in this category.</p>'}</div>`;
+  return heading('ECE496 Files & Data', 'Deliverables, experiment data and shared links.') + toolbar + archiveToolbar + `<div class="cards">${cards.join('') || '<p class="empty">No files in this category.</p>'}</div>`;
 }
 function repos() {
   const list = [...state.data.repos].sort((a, b) => a.title.localeCompare(b.title));
@@ -171,6 +174,14 @@ function render() {
 }
 
 document.addEventListener('click', event => {
+  const archiveButton = event.target.closest('[data-files-archived]');
+  if (archiveButton) {
+    const targetFile = state.data.files.find(f => f.id === routeTarget());
+    if(targetFile) state.fileCategory = fileCategory(targetFile);
+    state.filesArchived = archiveButton.dataset.filesArchived === 'true';
+    if(routeTarget()) location.hash='/files'; else render();
+    return;
+  }
   const category = event.target.closest('[data-file-category]');
   if (category) { state.fileCategory = category.dataset.fileCategory; if(routeTarget()) location.hash='/files'; else render(); return; }
   const tag = event.target.closest('[data-idea-tag]');
