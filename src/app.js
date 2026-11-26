@@ -3,13 +3,17 @@ import { newestBiweeklyFirst, teammates } from './biweekly.js';
 import {loadContent,saveContent} from './content-store.js';
 import {installContentEditor,tabCollections} from './content-editor.js';
 import {collections} from './content-model.js';
+import {richText} from './rich-text.js';
 import { validateMeeting } from './meeting-publishing.js';
 const types = ['members', 'tasks', 'meetings', 'ideas', 'resources', 'updates', 'files', 'schedule', 'pages', 'overview', 'biweekly', 'summary', 'repos'];
 const app = document.getElementById('app');
 const sidebar = document.getElementById('sidebar');
 const state = { data: {}, ideaTag: 'All', resourceType: 'All', search: '', shared: false };
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
-const route = () => { const path = (location.hash.slice(1) || '/').replace(/\/$/, '') || '/'; return path; };
+const hashPath = () => (location.hash.slice(1) || '/').replace(/\/$/, '') || '/';
+// #/files/<card-id> opens the Files & Data tab and jumps to that card.
+const route = () => { const parts = hashPath().split('/'); return parts.length > 2 ? `/${parts[1]}` : hashPath(); };
+const routeTarget = () => { try { return decodeURIComponent(hashPath().split('/').slice(2).join('/')); } catch { return ''; } };
 const link = url => /^https?:\/\//i.test(url || '') ? esc(url) : '#';
 const label = value => String(value || '').replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase());
 const heading = (title, subtitle) => `<div class="page-head"><div><div class="eyebrow">CAPSTONE RESEARCH PROJECT · 2026</div><h1 class="page-title">${esc(title)}</h1><p class="page-subtitle">${esc(subtitle)}</p></div>${headingButton(tabCollections[route().slice(1)||'dashboard'][0])}</div>`;
@@ -33,7 +37,7 @@ const torontoDate = () => new Intl.DateTimeFormat('en-CA', {timeZone:'America/To
 
 function projectUpdates() {
   const entries=newestBiweeklyFirst(state.data.biweekly);
-  return heading('Project Updates','Biweekly progress from all four teammates, newest first.') + `<div class="toolbar overview-toolbar"><button class="chip active" type="button" aria-pressed="true">Overview</button></div><div class="cards biweekly-feed">${entries.map(entry=>`<article class="card biweekly-entry" data-content-type="biweekly" data-content-id="${esc(entry.id)}"><div class="update-meta"><time datetime="${esc(entry.date)}">${esc(entry.date)}</time><span>Biweekly team update</span></div><h2>${esc(entry.title)}</h2><div class="teammate-updates">${teammates.map(member=>`<section class="teammate-update"><h3>${esc(member.name)}</h3><p>${esc(entry[member.key] || 'No update recorded for this period.')}</p></section>`).join('')}</div>${entry.notes?`<section class="team-next-steps"><h3>Team decisions / next steps</h3><p>${esc(entry.notes)}</p></section>`:''}${entry.links?.length?`<div class="evidence-links">${entry.links.map(l=>`<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>`:''}</article>`).join('') || '<div class="empty">No biweekly updates yet. Add the first team update above.</div>'}</div>`;
+  return heading('Project Updates','Biweekly progress from all four teammates, newest first.') + `<div class="toolbar overview-toolbar"><button class="chip active" type="button" aria-pressed="true">Overview</button></div><div class="cards biweekly-feed">${entries.map(entry=>`<article class="card biweekly-entry" data-content-type="biweekly" data-content-id="${esc(entry.id)}"><div class="update-meta"><time datetime="${esc(entry.date)}">${esc(entry.date)}</time><span>Biweekly team update</span></div><h2>${esc(entry.title)}</h2><div class="teammate-updates">${teammates.map(member=>`<section class="teammate-update"><h3>${esc(member.name)}</h3><p>${richText(entry[member.key] || 'No update recorded for this period.')}</p></section>`).join('')}</div>${entry.notes?`<section class="team-next-steps"><h3>Team decisions / next steps</h3><p>${richText(entry.notes)}</p></section>`:''}${entry.links?.length?`<div class="evidence-links">${entry.links.map(l=>`<a href="${link(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join('')}</div>`:''}</article>`).join('') || '<div class="empty">No biweekly updates yet. Add the first team update above.</div>'}</div>`;
 }
 function summary() {
   const blocks=sortSummaryBlocks(state.data.summary);
@@ -120,6 +124,7 @@ function repos() {
   return heading('GitHub Repos', 'Code repositories for the project.') + `<div class="cards">${list.map(r => `<article class="card repo-card" data-content-type="repos" data-content-id="${esc(r.id)}"><h2><a href="${link(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)} ↗</a></h2><p class="repo-url">${esc(r.url)}</p>${r.owner ? `<p>Owner: ${esc(r.owner)}</p>` : ''}${r.description ? `<p class="file-description">${esc(r.description)}</p>` : ''}</article>`).join('') || '<div class="empty">No repositories yet. Use + Add entry to add one.</div>'}</div>`;
 }
 const pages = { '/': ['Dashboard', dashboard], '/updates': ['Project Updates', projectUpdates], '/summary': ['Progress Summary', summary], '/brainstorm': ['Brainstorm Board', brainstorm], '/calendar': ['Meeting Calendar', calendar], '/resources': ['Research Resources', resources], '/files': ['ECE496 Files & Data', files], '/gantt': ['Gantt Chart', gantt], '/repos': ['GitHub Repos', repos] };
+let scrolledTo = '';
 function render() {
   const path = route();
   const [title, component] = pages[path] || pages['/'];
@@ -137,6 +142,12 @@ function render() {
     const note=document.createElement('p');note.className='project-update-body';note.textContent=page.notes;app.querySelector('.page-head')?.after(note);
   }
   if(!state.shared){const notice=document.createElement('p');notice.className='storage-notice';notice.textContent='The site owner needs to enable GitHub file saving once. No database is required. Browser drafts are still available.';app.prepend(notice);}
+  const target = routeTarget();
+  const card = target && [...app.querySelectorAll('[data-content-id]')].find(node => node.dataset.contentId === target);
+  if (card) {
+    card.classList.add('is-target');
+    if (scrolledTo !== location.hash) { scrolledTo = location.hash; card.scrollIntoView({ block: 'start' }); }
+  }
   sidebar.classList.remove('open');
 }
 

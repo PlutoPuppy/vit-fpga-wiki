@@ -23,3 +23,4 @@
 .data-table th,.data-table td{padding:10px 12px}.data-table th{white-space:normal;vertical-align:bottom}
 
 .summary-create-status{color:#72d8e9;font-size:13px;line-height:1.6;margin:0 0 18px}.summary-blocks .section-head{gap:16px;align-items:baseline}.summary-blocks .section-head h2{margin:0;font-size:21px}.local-summary-notice{display:inline-block;margin:0 0 16px}.summary-blocks .entry-controls{border-top:1px solid #294055;padding-top:16px}
+.inline-link{color:#52d8ea;text-decoration:underline;text-underline-offset:2px}.inline-link:hover{color:#8beaf4}.card.is-target{border-color:#0ea9c5;box-shadow:0 0 0 2px #0ea9c555;scroll-margin-top:16px}

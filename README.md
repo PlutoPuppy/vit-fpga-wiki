@@ -23,7 +23,7 @@ The original Manus snapshot remains in archive/data/. Historical Markdown pages 
 
 ## Biweekly team overview
 
-Project Updates is a primary navigation item immediately below Dashboard. Overview lists biweekly reports newest first. Each report is one entry with a date, title, separate Jerry/Stephanie/Tiffany/Winnie fields, team next steps and evidence links. Add biweekly update and entry Edit use the same single form. Earlier individual Result/Issue/Decision records remain in content/updates/; no category filters or badges appear in Overview.
+Project Updates is a primary navigation item immediately below Dashboard. Overview lists biweekly reports newest first. Each report is one entry with a date, title, separate Jerry/Stephanie/Tiffany/Winnie fields, team next steps and evidence links. Add biweekly update and entry Edit use the same single form. Earlier individual Result/Issue/Decision records remain in content/updates/; no category filters or badges appear in Overview. Teammate text can include clickable links written as [label](https://…), or [label](#/files/<card id>) to jump straight to a Files & Data card; the card id is its JSON filename in content/files/.
 
 ## Progress summary
 

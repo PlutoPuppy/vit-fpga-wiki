@@ -1,5 +1,0 @@
-matrix_size,cpu_baseline_gops,systolic_array_gops,speedup
-64,4.989,6.043,1.21
-128,6.083,11.392,1.87
-256,6.654,18.302,2.75
-512,6.950,18.884,2.72
